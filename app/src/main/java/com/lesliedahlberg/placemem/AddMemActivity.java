@@ -110,7 +110,7 @@ public class AddMemActivity extends Activity {
     //Save mem and exit activity
     public void save (View view) {
         //Write to DB
-        new DBInterface(this).addRow(currentPhotoUri.toString(), "2", currentLocation, currentLatitude, currentLongitude, currentDate, transcript.getText().toString());
+        new DBInterface(this).addRow(currentPhotoUri.toString(), "2", currentLocation, currentLatitude, currentLongitude, currentDate);
         //Set result OK
         setResult(RESULT_OK);
         //Exit
