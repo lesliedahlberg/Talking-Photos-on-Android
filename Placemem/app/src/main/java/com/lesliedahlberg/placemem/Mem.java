@@ -1,8 +1,11 @@
 package com.lesliedahlberg.placemem;
 
 /**
- * Created by lesliedahlberg on 08/05/15.
+Data structure for mem:
+Data from database gets converted to Mems and added to lists of Mems
+Should include all fields that the DB includes
  */
+
 public class Mem {
     int id;
     String photoUri;

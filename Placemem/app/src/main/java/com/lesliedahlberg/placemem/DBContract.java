@@ -3,7 +3,8 @@ package com.lesliedahlberg.placemem;
 import android.provider.BaseColumns;
 
 /**
- * Created by lesliedahlberg on 08/05/15.
+DB Contract
+Defines tables and table columns
  */
 public class DBContract {
 

@@ -17,7 +17,6 @@ import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -34,71 +33,54 @@ import java.util.Locale;
 
 public class AddMemActivity extends Activity {
 
+    //Constants
     static final int REQUEST_TAKE_PHOTO = 1;
     static final int REQUEST_GET_LOCATION = 2;
 
-    Uri mCurrentPhotoUri;
+
     GoogleApiClient mGoogleApiClient;
-    double latitudeValue;
-    double longitudeValue;
-    EditText transcript;
-    ImageView photoView;
-    RelativeLayout backgroundView;
-    TextView gps;
-    TextView date;
-    TextView locationField;
-    String locationValue;
+
+
+
+    //UI elements
+    ImageView uiPhotoView;
+    RelativeLayout uiBackgroundView;
+    TextView uiGpsCoordsField;
+    TextView uiDateField;
+    TextView uiLocationField;
+
+    //Values
+    String currentLocation;
     String currentDate;
+    double currentLatitude;
+    double currentLongitude;
+
+    //URI
+    Uri currentPhotoUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Inflate UI
         setContentView(R.layout.activity_add_mem);
-        transcript = (EditText) findViewById(R.id.transcript);
-        photoView = (ImageView) findViewById(R.id.photoView);
-        backgroundView = (RelativeLayout) findViewById(R.id.backgroundView);
-        gps = (TextView) findViewById(R.id.gps);
-        date = (TextView) findViewById(R.id.date);
-        locationField = (TextView) findViewById(R.id.location);
+
+        //Get UI references
+        uiPhotoView = (ImageView) findViewById(R.id.photoView);
+        uiBackgroundView = (RelativeLayout) findViewById(R.id.backgroundView);
+        uiGpsCoordsField = (TextView) findViewById(R.id.gps);
+        uiDateField = (TextView) findViewById(R.id.date);
+        uiLocationField = (TextView) findViewById(R.id.location);
+
+        //Get date
         currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
-        date.setText(currentDate);
-
-        // Acquire a reference to the system Location Manager
-        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-
-        // Define a listener that responds to location updates
-        LocationListener locationListener = new LocationListener() {
-            public void onLocationChanged(Location location) {
-                // Called when a new location is found by the network location provider.
-                latitudeValue = location.getLatitude();
-                longitudeValue = location.getLongitude();
-                gps.setText(latitudeValue + ", " + longitudeValue);
-                Geocoder gcd = new Geocoder(getApplicationContext(), Locale.getDefault());
-                List<Address> addresses = null;
-                try {
-                    addresses = gcd.getFromLocation(latitudeValue, longitudeValue, 1);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                if (addresses.size() > 0){
-                    locationValue = addresses.get(0).getLocality();
-                    locationField.setText(locationValue);
-                }
-                    //System.out.println(addresses.get(0).getLocality());
-
-            }
-
-            public void onStatusChanged(String provider, int status, Bundle extras) {}
-
-            public void onProviderEnabled(String provider) {}
-
-            public void onProviderDisabled(String provider) {}
-        };
-
-        // Register the listener with the Location Manager to receive location updates
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
 
 
+        //Get location data
+        getLocationData();
+
+
+        //Get photo
         takePhoto();
         }
 
@@ -125,17 +107,24 @@ public class AddMemActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+    //Save mem and exit activity
     public void save (View view) {
-        new DBInterface(this).addRow(mCurrentPhotoUri.toString(), "2", locationValue, latitudeValue, longitudeValue, currentDate, transcript.getText().toString());
-        setResult(1);
+        //Write to DB
+        new DBInterface(this).addRow(currentPhotoUri.toString(), "2", currentLocation, currentLatitude, currentLongitude, currentDate, transcript.getText().toString());
+        //Set result OK
+        setResult(RESULT_OK);
+        //Exit
         finish();
 
     }
 
+    //Take photo
     public void takePhoto() {
         dispatchTakePictureIntent();
     }
 
+
+    //Send intent to take photo
     private void dispatchTakePictureIntent() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
@@ -157,20 +146,26 @@ public class AddMemActivity extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //On photo taken
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
             Bitmap bitmap = null;
             try {
-                bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), mCurrentPhotoUri);
+                bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), currentPhotoUri);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            //photoView.setImageBitmap(bitmap);
-            backgroundView.setBackgroundDrawable(new BitmapDrawable(getResources(), bitmap));
+            setUiBackgroundView(bitmap);
         }else {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
 
+    //Set background to taken photo
+    private void setUiBackgroundView (Bitmap bitmap) {
+        uiBackgroundView.setBackgroundDrawable(new BitmapDrawable(getResources(), bitmap));
+    }
+
+    //Create file to store photo in (locally in private app storage)
     private File createImageFile() throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
@@ -182,10 +177,60 @@ public class AddMemActivity extends Activity {
                 storageDir      /* directory */
         );
 
-        mCurrentPhotoUri = Uri.fromFile(image);
-        // Save a file: path for use with ACTION_VIEW intents
+        //Save URI to file
+        currentPhotoUri = Uri.fromFile(image);
 
+        //return file
         return image;
     }
+
+    //Set date and location to UI fields
+    private void setUiFields() {
+        //Set date
+        uiDateField.setText(currentDate);
+        //Set GPS coords
+        uiGpsCoordsField.setText(currentLatitude + ", " + currentLongitude);
+        //Set location
+        uiLocationField.setText(currentLocation);
+    }
+
+    //Get location data
+    private void getLocationData () {
+        // Acquire a reference to the system Location Manager
+        LocationManager locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+
+        // Define a listener that responds to location updates
+        LocationListener locationListener = new LocationListener() {
+            public void onLocationChanged(Location location) {
+                // Called when a new location is found by the network location provider.
+                currentLatitude = location.getLatitude();
+                currentLongitude = location.getLongitude();
+
+                Geocoder gcd = new Geocoder(getApplicationContext(), Locale.getDefault());
+                List<Address> addresses = null;
+                try {
+                    addresses = gcd.getFromLocation(currentLatitude, currentLongitude, 1);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                if (addresses.size() > 0){
+                    currentLocation = addresses.get(0).getLocality();
+                }
+
+                setUiFields();
+
+            }
+
+            public void onStatusChanged(String provider, int status, Bundle extras) {}
+
+            public void onProviderEnabled(String provider) {}
+
+            public void onProviderDisabled(String provider) {}
+        };
+
+        // Register the listener with the Location Manager to receive location updates
+        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+    }
+
 
 }

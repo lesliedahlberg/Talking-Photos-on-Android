@@ -8,8 +8,11 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 
 /**
- * Created by lesliedahlberg on 08/05/15.
+Class for interfacing with DB
+Provides methods for pushing and pulling data from DB
+Provides search methods for only pulling certain data
  */
+
 public class DBInterface {
 
     DBHelper DBHelper;
@@ -23,8 +26,9 @@ public class DBInterface {
         writeDb = DBHelper.getWritableDatabase();
     }
 
+    /* Will be deleted
     public ArrayList<Mem> getAllData() {
-        ArrayList<Mem> mems = new ArrayList<>();
+        ArrayList<Mem> mems = new ArrayList();
 
         String[] projection = {
                 DBContract.Mems._ID,
@@ -54,10 +58,16 @@ public class DBInterface {
 
         return mems;
     }
+    */
 
+
+    //Get DB entry for row ID
     public Mem getRow(int position) {
+
+        //Mem data
         Mem mem;
 
+        //DB Columns to get
         String[] projection = {
                 DBContract.Mems._ID,
                 DBContract.Mems.PHOTO_URI,
@@ -69,10 +79,16 @@ public class DBInterface {
                 DBContract.Mems.TRANSCRIPT
         };
 
+        //Sorting
         String sortOrder = DBContract.Mems._ID + " DESC";
+
+        //Cursor for storing all retrieved data
         Cursor cursor = readDb.query(DBContract.Mems.TABLE_NAME, projection, null, null, null, null, sortOrder);
 
+        //Get first row in cursor (only 1 exists)
         cursor.moveToPosition(position);
+
+        //Load mem with data
         mem = new Mem(cursor.getInt(cursor.getColumnIndexOrThrow(DBContract.Mems._ID)),
                 cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.PHOTO_URI)),
                 cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.VOICE_URI)),
@@ -85,12 +101,15 @@ public class DBInterface {
         return mem;
     }
 
+    //Remove row for ID
     public void removeRow(int id) {
         writeDb.delete(DBContract.Mems.TABLE_NAME, DBContract.Mems._ID+"=?", new String[]{String.valueOf(id)});
     }
 
+    //Add row for data
     public int addRow(String photoUri, String voiceUri, String location, double latitude, double longitude, String date, String transcript) {
 
+        //Feed data into content value pairs
         ContentValues contentValues = new ContentValues();
         contentValues.put(DBContract.Mems.PHOTO_URI, photoUri);
         contentValues.put(DBContract.Mems.VOICE_URI, voiceUri);
@@ -100,6 +119,7 @@ public class DBInterface {
         contentValues.put(DBContract.Mems.DATE, date);
         contentValues.put(DBContract.Mems.TRANSCRIPT, transcript);
 
+        //write to db and return row ID
         return (int) writeDb.insert(DBContract.Mems.TABLE_NAME, null, contentValues);
     }
 
