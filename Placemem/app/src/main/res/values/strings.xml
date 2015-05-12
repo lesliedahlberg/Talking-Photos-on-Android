@@ -1,8 +1,4 @@
 <resources>
     <string name="app_name">Placemem</string>
-
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="action_add">Add mem</string>
-    <string name="action_remove">Remove</string>
 </resources>

@@ -1,11 +1,11 @@
-package dva217_grupp1.placemem.database;
+package dva217_grupp1.placemem;
 
 import android.provider.BaseColumns;
 
 /**
  * Created by lesliedahlberg on 12/05/15.
  */
-public class Contract {
+public class DBContract {
     public static abstract class Mems implements BaseColumns {
         public static final String TABLE_NAME = "mems";
         public static final String PHOTO_URI = "photo_uri";
