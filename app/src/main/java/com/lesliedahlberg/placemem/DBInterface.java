@@ -27,43 +27,6 @@ public class DBInterface {
         writeDb = DBHelper.getWritableDatabase();
     }
 
-    public int getSize (String filter) {
-
-        //DB Columns to get
-        String[] projection = {
-                DBContract.Mems._ID,
-                DBContract.Mems.PHOTO_URI,
-                DBContract.Mems.VOICE_URI,
-                DBContract.Mems.PLACE_NAME,
-                DBContract.Mems.LAT,
-                DBContract.Mems.LONG,
-                DBContract.Mems.DATE
-        };
-
-        //Sorting
-        String sortOrder = DBContract.Mems._ID + " DESC";
-
-        String selection;
-        String[] selectionArgs;
-
-        if (filter.isEmpty()) {
-            selection = null;
-            selectionArgs = null;
-        }else {
-            selection = DBContract.Mems.PLACE_NAME+"=?";
-            selectionArgs = new String[1];
-            selectionArgs[0] = filter;
-        }
-
-
-        //Cursor for storing all retrieved data
-        Cursor cursor = readDb.query(DBContract.Mems.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
-
-
-
-        return cursor.getCount();
-    }
-
     //Get DB entry for row ID
     public ArrayList<Mem> getRows(String filter) {
 
@@ -91,9 +54,9 @@ public class DBInterface {
             selection = null;
             selectionArgs = null;
         }else {
-            selection = DBContract.Mems.PLACE_NAME+"=?";
+            selection = DBContract.Mems.PLACE_NAME+" LIKE ?";
             selectionArgs = new String[1];
-            selectionArgs[0] = filter;
+            selectionArgs[0] = "%"+filter+"%";
         }
 
 
@@ -111,61 +74,6 @@ public class DBInterface {
         }
 
         return mems;
-    }
-
-    //Get DB entry for row ID
-    public Mem getRow(int position, String filter) {
-
-        //Mem data
-        Mem mem;
-
-        //DB Columns to get
-        String[] projection = {
-                DBContract.Mems._ID,
-                DBContract.Mems.PHOTO_URI,
-                DBContract.Mems.VOICE_URI,
-                DBContract.Mems.PLACE_NAME,
-                DBContract.Mems.LAT,
-                DBContract.Mems.LONG,
-                DBContract.Mems.DATE
-        };
-
-        //Sorting
-        String sortOrder = DBContract.Mems._ID + " DESC";
-
-        String selection;
-        String[] selectionArgs;
-
-        if (filter.isEmpty()) {
-            selection = null;
-            selectionArgs = null;
-        }else {
-            selection = DBContract.Mems.PLACE_NAME+"=?";
-            selectionArgs = new String[1];
-            selectionArgs[0] = filter;
-        }
-
-
-        //Cursor for storing all retrieved data
-        Cursor cursor = readDb.query(DBContract.Mems.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
-
-
-        //Get first row in cursor (only 1 exists)
-        cursor.moveToPosition(position);
-
-        //Load mem with data
-        mem = new Mem(cursor.getInt(cursor.getColumnIndexOrThrow(DBContract.Mems._ID)),
-                cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.PHOTO_URI)),
-                cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.VOICE_URI)),
-                cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.PLACE_NAME)),
-                cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.LAT)),
-                cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.LONG)),
-                cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.DATE)));
-
-
-        Log.v("LESLIE", "READ DB");
-
-        return mem;
     }
 
     //Remove row for ID
