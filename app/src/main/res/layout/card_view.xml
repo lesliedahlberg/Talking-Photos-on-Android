@@ -4,13 +4,13 @@
     android:layout_height="match_parent" android:padding="16dp">
     <android.support.v7.widget.CardView android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/cardView"
-        android:background="#eee555">
+        android:id="@+id/cardView">
 
         <LinearLayout
         android:orientation="vertical"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+            style="@style/cardViewDescription">
 
             <ImageView
                 android:layout_width="match_parent"
