@@ -131,11 +131,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         super.onAttachedToRecyclerView(recyclerView);
     }
 
+    //Set search keyword
     public void setSearchFilter (String searchFilter){
         this.searchFilter = searchFilter;
         update();
     }
 
+    //Remove search keyword, return to default
     public void removeSearchFilter (){
         searchFilter = "";
         update();
