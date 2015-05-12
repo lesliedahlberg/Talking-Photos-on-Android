@@ -12,7 +12,7 @@ Basic methods for creating the DB, deleting the DB and upgrading it
 public class DBHelper extends SQLiteOpenHelper {
 
     //DB version, changing it calls the onUpgrade method
-    public static final int DATABASE_VERSION = 8;
+    public static final int DATABASE_VERSION = 10;
 
     public static final String DATABASE_NAME = "Units.db";
     private static final String TEXT_TYPE = " TEXT";

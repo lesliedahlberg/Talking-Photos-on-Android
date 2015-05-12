@@ -7,6 +7,7 @@ import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 /**
 Recycler View Adapter
@@ -26,10 +28,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     DBInterface dbInterface;
     Context context;
     String searchFilter;
+    ArrayList<Mem> mems;
 
     public RecyclerViewAdapter(DBInterface dbInterface, Context context) {
         this.dbInterface = dbInterface;
         this.context = context;
+        searchFilter = "";
+        update();
     }
 
     //Inflates one CardView from XML and gets ViewHolder with references
@@ -46,8 +51,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     //Updates data in ViewHolder
     @Override
     public void onBindViewHolder(MemViewHolder memViewHolder, int i) {
-        //Get DB data for row
-        Mem mem = dbInterface.getRow(i, searchFilter);
+
+        Mem mem = mems.get(i);
 
         //Photo Uri
         Uri photoUri = Uri.parse(mem.photoUri);
@@ -89,36 +94,31 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public static class MemViewHolder extends RecyclerView.ViewHolder {
         CardView cardView;
         ImageView photoView;
-        //TextView voiceUri;
         TextView location;
         TextView latitude;
         TextView longitude;
         TextView date;
-        TextView transcript;
 
         public MemViewHolder(View itemView) {
             super(itemView);
             cardView = (CardView) itemView.findViewById(R.id.cardView);
             photoView = (ImageView) itemView.findViewById(R.id.photoView);
-            //photoUri = (TextView) itemView.findViewById(R.id.photoUri);
-            //voiceUri = (TextView) itemView.findViewById(R.id.voiceUri);
             location = (TextView) itemView.findViewById(R.id.location);
             latitude = (TextView) itemView.findViewById(R.id.latitude);
             longitude = (TextView) itemView.findViewById(R.id.longitude);
             date = (TextView) itemView.findViewById(R.id.date);
-            transcript = (TextView) itemView.findViewById(R.id.transcript);
         }
     }
 
     //Removes recyclerView item and deletes it from DB
     private void removeItemFromList(int position, int id) {
         dbInterface.removeRow(id);
-        notifyItemRemoved(position);
+        update();
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mems.size();
     }
 
     @Override
@@ -128,12 +128,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public void setSearchFilter (String searchFilter){
         this.searchFilter = searchFilter;
-        notifyDataSetChanged();
+        update();
     }
 
     public void removeSearchFilter (){
-        searchFilter = null;
-        notifyDataSetChanged();
+        searchFilter = "";
+        update();
+    }
+
+    public void update() {
+       mems = dbInterface.getRows(searchFilter);
+       notifyDataSetChanged();
     }
 
 }

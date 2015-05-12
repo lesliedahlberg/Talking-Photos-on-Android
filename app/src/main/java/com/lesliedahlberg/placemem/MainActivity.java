@@ -1,18 +1,24 @@
 package com.lesliedahlberg.placemem;
 
 import android.app.Activity;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.SearchView;
 
 
 public class MainActivity extends Activity {
 
     RecyclerView recyclerView;
     RecyclerViewAdapter recyclerViewAdapter;
+    SearchView searchView;
 
     //Constants and codes
     public static final int NEW_MEM = 1;
@@ -32,6 +38,8 @@ public class MainActivity extends Activity {
         recyclerViewAdapter = new RecyclerViewAdapter(dbInterface, this);
         recyclerView.setAdapter(recyclerViewAdapter);
 
+
+        handleIntent(getIntent());
     }
 
 
@@ -39,7 +47,39 @@ public class MainActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        // Associate searchable configuration with the SearchView
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        searchView = (SearchView) menu.findItem(R.id.search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setIconifiedByDefault(true);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                recyclerViewAdapter.setSearchFilter(query);
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                recyclerViewAdapter.setSearchFilter(newText);
+                return true;
+            }
+        });
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                recyclerViewAdapter.removeSearchFilter();
+                return false;
+            }
+        });
         return true;
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        handleIntent(intent);
     }
 
     @Override
@@ -48,7 +88,7 @@ public class MainActivity extends Activity {
 
         //Update recyclerView
         if (requestCode == NEW_MEM && resultCode == RESULT_OK) {
-            recyclerViewAdapter.notifyDataSetChanged();
+            recyclerViewAdapter.update();
         }
 
     }
@@ -75,6 +115,15 @@ public class MainActivity extends Activity {
     private void launchNewMemActivity() {
         Intent intent = new Intent(this, AddMemActivity.class);
         startActivityForResult(intent, NEW_MEM);
+    }
+
+    private void handleIntent(Intent intent) {
+
+        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
+            String query = intent.getStringExtra(SearchManager.QUERY);
+            //use the query to search your data somehow
+            recyclerViewAdapter.setSearchFilter(query);
+        }
     }
 
 }

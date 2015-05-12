@@ -14,9 +14,8 @@ public class Mem {
     String latitude;
     String longitude;
     String date;
-    String transcript;
 
-    public Mem(int id, String photoUri, String voiceUri, String location, String latitude, String longitude, String date, String transcript) {
+    public Mem(int id, String photoUri, String voiceUri, String location, String latitude, String longitude, String date) {
         this.id = id;
         this.photoUri = photoUri;
         this.voiceUri = voiceUri;
@@ -24,6 +23,5 @@ public class Mem {
         this.latitude = latitude;
         this.longitude = longitude;
         this.date = date;
-        this.transcript = transcript;
     }
 }
