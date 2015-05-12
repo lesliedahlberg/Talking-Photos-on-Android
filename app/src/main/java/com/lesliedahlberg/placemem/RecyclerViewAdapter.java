@@ -25,6 +25,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     DBInterface dbInterface;
     Context context;
+    String searchFilter;
 
     public RecyclerViewAdapter(DBInterface dbInterface, Context context) {
         this.dbInterface = dbInterface;
@@ -46,7 +47,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(MemViewHolder memViewHolder, int i) {
         //Get DB data for row
-        Mem mem = dbInterface.getRow(i);
+        Mem mem = dbInterface.getRow(i, searchFilter);
 
         //Photo Uri
         Uri photoUri = Uri.parse(mem.photoUri);
@@ -123,6 +124,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
+    }
+
+    public void setSearchFilter (String searchFilter){
+        this.searchFilter = searchFilter;
+        notifyDataSetChanged();
+    }
+
+    public void removeSearchFilter (){
+        searchFilter = null;
+        notifyDataSetChanged();
     }
 
 }

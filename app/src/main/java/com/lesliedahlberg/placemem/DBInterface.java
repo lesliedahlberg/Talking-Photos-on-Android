@@ -27,7 +27,7 @@ public class DBInterface {
     }
 
     //Get DB entry for row ID
-    public Mem getRow(int position) {
+    public Mem getRow(int position, String filter) {
 
         //Mem data
         Mem mem;
@@ -40,15 +40,26 @@ public class DBInterface {
                 DBContract.Mems.PLACE_NAME,
                 DBContract.Mems.LAT,
                 DBContract.Mems.LONG,
-                DBContract.Mems.DATE,
-                DBContract.Mems.TRANSCRIPT
+                DBContract.Mems.DATE
         };
 
         //Sorting
         String sortOrder = DBContract.Mems._ID + " DESC";
 
+        String selection;
+        String[] selectionArgs;
+
+        if (!filter.isEmpty()) {
+            selection = DBContract.Mems.PLACE_NAME+" LIKE '%?%' OR "+DBContract.Mems.DATE+" LIKE '%?%'";
+            selectionArgs = new String[]{filter, filter};
+        }else {
+            selection = null;
+            selectionArgs = null;
+        }
+
+
         //Cursor for storing all retrieved data
-        Cursor cursor = readDb.query(DBContract.Mems.TABLE_NAME, projection, null, null, null, null, sortOrder);
+        Cursor cursor = readDb.query(DBContract.Mems.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
 
         //Get first row in cursor (only 1 exists)
         cursor.moveToPosition(position);
