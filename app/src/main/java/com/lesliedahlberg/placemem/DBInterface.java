@@ -27,6 +27,8 @@ public class DBInterface {
         writeDb = DBHelper.getWritableDatabase();
     }
 
+
+
     //Get DB entry for row ID
     public ArrayList<Mem> getRows(String filter) {
 
@@ -96,7 +98,6 @@ public class DBInterface {
         //write to db and return row ID
         return (int) writeDb.insert(DBContract.Mems.TABLE_NAME, null, contentValues);
     }
-
 
 
 }

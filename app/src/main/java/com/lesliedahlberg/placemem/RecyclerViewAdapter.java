@@ -5,9 +5,9 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -118,7 +118,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public int getItemCount() {
-        return mems.size();
+        if (mems != null){
+            return mems.size();
+        }else {
+            return 0;
+        }
+
     }
 
     @Override
@@ -136,9 +141,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         update();
     }
 
+    //Update data from db and notify adapter
     public void update() {
-       mems = dbInterface.getRows(searchFilter);
-       notifyDataSetChanged();
+        mems = dbInterface.getRows(searchFilter);
+        notifyDataSetChanged();
     }
+
+
 
 }
