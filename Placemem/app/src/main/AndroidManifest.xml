@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.dva217_grupp_1.dva217androidproject" >
+    package="dva217_grupp1.placemem" >
 
     <application
         android:allowBackup="true"
