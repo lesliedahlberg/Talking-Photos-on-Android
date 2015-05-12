@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+<<<<<<< Updated upstream
 <<<<<<< HEAD
+=======
+>>>>>>> Stashed changes
   <component name="EntryPointsManager">
     <entry_points version="2.0" />
   </component>
@@ -20,7 +23,28 @@
 >>>>>>> origin/master
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
+<<<<<<< Updated upstream
   <component name="ProjectType">
     <option name="id" value="Android" />
   </component>
 </project>
+=======
+  <component name="masterDetails">
+    <states>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
+
+>>>>>>> Stashed changes
