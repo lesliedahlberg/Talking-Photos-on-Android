@@ -1,4 +1,4 @@
-package dva217_grupp1.placemem;
+package com.lesliedahlberg.placemem;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

@@ -1,10 +1,4 @@
-package dva217_grupp1.placemem;
-
-import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-
+package com.lesliedahlberg.placemem;
 
 import android.app.Activity;
 import android.content.ContentValues;
@@ -35,7 +29,7 @@ public class MainActivity extends Activity {
         LinearLayoutManager llm = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(llm);
 
-        DBInterface adapter = new DBInterface(this);
+        DBAdapter adapter = new DBAdapter(this);
 
         recyclerViewAdapter = new RecyclerViewAdapter(adapter, this);
         recyclerView.setAdapter(recyclerViewAdapter);

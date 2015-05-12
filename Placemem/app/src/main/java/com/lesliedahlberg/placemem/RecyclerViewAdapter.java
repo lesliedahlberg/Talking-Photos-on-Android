@@ -1,10 +1,14 @@
-package dva217_grupp1.placemem;
+package com.lesliedahlberg.placemem;
 
+import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
+import android.provider.MediaStore;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,14 +18,19 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
+/**
+ * Created by lesliedahlberg on 08/05/15.
+ */
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MemViewHolder> {
 
-    DBInterface adapter;
+    DBAdapter adapter;
     Context context;
 
-    public RecyclerViewAdapter(DBInterface adapter, Context context) {
+    public RecyclerViewAdapter(DBAdapter adapter, Context context) {
         this.adapter = adapter;
         this.context = context;
     }
@@ -56,6 +65,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         memViewHolder.latitude.setText(mem.latitude);
         memViewHolder.longitude.setText(mem.longitude);
         memViewHolder.date.setText(mem.date);
+        memViewHolder.transcript.setText(mem.transcript);
         final int id = mem.id;
         final int position = i;
         memViewHolder.photoView.setOnClickListener(new View.OnClickListener() {
@@ -75,7 +85,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public int getItemCount() {
-        return 0;
+        return adapter.getAllData().size();
     }
 
     @Override
@@ -97,6 +107,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             super(itemView);
             cardView = (CardView) itemView.findViewById(R.id.cardView);
             photoView = (ImageView) itemView.findViewById(R.id.photoView);
+            //photoUri = (TextView) itemView.findViewById(R.id.photoUri);
+            //voiceUri = (TextView) itemView.findViewById(R.id.voiceUri);
             location = (TextView) itemView.findViewById(R.id.location);
             latitude = (TextView) itemView.findViewById(R.id.latitude);
             longitude = (TextView) itemView.findViewById(R.id.longitude);
@@ -104,4 +116,5 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             transcript = (TextView) itemView.findViewById(R.id.transcript);
         }
     }
+
 }

@@ -1,8 +1,10 @@
-package dva217_grupp1.placemem;
+package com.lesliedahlberg.placemem;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.Address;
@@ -14,13 +16,30 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.text.Html;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.PlaceLikelihood;
+import com.google.android.gms.location.places.PlaceLikelihoodBuffer;
+import com.google.android.gms.location.places.Places;
+import com.google.android.gms.location.places.ui.PlacePicker;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,6 +55,7 @@ public class AddMemActivity extends Activity {
     static final int REQUEST_GET_LOCATION = 2;
 
     Uri mCurrentPhotoUri;
+    GoogleApiClient mGoogleApiClient;
     double latitudeValue;
     double longitudeValue;
     EditText transcript;
@@ -123,7 +143,7 @@ public class AddMemActivity extends Activity {
     }
 
     public void save (View view) {
-        new DBInterface(this).addRow(mCurrentPhotoUri.toString(), "2", locationValue, latitudeValue, longitudeValue, currentDate);
+        new DBAdapter(this).addRow(mCurrentPhotoUri.toString(), "2", locationValue, latitudeValue, longitudeValue, currentDate, transcript.getText().toString());
         setResult(1);
         finish();
 
