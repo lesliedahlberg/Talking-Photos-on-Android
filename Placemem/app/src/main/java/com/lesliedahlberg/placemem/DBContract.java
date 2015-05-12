@@ -5,7 +5,7 @@ import android.provider.BaseColumns;
 /**
  * Created by lesliedahlberg on 08/05/15.
  */
-public class MemsContract {
+public class DBContract {
 
     public static abstract class Mems implements BaseColumns {
         public static final String TABLE_NAME = "mems";

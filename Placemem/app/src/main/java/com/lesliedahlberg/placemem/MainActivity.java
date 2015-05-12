@@ -1,19 +1,12 @@
 package com.lesliedahlberg.placemem;
 
 import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class MainActivity extends Activity {
@@ -29,7 +22,7 @@ public class MainActivity extends Activity {
         LinearLayoutManager llm = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(llm);
 
-        DBAdapter adapter = new DBAdapter(this);
+        DBInterface adapter = new DBInterface(this);
 
         recyclerViewAdapter = new RecyclerViewAdapter(adapter, this);
         recyclerView.setAdapter(recyclerViewAdapter);

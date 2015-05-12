@@ -1,14 +1,10 @@
 package com.lesliedahlberg.placemem;
 
-import android.content.ContentUris;
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
-import android.provider.MediaStore;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,19 +14,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 
 /**
  * Created by lesliedahlberg on 08/05/15.
  */
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MemViewHolder> {
 
-    DBAdapter adapter;
+    DBInterface adapter;
     Context context;
 
-    public RecyclerViewAdapter(DBAdapter adapter, Context context) {
+    public RecyclerViewAdapter(DBInterface adapter, Context context) {
         this.adapter = adapter;
         this.context = context;
     }

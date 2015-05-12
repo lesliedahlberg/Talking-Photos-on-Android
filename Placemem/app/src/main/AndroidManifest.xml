@@ -9,7 +9,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
+            android:name="com.lesliedahlberg.placemem.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,17 +18,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".AddMemActivity"
+            android:name="com.lesliedahlberg.placemem.AddMemActivity"
             android:label="@string/title_activity_add_mem"
-            android:parentActivityName=".MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.lesliedahlberg.placemem.MainActivity" />
-        </activity>
-        <activity
-            android:name=".ViewMem"
-            android:label="@string/title_activity_view_mem"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName="com.lesliedahlberg.placemem.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.lesliedahlberg.placemem.MainActivity" />
