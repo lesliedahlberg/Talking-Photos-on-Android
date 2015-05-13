@@ -1,6 +1,9 @@
 package com.lesliedahlberg.placemem;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -9,6 +12,8 @@ import android.media.Image;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Message;
+import android.provider.MediaStore;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -19,7 +24,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import android.app.AlertDialog;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -97,6 +102,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             }
         });
 
+        memViewHolder.shareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent shareIntent = new Intent();
+                shareIntent.setAction(Intent.ACTION_SEND);
+                shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(mem.photoUri));
+                shareIntent.setType("image/jpg");
+                context.startActivity(Intent.createChooser(shareIntent, "Share this Mems image"));
+            }
+        });
+
         memViewHolder.showOnMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,6 +147,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         ImageButton showOnMap;
         ImageButton playPauseButton;
         ImageButton deleteButton;
+        ImageButton shareButton;
 
         public MemViewHolder(View itemView) {
             super(itemView);
@@ -142,6 +159,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             showOnMap = (ImageButton) itemView.findViewById(R.id.showOnMapButton);
             playPauseButton = (ImageButton) itemView.findViewById(R.id.playPauseButton);
             deleteButton = (ImageButton) itemView.findViewById(R.id.deleteButton);
+            shareButton = (ImageButton) itemView.findViewById(R.id.shareButton);
         }
     }
 
@@ -261,6 +279,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return inSampleSize;
     }
 
+
+    public static final String ANDROID_RESOURCE = "android.resource://";
+    public static final String FORESLASH = "/";
+    public static Uri resIdToUri(Context context, int resId) {
+        return Uri.parse(ANDROID_RESOURCE + context.getPackageName()
+                + FORESLASH + resId);
+    }
 
 
 }

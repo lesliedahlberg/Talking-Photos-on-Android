@@ -33,18 +33,13 @@
     </layouts>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="TAG" />
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="ERROR" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="84f85ae5-e74f-4ceb-8938-a0fa82638598" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/AddMemActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/AddMemActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/DBContract.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/DBContract.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/DBHelper.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/DBHelper.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/DBInterface.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/DBInterface.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/Mem.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/Mem.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/raw/sample.mp3" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/RecyclerViewAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/RecyclerViewAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_mem.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_mem.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/card_view.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/card_view.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="dva217-android-app-project.iws" />
@@ -87,16 +82,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="styles.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values-v21/styles.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="card_view.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/card_view.xml">
           <provider selected="true" editor-type-id="text-editor">
@@ -110,11 +95,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="AddMemActivity.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="AddMemActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/AddMemActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="2.079646">
-              <caret line="143" column="23" selection-start-line="143" selection-start-column="23" selection-end-line="143" selection-end-column="23" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="227" column="44" selection-start-line="225" selection-start-column="8" selection-end-line="227" selection-end-column="44" />
               <folding>
                 <element signature="e#4374#4375#0" expanded="true" />
                 <element signature="e#4417#4418#0" expanded="true" />
@@ -178,18 +163,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RecyclerViewAdapter.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="RecyclerViewAdapter.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/RecyclerViewAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="70" column="33" selection-start-line="70" selection-start-column="33" selection-end-line="70" selection-end-column="33" />
+            <state vertical-scroll-proportion="0.36607143">
+              <caret line="105" column="21" selection-start-line="105" selection-start-column="21" selection-end-line="105" selection-end-column="21" />
               <folding>
-                <element signature="e#2752#3255#0" expanded="true" />
-                <element signature="e#3254#3255#0" expanded="true" />
-                <element signature="e#3310#3787#0" expanded="true" />
-                <element signature="e#3786#3787#0" expanded="true" />
-                <element signature="e#3845#4011#0" expanded="true" />
-                <element signature="e#4010#4011#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#2962#3465#0" expanded="true" />
+                <element signature="e#3464#3465#0" expanded="true" />
+                <element signature="e#3980#3981#0" expanded="true" />
+                <element signature="e#4036#4513#0" expanded="true" />
+                <element signature="e#4512#4513#0" expanded="true" />
+                <element signature="e#4571#4737#0" expanded="true" />
+                <element signature="e#4736#4737#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -1494,8 +1481,10 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/DBHelper.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/Mem.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/DBInterface.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/RecyclerViewAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/AddMemActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/BlankFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/ShareOptionsDialog.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/RecyclerViewAdapter.java" />
       </list>
     </option>
   </component>
@@ -1563,64 +1552,6 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="res" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dva217-android-app-project" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="values" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="styles.xml" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResGroupNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dva217-android-app-project" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="values" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="dva217-android-app-project" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="layout" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -1701,6 +1632,20 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="dva217-android-app-project" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="raw" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageElementNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -1736,6 +1681,11 @@
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
     <property name="FullScreen" value="true" />
     <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager2.WIDTH" value="316" />
+  </component>
+  <component name="RecentsManager">
+    <key name="android.template.packageName">
+      <recent name="com.lesliedahlberg.placemem" />
+    </key>
   </component>
   <component name="RestoreUpdateTree" date="Moments ago" ActionInfo="_Update">
     <UpdatedFiles>
@@ -2065,11 +2015,6 @@
     </configuration>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
-  <component name="SliceManager">
-    <option name="analysisUIOptions">
-      <AnalysisUIOptions />
-    </option>
-  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -2218,7 +2163,13 @@
       <option name="project" value="LOCAL" />
       <updated>1431533267032</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Improved add new mem activity, added rotation support for new mem activity">
+      <created>1431536021283</created>
+      <option name="number" value="00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1431536021283</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TodoView">
@@ -2254,7 +2205,7 @@
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.24878837" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32577905" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32577905" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32577905" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="combo" />
@@ -2290,7 +2241,8 @@
     <MESSAGE value="Fixed buttons&#10;" />
     <MESSAGE value="Improved UI" />
     <MESSAGE value="UI changes, added title, added delete icon, changed saving method + add to gallery method" />
-    <option name="LAST_COMMIT_MESSAGE" value="UI changes, added title, added delete icon, changed saving method + add to gallery method" />
+    <MESSAGE value="Improved add new mem activity, added rotation support for new mem activity" />
+    <option name="LAST_COMMIT_MESSAGE" value="Improved add new mem activity, added rotation support for new mem activity" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2636,18 +2588,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/DBHelper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="18" column="52" selection-start-line="18" selection-start-column="52" selection-end-line="18" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/Mem.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="23" column="33" selection-start-line="23" selection-start-column="33" selection-end-line="23" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/AddMemActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="227" column="44" selection-start-line="225" selection-start-column="8" selection-end-line="227" selection-end-column="44" />
+          <folding>
+            <element signature="e#4374#4375#0" expanded="true" />
+            <element signature="e#4417#4418#0" expanded="true" />
+            <element signature="e#6103#6104#0" expanded="true" />
+            <element signature="e#6153#6154#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/DBHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="18" column="52" selection-start-line="18" selection-start-column="52" selection-end-line="18" selection-end-column="52" />
           <folding />
         </state>
       </provider>
@@ -2670,28 +2635,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/RecyclerViewAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="70" column="33" selection-start-line="70" selection-start-column="33" selection-end-line="70" selection-end-column="33" />
+        <state vertical-scroll-proportion="0.36607143">
+          <caret line="105" column="21" selection-start-line="105" selection-start-column="21" selection-end-line="105" selection-end-column="21" />
           <folding>
-            <element signature="e#2752#3255#0" expanded="true" />
-            <element signature="e#3254#3255#0" expanded="true" />
-            <element signature="e#3310#3787#0" expanded="true" />
-            <element signature="e#3786#3787#0" expanded="true" />
-            <element signature="e#3845#4011#0" expanded="true" />
-            <element signature="e#4010#4011#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/AddMemActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.079646">
-          <caret line="143" column="23" selection-start-line="143" selection-start-column="23" selection-end-line="143" selection-end-column="23" />
-          <folding>
-            <element signature="e#4374#4375#0" expanded="true" />
-            <element signature="e#4417#4418#0" expanded="true" />
-            <element signature="e#6103#6104#0" expanded="true" />
-            <element signature="e#6153#6154#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+            <element signature="e#2962#3465#0" expanded="true" />
+            <element signature="e#3464#3465#0" expanded="true" />
+            <element signature="e#3980#3981#0" expanded="true" />
+            <element signature="e#4036#4513#0" expanded="true" />
+            <element signature="e#4512#4513#0" expanded="true" />
+            <element signature="e#4571#4737#0" expanded="true" />
+            <element signature="e#4736#4737#0" expanded="true" />
           </folding>
         </state>
       </provider>
