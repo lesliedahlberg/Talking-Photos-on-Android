@@ -15,8 +15,9 @@ public class Mem {
     String longitude;
     String date;
     Boolean playing;
+    String title;
 
-    public Mem(int id, String photoUri, String voiceUri, String location, String latitude, String longitude, String date) {
+    public Mem(int id, String photoUri, String voiceUri, String location, String latitude, String longitude, String date, String title) {
         this.id = id;
         this.photoUri = photoUri;
         this.voiceUri = voiceUri;
@@ -25,5 +26,6 @@ public class Mem {
         this.longitude = longitude;
         this.date = date;
         this.playing = false;
+        this.title = title;
     }
 }

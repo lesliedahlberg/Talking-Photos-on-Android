@@ -74,6 +74,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         memViewHolder.photoView.setImageBitmap(bitmap);
         memViewHolder.location.setText(mem.location);
         memViewHolder.date.setText(mem.date);
+        memViewHolder.title.setText(mem.title);
 
         //Database ID and position on RecyclerView
         final int id = mem.id;
@@ -126,6 +127,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         ImageView photoView;
         TextView location;
         TextView date;
+        TextView title;
         ImageButton showOnMap;
         ImageButton playPauseButton;
         ImageButton deleteButton;
@@ -136,6 +138,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             photoView = (ImageView) itemView.findViewById(R.id.photoView);
             location = (TextView) itemView.findViewById(R.id.location);
             date = (TextView) itemView.findViewById(R.id.date);
+            title = (TextView) itemView.findViewById(R.id.titleField);
             showOnMap = (ImageButton) itemView.findViewById(R.id.showOnMapButton);
             playPauseButton = (ImageButton) itemView.findViewById(R.id.playPauseButton);
             deleteButton = (ImageButton) itemView.findViewById(R.id.deleteButton);

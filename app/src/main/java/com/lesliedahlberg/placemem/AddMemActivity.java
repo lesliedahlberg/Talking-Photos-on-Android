@@ -14,6 +14,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,15 +35,12 @@ public class AddMemActivity extends Activity {
 
     //Constants
     static final int REQUEST_TAKE_PHOTO = 1;
-    static final int REQUEST_GET_LOCATION = 2;
-
-
-
-
+    static final String PHOTO_TAKEN = "photoTaken";
+    static final String PHOTO_URI = "photoUri";
 
     //UI elements
     ImageView uiPhotoView;
-    RelativeLayout uiBackgroundView;
+    TextView uiTitleField;
     TextView uiGpsCoordsField;
     TextView uiDateField;
     TextView uiLocationField;
@@ -52,6 +50,9 @@ public class AddMemActivity extends Activity {
     String currentDate;
     double currentLatitude;
     double currentLongitude;
+    String currentTitle;
+
+    Boolean photoTaken;
 
     //URI
     Uri currentPhotoUri;
@@ -59,29 +60,59 @@ public class AddMemActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            photoTaken = savedInstanceState.getBoolean(PHOTO_TAKEN);
+            currentPhotoUri = Uri.parse(savedInstanceState.getString(PHOTO_URI));
+        }else {
+            photoTaken = false;
+        }
+
 
         //Inflate UI
         setContentView(R.layout.activity_add_mem);
 
         //Get UI references
         uiPhotoView = (ImageView) findViewById(R.id.photoView);
-        uiBackgroundView = (RelativeLayout) findViewById(R.id.backgroundView);
-        uiGpsCoordsField = (TextView) findViewById(R.id.gps);
-        uiDateField = (TextView) findViewById(R.id.date);
-        uiLocationField = (TextView) findViewById(R.id.location);
+        uiTitleField = (TextView) findViewById(R.id.titleField);
 
         //Get date
         currentDate = new SimpleDateFormat("dd. MM. yyyy", Locale.getDefault()).format(new Date());
 
-
         //Get location data
         getLocationData();
 
-
         //Get photo
-        takePhoto();
+        if (photoTaken == false) {
+            takePhoto();
+            photoTaken = true;
         }
 
+
+
+
+
+
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(PHOTO_TAKEN, photoTaken);
+        outState.putString(PHOTO_URI, currentPhotoUri.toString());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if (savedInstanceState != null) {
+            photoTaken = savedInstanceState.getBoolean(PHOTO_TAKEN);
+            currentPhotoUri = Uri.parse(savedInstanceState.getString(PHOTO_URI));
+            showPhoto();
+        }else {
+            photoTaken = false;
+        }
+        photoTaken = savedInstanceState.getBoolean(PHOTO_TAKEN);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -107,13 +138,19 @@ public class AddMemActivity extends Activity {
 
     //Save mem and exit activity
     public void save (View view) {
+        currentTitle = uiTitleField.getText().toString();
         //Write to DB
-        new DBInterface(this).addRow(currentPhotoUri.toString(), "2", currentLocation, currentLatitude, currentLongitude, currentDate);
+        new DBInterface(this).addRow(currentPhotoUri.toString(), "2", currentLocation, currentLatitude, currentLongitude, currentDate, currentTitle);
         //Set result OK
         setResult(RESULT_OK);
         //Exit
         finish();
 
+    }
+
+    public void discard (View view) {
+        setResult(RESULT_CANCELED);
+        finish();
     }
 
     //Take photo
@@ -146,6 +183,14 @@ public class AddMemActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //On photo taken
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
+            showPhoto();
+        }else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    private void showPhoto() {
+        if (!currentPhotoUri.toString().isEmpty()) {
             Bitmap bitmap = null;
             try {
                 bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), currentPhotoUri);
@@ -153,14 +198,12 @@ public class AddMemActivity extends Activity {
                 e.printStackTrace();
             }
             setUiBackgroundView(bitmap);
-        }else {
-            super.onActivityResult(requestCode, resultCode, data);
         }
     }
 
     //Set background to taken photo
     private void setUiBackgroundView (Bitmap bitmap) {
-        uiBackgroundView.setBackgroundDrawable(new BitmapDrawable(getResources(), bitmap));
+        uiPhotoView.setImageBitmap(bitmap);
     }
 
     //Create file to store photo in (locally in private app storage)
@@ -189,15 +232,7 @@ public class AddMemActivity extends Activity {
         return image;
     }
 
-    //Set date and location to UI fields
-    private void setUiFields() {
-        //Set date
-        uiDateField.setText(currentDate);
-        //Set GPS coords
-        uiGpsCoordsField.setText(currentLatitude + ", " + currentLongitude);
-        //Set location
-        uiLocationField.setText(currentLocation);
-    }
+
 
     //Get location data
     private void getLocationData () {
@@ -221,8 +256,6 @@ public class AddMemActivity extends Activity {
                 if (addresses.size() > 0){
                     currentLocation = addresses.get(0).getLocality();
                 }
-
-                setUiFields();
 
             }
 

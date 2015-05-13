@@ -18,7 +18,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/photoView"
                 android:layout_gravity="center_horizontal"
-                android:background="#00ff44"
+                android:background="@color/primary_dark"
                 android:adjustViewBounds="true"
                 android:scaleType="fitXY" />
 
