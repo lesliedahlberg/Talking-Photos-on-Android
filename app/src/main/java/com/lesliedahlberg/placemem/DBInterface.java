@@ -43,7 +43,8 @@ public class DBInterface {
                 DBContract.Mems.PLACE_NAME,
                 DBContract.Mems.LAT,
                 DBContract.Mems.LONG,
-                DBContract.Mems.DATE
+                DBContract.Mems.DATE,
+                DBContract.Mems.TITLE
         };
 
         //Sorting
@@ -72,7 +73,8 @@ public class DBInterface {
                     cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.PLACE_NAME)),
                     cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.LAT)),
                     cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.LONG)),
-                    cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.DATE))));
+                    cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.DATE)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.TITLE))));
         }
 
         return mems;
@@ -84,7 +86,7 @@ public class DBInterface {
     }
 
     //Add row for data
-    public int addRow(String photoUri, String voiceUri, String location, double latitude, double longitude, String date) {
+    public int addRow(String photoUri, String voiceUri, String location, double latitude, double longitude, String date, String title) {
 
         //Feed data into content value pairs
         ContentValues contentValues = new ContentValues();
@@ -94,6 +96,7 @@ public class DBInterface {
         contentValues.put(DBContract.Mems.LAT, latitude);
         contentValues.put(DBContract.Mems.LONG, longitude);
         contentValues.put(DBContract.Mems.DATE, date);
+        contentValues.put(DBContract.Mems.TITLE, title);
 
         //write to db and return row ID
         return (int) writeDb.insert(DBContract.Mems.TABLE_NAME, null, contentValues);

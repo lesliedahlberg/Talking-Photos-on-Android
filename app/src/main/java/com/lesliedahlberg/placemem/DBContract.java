@@ -17,6 +17,7 @@ public class DBContract {
         public static final String LONG = "long";
         public static final String PLACE_NAME = "place_name";
         public static final String DATE = "date";
+        public static final String TITLE = "title";
     }
 
 }
