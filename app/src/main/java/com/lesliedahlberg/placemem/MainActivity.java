@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,7 +12,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.SearchView;
+import android.widget.Toast;
+
+import static android.content.Intent.ACTION_VIEW;
 
 
 public class MainActivity extends Activity {
@@ -27,6 +32,7 @@ public class MainActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         //Inflate UI
         setContentView(R.layout.activity_main);
 
@@ -41,6 +47,7 @@ public class MainActivity extends Activity {
 
         handleIntent(getIntent());
     }
+
 
 
     @Override
