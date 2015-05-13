@@ -1,16 +1,27 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
+    <style name="AppTheme" parent="@android:style/Theme.Holo">
+        <item name="android:actionBarStyle">@style/MyActionBar</item>
 
         <item name="android:textColorPrimary">@color/icons</item>
         <item name="android:textColorSecondary">@color/icons</item>
         <item name="android:divider">@color/secondary_text</item>
     </style>
+
+    <style name="MyActionBar"
+        parent="@android:style/Widget.Holo.ActionBar">
+        <item name="android:background">@color/primary</item>
+        <item name="android:textColor">@color/icons</item>
+    </style>
+
+
     <style name="recyclerView">
         <item name="android:background">@color/accent</item>
     </style>
+
     <style name="cardViewDescription">
         <item name="android:background">@color/primary</item>
     </style>
+
 </resources>
