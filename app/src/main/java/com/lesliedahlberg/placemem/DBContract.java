@@ -18,6 +18,13 @@ public class DBContract {
         public static final String PLACE_NAME = "place_name";
         public static final String DATE = "date";
         public static final String TITLE = "title";
+        public static final String TRIP_ID = "trip_id";
+    }
+
+    public static abstract class Trips implements BaseColumns {
+        public static final String TABLE_NAME = "trips";
+        public static final String TITLE = "title";
+        public static final String VIDEO_URI = "video_uri";
     }
 
 }

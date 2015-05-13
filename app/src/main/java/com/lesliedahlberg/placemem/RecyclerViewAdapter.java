@@ -1,30 +1,20 @@
 package com.lesliedahlberg.placemem;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
-import android.media.ThumbnailUtils;
 import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Message;
-import android.provider.MediaStore;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.app.AlertDialog;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,14 +29,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     DBInterface dbInterface;
     Context context;
-    String searchFilter;
+    String tripId;
     ArrayList<Mem> mems;
-    private int cardViewWidth;
 
-    public RecyclerViewAdapter(DBInterface dbInterface, Context context) {
+    public RecyclerViewAdapter(DBInterface dbInterface, Context context, String tripId) {
         this.dbInterface = dbInterface;
         this.context = context;
-        searchFilter = "";
+        this.tripId = tripId;
+
         update();
 
     }
@@ -174,6 +164,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public int getItemCount() {
         if (mems != null){
+            Log.v("LILA", "LILA size: "+mems.size());
             return mems.size();
         }else {
             return 0;
@@ -187,20 +178,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     //Set search keyword
-    public void setSearchFilter (String searchFilter){
-        this.searchFilter = searchFilter;
-        update();
-    }
-
-    //Remove search keyword, return to default
-    public void removeSearchFilter (){
-        searchFilter = "";
+    public void setTripId(String tripId){
+        this.tripId = tripId;
         update();
     }
 
     //Update data from db and notify adapter
     public void update() {
-        mems = dbInterface.getRows(searchFilter);
+        Log.v("LILA", "LILA updated and tripId is: "+this.tripId);
+        mems = dbInterface.getRows(tripId);
         notifyDataSetChanged();
     }
 
@@ -277,14 +263,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
 
         return inSampleSize;
-    }
-
-
-    public static final String ANDROID_RESOURCE = "android.resource://";
-    public static final String FORESLASH = "/";
-    public static Uri resIdToUri(Context context, int resId) {
-        return Uri.parse(ANDROID_RESOURCE + context.getPackageName()
-                + FORESLASH + resId);
     }
 
 

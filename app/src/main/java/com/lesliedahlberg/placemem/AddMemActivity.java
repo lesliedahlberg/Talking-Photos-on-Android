@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -14,12 +13,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
@@ -54,15 +51,21 @@ public class AddMemActivity extends Activity {
 
     Boolean photoTaken;
 
+    String tripId;
+
     //URI
     Uri currentPhotoUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        tripId = getIntent().getStringExtra(MemActivity.TRIP_ID);
+
         if (savedInstanceState != null) {
             photoTaken = savedInstanceState.getBoolean(PHOTO_TAKEN);
             currentPhotoUri = Uri.parse(savedInstanceState.getString(PHOTO_URI));
+            tripId = savedInstanceState.getString(MemActivity.TRIP_ID);
         }else {
             photoTaken = false;
         }
@@ -99,6 +102,7 @@ public class AddMemActivity extends Activity {
         super.onSaveInstanceState(outState);
         outState.putBoolean(PHOTO_TAKEN, photoTaken);
         outState.putString(PHOTO_URI, currentPhotoUri.toString());
+        outState.putString(MemActivity.TRIP_ID, tripId);
     }
 
     @Override
@@ -107,6 +111,7 @@ public class AddMemActivity extends Activity {
         if (savedInstanceState != null) {
             photoTaken = savedInstanceState.getBoolean(PHOTO_TAKEN);
             currentPhotoUri = Uri.parse(savedInstanceState.getString(PHOTO_URI));
+            tripId = savedInstanceState.getString(MemActivity.TRIP_ID);
             showPhoto();
         }else {
             photoTaken = false;
@@ -140,7 +145,7 @@ public class AddMemActivity extends Activity {
     public void save (View view) {
         currentTitle = uiTitleField.getText().toString();
         //Write to DB
-        new DBInterface(this).addRow(currentPhotoUri.toString(), "2", currentLocation, currentLatitude, currentLongitude, currentDate, currentTitle);
+        new DBInterface(this).addRow(currentPhotoUri.toString(), "2", currentLocation, currentLatitude, currentLongitude, currentDate, currentTitle, tripId);
         //Set result OK
         setResult(RESULT_OK);
         //Exit

@@ -12,7 +12,7 @@ Basic methods for creating the DB, deleting the DB and upgrading it
 public class DBHelper extends SQLiteOpenHelper {
 
     //DB version, changing it calls the onUpgrade method
-    public static final int DATABASE_VERSION = 11;
+    public static final int DATABASE_VERSION = 16;
 
     public static final String DATABASE_NAME = "Units.db";
     private static final String TEXT_TYPE = " TEXT";
@@ -30,12 +30,23 @@ public class DBHelper extends SQLiteOpenHelper {
                     DBContract.Mems.LAT + REAL_TYPE + COMMA_SEP +
                     DBContract.Mems.LONG + REAL_TYPE + COMMA_SEP +
                     DBContract.Mems.DATE + TEXT_TYPE + COMMA_SEP +
-                    DBContract.Mems.TITLE + TEXT_TYPE +
+                    DBContract.Mems.TITLE + TEXT_TYPE + COMMA_SEP +
+                    DBContract.Mems.TRIP_ID + TEXT_TYPE +
+                    " )";
+
+    private static final String SQL_CREATE_ENTRIES_TRIPS =
+            "CREATE TABLE " + DBContract.Trips.TABLE_NAME + " (" +
+                    DBContract.Trips._ID + " INTEGER PRIMARY KEY, " +
+                    DBContract.Trips.TITLE + TEXT_TYPE + COMMA_SEP +
+                    DBContract.Trips.VIDEO_URI + TEXT_TYPE +
                     " )";
 
     //SQL script for deleting tables
     private static final String SQL_DELETE_ENTRIES_MEMS =
             "DROP TABLE IF EXISTS " + DBContract.Mems.TABLE_NAME;
+
+    private static final String SQL_DELETE_ENTRIES_TRIPS =
+            "DROP TABLE IF EXISTS " + DBContract.Trips.TABLE_NAME;
 
     //Constructor
     public DBHelper(Context context) {
@@ -46,12 +57,14 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(SQL_CREATE_ENTRIES_MEMS);
+        db.execSQL(SQL_CREATE_ENTRIES_TRIPS);
     }
 
     //Upgrades the DB
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(SQL_DELETE_ENTRIES_MEMS);
+        db.execSQL(SQL_DELETE_ENTRIES_TRIPS);
         onCreate(db);
     }
 }

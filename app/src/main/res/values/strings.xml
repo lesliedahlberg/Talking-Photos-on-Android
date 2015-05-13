@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Placemem</string>
+    <string name="app_name">My Trips</string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -7,4 +7,6 @@
     <string name="title_activity_view_mem">ViewMem</string>
     <string name="search_hint">Search!</string>
     <string name="search_title">Search</string>
+    <string name="title_activity_trips">TripsActivity</string>
+    <string name="title_activity_add_trip">AddTripActivity</string>
 </resources>
