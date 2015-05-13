@@ -107,7 +107,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             @Override
             public void onClick(View v) {
                 // Creates an Intent that will load a map of San Francisco
-                Uri gmmIntentUri = Uri.parse("geo:" + latitude + "," + longitude);
+                Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + latitude + "," + longitude);
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                 mapIntent.setPackage("com.google.android.apps.maps");
                 context.startActivity(mapIntent);
