@@ -71,7 +71,7 @@ public class AddMemActivity extends Activity {
         uiLocationField = (TextView) findViewById(R.id.location);
 
         //Get date
-        currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
+        currentDate = new SimpleDateFormat("dd. MM. yyyy", Locale.getDefault()).format(new Date());
 
 
         //Get location data
@@ -168,7 +168,8 @@ public class AddMemActivity extends Activity {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = Environment.getExternalStorageDirectory();
+        /////////File storageDir = Environment.getExternalStorageDirectory();
+        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
         File image = File.createTempFile(
                 imageFileName,  /* prefix */
                 ".jpg",         /* suffix */
@@ -177,6 +178,12 @@ public class AddMemActivity extends Activity {
 
         //Save URI to file
         currentPhotoUri = Uri.fromFile(image);
+
+        //Add photo to gallery
+        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        mediaScanIntent.setData(currentPhotoUri);
+        this.sendBroadcast(mediaScanIntent);
+
 
         //return file
         return image;

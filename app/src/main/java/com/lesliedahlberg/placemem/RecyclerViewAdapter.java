@@ -61,8 +61,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     //Updates data in ViewHolder
     @Override
-    public void onBindViewHolder(MemViewHolder memViewHolder, int i) {
-        Mem mem = mems.get(i);
+    public void onBindViewHolder(final MemViewHolder memViewHolder, int i) {
+        final Mem mem = mems.get(i);
 
         //Photo Uri
         Uri photoUri = Uri.parse(mem.photoUri);
@@ -82,14 +82,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         final double longitude = Double.parseDouble(mem.longitude);
 
 
-        //OnClickListener for deleting
-        memViewHolder.photoView.setOnClickListener(new View.OnClickListener() {
+        //OnClickListener
+        memViewHolder.playPauseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                removeItemFromList(position, id);
+                if (mems.get(position).playing == true) {
+                    memViewHolder.playPauseButton.setImageResource(R.drawable.ic_play);
+                    mems.get(position).playing = false;
+                }else {
+                    memViewHolder.playPauseButton.setImageResource(R.drawable.ic_stop);
+                    mems.get(position).playing = true;
+                }
             }
-
-
         });
 
         memViewHolder.showOnMap.setOnClickListener(new View.OnClickListener() {
@@ -105,32 +109,43 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         });
 
+        memViewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                removeItemFromList(position, id);
+            }
+        });
+
     }
+
+
 
     //Inner class that creates references for all UI elements
     public static class MemViewHolder extends RecyclerView.ViewHolder {
         CardView cardView;
         ImageView photoView;
         TextView location;
-        TextView latitude;
-        TextView longitude;
         TextView date;
         ImageButton showOnMap;
+        ImageButton playPauseButton;
+        ImageButton deleteButton;
 
         public MemViewHolder(View itemView) {
             super(itemView);
             cardView = (CardView) itemView.findViewById(R.id.cardView);
             photoView = (ImageView) itemView.findViewById(R.id.photoView);
             location = (TextView) itemView.findViewById(R.id.location);
-            //latitude = (TextView) itemView.findViewById(R.id.latitude);
-            //longitude = (TextView) itemView.findViewById(R.id.longitude);
             date = (TextView) itemView.findViewById(R.id.date);
             showOnMap = (ImageButton) itemView.findViewById(R.id.showOnMapButton);
+            playPauseButton = (ImageButton) itemView.findViewById(R.id.playPauseButton);
+            deleteButton = (ImageButton) itemView.findViewById(R.id.deleteButton);
         }
     }
 
+
+
     //Removes recyclerView item and deletes it from DB
-    private void removeItemFromList(int position, int id) {
+    private void removeItemFromList (int position, int id) {
         dbInterface.removeRow(id);
         update();
     }

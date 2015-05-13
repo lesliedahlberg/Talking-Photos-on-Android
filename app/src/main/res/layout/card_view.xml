@@ -33,42 +33,79 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content" >
 
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/playPauseButton"
+                        android:src="@drawable/ic_play"
+                        android:layout_gravity="center_vertical"
+                        style="@style/imageButton" />
+
                     <LinearLayout
                         android:orientation="vertical"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:layout_gravity="center">
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textAppearance="@android:style/TextAppearance.Medium"
-                            android:text="Location"
-                            android:id="@+id/location"
-                            android:layout_weight="1"
-                            android:layout_gravity="center"
-                            android:singleLine="true" />
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginRight="12dp">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textAppearance="?android:attr/textAppearanceSmall"
-                            android:text="Date"
-                            android:id="@+id/date" />
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="Title"
+                            android:id="@+id/titleField" />
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceSmall"
+                                android:text="Location"
+                                android:id="@+id/location"
+                                android:layout_weight="1"
+                                android:layout_gravity="center"
+                                android:singleLine="true" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceSmall"
+                                android:text="Date"
+                                android:id="@+id/date" />
+                        </LinearLayout>
+
                     </LinearLayout>
 
                     <ImageButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/showOnMapButton"
-                        android:src="@drawable/ic_show_on_map" />
+                        android:src="@drawable/ic_show_on_map"
+                        android:layout_gravity="center_vertical"
+                        style="@style/imageButton" />
 
                     <ImageButton
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/shareButton"
-                        android:src="@drawable/ic_share" />
+                        android:src="@drawable/ic_share"
+                        android:layout_gravity="center_vertical"
+                        style="@style/imageButton" />
+
+                    <ImageButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/deleteButton"
+                        android:src="@drawable/ic_delete"
+                        android:layout_gravity="center_vertical"
+                        android:adjustViewBounds="false"
+                        style="@style/imageButton" />
                 </LinearLayout>
 
             </LinearLayout>
