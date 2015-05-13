@@ -7,4 +7,5 @@
     <string name="title_activity_view_mem">ViewMem</string>
     <string name="search_hint">Search!</string>
     <string name="search_title">Search</string>
+    <string name="title_activity_record_audio">RecordAudioActivity</string>
 </resources>

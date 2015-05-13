@@ -37,6 +37,10 @@ public class AddMemActivity extends Activity {
     static final int REQUEST_TAKE_PHOTO = 1;
     static final int REQUEST_GET_LOCATION = 2;
 
+    static final int REQUEST_RECORD_AUDIO = 3;
+
+    public final static String EXTRA_MESSAGE = "com.lesliedahlberg.placemem.MESSAGE";
+
 
     GoogleApiClient mGoogleApiClient;
 
@@ -57,6 +61,7 @@ public class AddMemActivity extends Activity {
 
     //URI
     Uri currentPhotoUri;
+    Uri currentAudioUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +87,9 @@ public class AddMemActivity extends Activity {
 
         //Get photo
         takePhoto();
+
+        //Get audio
+        recordAudio();
         }
 
 
@@ -123,6 +131,11 @@ public class AddMemActivity extends Activity {
         dispatchTakePictureIntent();
     }
 
+    //Record audio
+    public void recordAudio(){
+        dispatchRecordAudioIntent();
+    }
+
 
     //Send intent to take photo
     private void dispatchTakePictureIntent() {
@@ -144,6 +157,28 @@ public class AddMemActivity extends Activity {
         }
     }
 
+    //Send intent to record audio
+    private void dispatchRecordAudioIntent() {
+        Intent recordAudioIntent = new Intent(this, RecordAudioActivity.class);
+        // Ensure that there's a camera activity to handle the intent
+        if (recordAudioIntent.resolveActivity(getPackageManager()) != null) {
+            // Create the File where the photo should go
+            File audioFile = null;
+            try {
+                audioFile = createAudioFile();
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+            }
+            // Continue only if the File was successfully created
+            if (audioFile != null) {
+                recordAudioIntent.putExtra(EXTRA_MESSAGE, Uri.fromFile(audioFile));
+                startActivityForResult(recordAudioIntent, REQUEST_RECORD_AUDIO); //Starts RecordAudioActivity
+            }
+        }
+    }
+
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //On photo taken
@@ -155,7 +190,13 @@ public class AddMemActivity extends Activity {
                 e.printStackTrace();
             }
             setUiBackgroundView(bitmap);
-        }else {
+            dispatchRecordAudioIntent();//TODO: Record audio here?
+        }else if(requestCode == REQUEST_RECORD_AUDIO && resultCode == RESULT_OK)
+        {
+            //TODO: Do something when audiorecordactivity comlete
+        }
+        else
+        {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
@@ -182,6 +223,25 @@ public class AddMemActivity extends Activity {
 
         //return file
         return image;
+    }
+
+    //Create file to store audio in (locally in private app storage)
+    private File createAudioFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "AAC_" + timeStamp + "_";
+        File storageDir = Environment.getExternalStorageDirectory();
+        File audio = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".aac",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        //Save URI to file
+        currentAudioUri = Uri.fromFile(audio);
+
+        //return file
+        return audio;
     }
 
     //Set date and location to UI fields
