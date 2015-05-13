@@ -1,58 +1,75 @@
- <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+ <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/backgroundView" tools:context="dva217_grupp1.AddMemActivity"
-        android:orientation="vertical"
-     android:padding="16dp"
-     style="@style/recyclerView">
+        android:id="@+id/backgroundView" tools:context="dva217_grupp1.AddMemActivity">
 
      <FrameLayout
-         android:layout_width="match_parent"
+         android:layout_width="fill_parent"
          android:layout_height="wrap_content"
-         style="@style/cardViewDescription">
+         android:layout_alignParentBottom="true"
+         android:layout_alignParentStart="true"
+         android:layout_alignParentLeft="true"
+         android:background="@android:color/background_light">
 
          <LinearLayout
              android:orientation="vertical"
              android:layout_width="match_parent"
-             android:layout_height="match_parent"
+             android:layout_height="wrap_content"
              android:layout_margin="16dp">
 
-             <ImageView
-                 android:layout_width="200dp"
-                 android:layout_height="200dp"
-                 android:id="@+id/photoView"
-                 android:layout_gravity="center" />
+             <LinearLayout
+                 android:orientation="horizontal"
+                 android:layout_width="fill_parent"
+                 android:layout_height="wrap_content">
+
+                 <TextView
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:textAppearance="?android:attr/textAppearanceLarge"
+                     android:text="@string/location_title"
+                     android:id="@+id/location"
+                     android:layout_weight="1" />
+
+                 <TextView
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:textAppearance="?android:attr/textAppearanceMedium"
+                     android:text="@string/date_title"
+                     android:id="@+id/date"
+                     android:layout_weight="1" />
+
+             </LinearLayout>
+
+             <LinearLayout
+                 android:orientation="horizontal"
+                 android:layout_width="fill_parent"
+                 android:layout_height="wrap_content" >
+
+                 <TextView
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:textAppearance="?android:attr/textAppearanceSmall"
+                     android:text="@string/latitude_title"
+                     android:id="@+id/gps" />
+
+             </LinearLayout>
 
              <EditText
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
-                 android:id="@+id/titleField"
-                 android:hint="Title" />
+                 android:inputType="textMultiLine"
+                 android:ems="10"
+                 android:id="@+id/transcript" />
 
-             <LinearLayout
-                 android:orientation="horizontal"
+             <Button
                  android:layout_width="match_parent"
-                 android:layout_height="match_parent">
-
-                 <Button
-                     android:layout_width="match_parent"
-                     android:layout_height="wrap_content"
-                     android:text="Save"
-                     android:id="@+id/saveButton"
-                     android:layout_weight="1"
-                     android:onClick="save" />
-
-                 <Button
-                     android:layout_width="match_parent"
-                     android:layout_height="wrap_content"
-                     android:text="Discard"
-                     android:id="@+id/discardButton"
-                     android:layout_weight="1"
-                     android:onClick="discard" />
-             </LinearLayout>
-
+                 android:layout_height="wrap_content"
+                 android:text="@string/save_title"
+                 android:id="@+id/button"
+                 android:onClick="save" />
          </LinearLayout>
      </FrameLayout>
- </FrameLayout>
+
+ </RelativeLayout>
 
