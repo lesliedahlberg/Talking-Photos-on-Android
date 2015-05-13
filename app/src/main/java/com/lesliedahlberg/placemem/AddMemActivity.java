@@ -38,7 +38,6 @@ public class AddMemActivity extends Activity {
     static final int REQUEST_GET_LOCATION = 2;
 
 
-    GoogleApiClient mGoogleApiClient;
 
 
 
