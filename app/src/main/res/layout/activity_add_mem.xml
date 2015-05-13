@@ -9,14 +9,13 @@
          android:layout_height="wrap_content"
          android:layout_alignParentBottom="true"
          android:layout_alignParentStart="true"
+         android:layout_alignParentLeft="true"
          android:background="@android:color/background_light">
 
          <LinearLayout
              android:orientation="vertical"
              android:layout_width="match_parent"
              android:layout_height="wrap_content"
-             android:layout_alignParentBottom="true"
-             android:layout_centerHorizontal="true"
              android:layout_margin="16dp">
 
              <LinearLayout
@@ -28,7 +27,7 @@
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
                      android:textAppearance="?android:attr/textAppearanceLarge"
-                     android:text="Location"
+                     android:text="@string/location_title"
                      android:id="@+id/location"
                      android:layout_weight="1" />
 
@@ -36,7 +35,7 @@
                      android:layout_width="match_parent"
                      android:layout_height="wrap_content"
                      android:textAppearance="?android:attr/textAppearanceMedium"
-                     android:text="Date"
+                     android:text="@string/date_title"
                      android:id="@+id/date"
                      android:layout_weight="1" />
 
@@ -51,7 +50,7 @@
                      android:layout_width="wrap_content"
                      android:layout_height="wrap_content"
                      android:textAppearance="?android:attr/textAppearanceSmall"
-                     android:text="Lat"
+                     android:text="@string/latitude_title"
                      android:id="@+id/gps" />
 
              </LinearLayout>
@@ -66,7 +65,7 @@
              <Button
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
-                 android:text="Save"
+                 android:text="@string/save_title"
                  android:id="@+id/button"
                  android:onClick="save" />
          </LinearLayout>
