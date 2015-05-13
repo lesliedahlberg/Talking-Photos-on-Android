@@ -1,9 +1,11 @@
 package com.lesliedahlberg.placemem;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.Image;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -14,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -75,6 +78,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         //Database ID and position on RecyclerView
         final int id = mem.id;
         final int position = i;
+        final double latitude = Double.parseDouble(mem.latitude);
+        final double longitude = Double.parseDouble(mem.longitude);
+
 
         //OnClickListener for deleting
         memViewHolder.photoView.setOnClickListener(new View.OnClickListener() {
@@ -85,6 +91,20 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
         });
+
+        memViewHolder.showOnMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Creates an Intent that will load a map of San Francisco
+                Uri gmmIntentUri = Uri.parse("geo:" + latitude + "," + longitude);
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                mapIntent.setPackage("com.google.android.apps.maps");
+                context.startActivity(mapIntent);
+            }
+
+
+        });
+
     }
 
     //Inner class that creates references for all UI elements
@@ -95,6 +115,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         TextView latitude;
         TextView longitude;
         TextView date;
+        ImageButton showOnMap;
 
         public MemViewHolder(View itemView) {
             super(itemView);
@@ -104,6 +125,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             //latitude = (TextView) itemView.findViewById(R.id.latitude);
             //longitude = (TextView) itemView.findViewById(R.id.longitude);
             date = (TextView) itemView.findViewById(R.id.date);
+            showOnMap = (ImageButton) itemView.findViewById(R.id.showOnMapButton);
         }
     }
 
