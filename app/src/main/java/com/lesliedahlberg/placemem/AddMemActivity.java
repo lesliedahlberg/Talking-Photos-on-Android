@@ -284,6 +284,7 @@ public class AddMemActivity extends Activity {
         };
 
         // Register the listener with the Location Manager to receive location updates
+        if(hasGps)
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
     }
 
