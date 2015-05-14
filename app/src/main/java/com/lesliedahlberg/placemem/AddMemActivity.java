@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.content.pm.PackageManager;
 
 
 import java.io.File;
@@ -50,6 +51,7 @@ public class AddMemActivity extends Activity {
     String currentTitle;
 
     Boolean photoTaken;
+    boolean hasGps;
 
     String tripId;
 
@@ -80,6 +82,10 @@ public class AddMemActivity extends Activity {
 
         //Get date
         currentDate = new SimpleDateFormat("dd. MM. yyyy", Locale.getDefault()).format(new Date());
+        
+        //For checking if device has gps
+        PackageManager packageManager = this.getPackageManager();
+        hasGps = packageManager.hasSystemFeature(PackageManager.FEATURE_LOCATION_GPS);
 
         //Get location data
         getLocationData();
@@ -248,8 +254,14 @@ public class AddMemActivity extends Activity {
         LocationListener locationListener = new LocationListener() {
             public void onLocationChanged(Location location) {
                 // Called when a new location is found by the network location provider.
-                currentLatitude = location.getLatitude();
-                currentLongitude = location.getLongitude();
+                if(hasGps) {
+                    currentLatitude = location.getLatitude();
+                    currentLongitude = location.getLongitude();
+                }
+                else{
+                    currentLatitude = 54.127537;
+                    currentLongitude = 18.627353;
+                }
 
                 Geocoder gcd = new Geocoder(getApplicationContext(), Locale.getDefault());
                 List<Address> addresses = null;
