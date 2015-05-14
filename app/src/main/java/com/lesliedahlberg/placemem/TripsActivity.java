@@ -1,5 +1,6 @@
 package com.lesliedahlberg.placemem;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,6 +21,13 @@ public class TripsActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trips);
+
+        ActionBar actionBar = getActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayShowTitleEnabled(false);
+            actionBar.setDisplayUseLogoEnabled(true);
+            actionBar.setLogo(R.drawable.ic_header);
+        }
 
         //Connect data from DB to RecyclerView
         tripsRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
