@@ -2,13 +2,15 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/backgroundView" tools:context="dva217_grupp1.AddMemActivity">
+        android:id="@+id/backgroundView"
+        tools:context="dva217_grupp1.AddMemActivity">
 
      <FrameLayout
          android:layout_width="fill_parent"
          android:layout_height="wrap_content"
          android:layout_alignParentBottom="true"
          android:layout_alignParentStart="true"
+         android:layout_alignParentLeft="true"
          android:background="@android:color/background_light">
 
          <LinearLayout
@@ -56,12 +58,36 @@
 
              </LinearLayout>
 
-             <EditText
+             <!-- <EditText
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
                  android:inputType="textMultiLine"
                  android:ems="10"
-                 android:id="@+id/transcript" />
+                 android:id="@+id/transcript" /> -->
+
+             <LinearLayout
+                 android:layout_width="fill_parent"
+                 android:layout_height="wrap_content"
+                 android:orientation="horizontal">
+
+                 <!-- alternate with white onClick -->
+                 <ImageButton
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:src="@drawable/ic_action_microphone_red"
+                     android:id="@+id/audio_record_button"
+                     android:layout_weight="1"
+                     android:onClick="stopRecording"/>
+
+                 <!-- alternate with pause onClick -->
+                 <ImageButton
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:src="@drawable/ic_action_play"
+                     android:id="@+id/audio_play_button"
+                     android:layout_weight="1"
+                     android:onClick="playRecording"/>
+             </LinearLayout>
 
              <Button
                  android:layout_width="match_parent"

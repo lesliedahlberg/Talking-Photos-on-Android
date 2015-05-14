@@ -10,13 +10,16 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -37,9 +40,9 @@ public class AddMemActivity extends Activity {
     static final int REQUEST_TAKE_PHOTO = 1;
     static final int REQUEST_GET_LOCATION = 2;
 
-    static final int REQUEST_RECORD_AUDIO = 3;
+    //static final int REQUEST_RECORD_AUDIO = 3;
 
-    public final static String EXTRA_MESSAGE = "com.lesliedahlberg.placemem.MESSAGE";
+    //public final static String EXTRA_MESSAGE = "com.lesliedahlberg.placemem.MESSAGE";
 
 
     GoogleApiClient mGoogleApiClient;
@@ -52,6 +55,8 @@ public class AddMemActivity extends Activity {
     TextView uiGpsCoordsField;
     TextView uiDateField;
     TextView uiLocationField;
+    ImageButton uiAudioRecordButton;
+    ImageButton uiAudioPlayButton;
 
     //Values
     String currentLocation;
@@ -62,6 +67,15 @@ public class AddMemActivity extends Activity {
     //URI
     Uri currentPhotoUri;
     Uri currentAudioUri;
+
+
+    private static final String LOG_TAG = "AudioRecord";
+    private static String mAudioFileName = null;
+    private MediaRecorder mRecorder = null;
+    //private RecordButton mRecordButton = null;
+    private boolean recording = true;
+    private boolean playing = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +90,29 @@ public class AddMemActivity extends Activity {
         uiGpsCoordsField = (TextView) findViewById(R.id.gps);
         uiDateField = (TextView) findViewById(R.id.date);
         uiLocationField = (TextView) findViewById(R.id.location);
+        uiAudioRecordButton = (ImageButton) findViewById(R.id.audio_record_button);
+        uiAudioPlayButton = (ImageButton) findViewById(R.id.audio_play_button);
+
+        uiAudioRecordButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v){
+                if(recording)
+                {
+
+                }
+
+
+            }
+        });
+
+        uiAudioPlayButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v){
+                if(playing)
+                {
+
+                }
+            }
+        });
+
 
         //Get date
         currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
@@ -90,7 +127,7 @@ public class AddMemActivity extends Activity {
 
         //Get audio
         recordAudio();
-        }
+    }
 
 
     @Override
@@ -133,7 +170,23 @@ public class AddMemActivity extends Activity {
 
     //Record audio
     public void recordAudio(){
-        dispatchRecordAudioIntent();
+
+        File audioFile = null;
+        try {
+            audioFile = createAudioFile();
+        } catch (IOException e) {
+            // Error occurred while creating the File
+        }
+
+        if (audioFile != null){
+
+            startRecording();
+
+            //onClick stopRecording();
+
+            //dispatchRecordAudioIntent();
+        }
+
     }
 
 
@@ -157,6 +210,34 @@ public class AddMemActivity extends Activity {
         }
     }
 
+    private void startRecording()
+    {
+        mRecorder = new MediaRecorder();
+        mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        mRecorder.setOutputFormat(MediaRecorder.OutputFormat.AAC_ADTS); // Might have to change to some other format
+        mRecorder.setOutputFile(currentAudioUri.toString()); //audioUri
+        mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+
+        try
+        {
+            mRecorder.prepare();
+        }
+        catch (IOException e)
+        {
+            Log.e(LOG_TAG, "prepare() failed");
+        }
+
+        mRecorder.start();
+    }
+
+    private void stopRecording()
+    {
+        mRecorder.stop();
+        mRecorder.release(); //Release resources
+        mRecorder = null; //null reference
+    }
+
+/*
     //Send intent to record audio
     private void dispatchRecordAudioIntent() {
         Intent recordAudioIntent = new Intent(this, RecordAudioActivity.class);
@@ -177,7 +258,7 @@ public class AddMemActivity extends Activity {
         }
     }
 
-
+*/
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -190,11 +271,11 @@ public class AddMemActivity extends Activity {
                 e.printStackTrace();
             }
             setUiBackgroundView(bitmap);
-            dispatchRecordAudioIntent();//TODO: Record audio here?
-        }else if(requestCode == REQUEST_RECORD_AUDIO && resultCode == RESULT_OK)
+            //dispatchRecordAudioIntent();//TODO: Record audio here?
+        }/*else if(requestCode == REQUEST_RECORD_AUDIO && resultCode == RESULT_OK)
         {
             //TODO: Do something when audiorecordactivity comlete
-        }
+        }*/
         else
         {
             super.onActivityResult(requestCode, resultCode, data);
@@ -291,6 +372,5 @@ public class AddMemActivity extends Activity {
         // Register the listener with the Location Manager to receive location updates
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
     }
-
 
 }
