@@ -10,11 +10,13 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.DrawableRes;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,6 +25,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 
@@ -70,10 +73,11 @@ public class AddMemActivity extends Activity {
 
 
     private static final String LOG_TAG = "AudioRecord";
-    private static String mAudioFileName = null;
+    //private static String mAudioFileName = null;
     private MediaRecorder mRecorder = null;
+    private MediaPlayer mPlayer = null;
     //private RecordButton mRecordButton = null;
-    private boolean recording = true;
+    private boolean recording = false;
     private boolean playing = false;
 
 
@@ -93,22 +97,46 @@ public class AddMemActivity extends Activity {
         uiAudioRecordButton = (ImageButton) findViewById(R.id.audio_record_button);
         uiAudioPlayButton = (ImageButton) findViewById(R.id.audio_play_button);
 
+        uiAudioRecordButton.setImageResource(R.drawable.ic_action_microphone_white); //Set initial button icons
+        uiAudioPlayButton.setImageResource(R.drawable.ic_action_play);
+
         uiAudioRecordButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v){
+            public void onClick(View v)
+            {
                 if(recording)
                 {
-
+                    stopRecording();
+                    recording = false;
+                    uiAudioRecordButton.setImageResource(R.drawable.ic_action_microphone_white);
                 }
+                else
+                {
+                    if(playing)
+                        stopPlaying();
 
-
+                    startRecording();
+                    recording = true;
+                    uiAudioRecordButton.setImageResource(R.drawable.ic_action_microphone_red);
+                }
             }
         });
 
         uiAudioPlayButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v){
+            public void onClick(View v)
+            {
                 if(playing)
                 {
-
+                    stopPlaying();
+                    playing = false;
+                    uiAudioPlayButton.setImageResource(R.drawable.ic_action_play);
+                }
+                else
+                {
+                    if(recording)
+                        stopRecording();
+                    startPlaying();
+                    playing = true;
+                    uiAudioPlayButton.setImageResource(R.drawable.ic_action_pause);
                 }
             }
         });
@@ -126,7 +154,7 @@ public class AddMemActivity extends Activity {
         takePhoto();
 
         //Get audio
-        recordAudio();
+       // recordAudio();
     }
 
 
@@ -160,7 +188,6 @@ public class AddMemActivity extends Activity {
         setResult(RESULT_OK);
         //Exit
         finish();
-
     }
 
     //Take photo
@@ -168,6 +195,7 @@ public class AddMemActivity extends Activity {
         dispatchTakePictureIntent();
     }
 
+    /*
     //Record audio
     public void recordAudio(){
 
@@ -187,7 +215,7 @@ public class AddMemActivity extends Activity {
             //dispatchRecordAudioIntent();
         }
 
-    }
+    }*/
 
 
     //Send intent to take photo
@@ -210,12 +238,42 @@ public class AddMemActivity extends Activity {
         }
     }
 
+
+    //Plays back audio recording
+    private void startPlaying()
+    {
+        mPlayer = new MediaPlayer();
+        try{
+            mPlayer.setDataSource(currentAudioUri.getPath());
+            mPlayer.prepare();
+            mPlayer.start();
+        }catch(IOException e) {
+            Log.e(LOG_TAG, "prepare() failed");
+        }
+
+        Toast toast = Toast.makeText(this, "Playing", Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
+
+    //Stops audio playback
+    private void stopPlaying()
+    {
+        mPlayer.release();
+        mPlayer = null;
+
+        Toast toast = Toast.makeText(this, "Paused", Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
+
+    //Starts recording audio to file specified by currentAudioUri
     private void startRecording()
     {
         mRecorder = new MediaRecorder();
         mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        mRecorder.setOutputFormat(MediaRecorder.OutputFormat.AAC_ADTS); // Might have to change to some other format
-        mRecorder.setOutputFile(currentAudioUri.toString()); //audioUri
+        mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP); // Might have to change to some other format //AAC_ADTS
+        mRecorder.setOutputFile(currentAudioUri.getPath()); //audioUri
         mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
 
         try
@@ -228,13 +286,21 @@ public class AddMemActivity extends Activity {
         }
 
         mRecorder.start();
+
+        Toast toast = Toast.makeText(this, "Recording", Toast.LENGTH_SHORT);
+        toast.show();
     }
 
+
+    //Stops recording audio
     private void stopRecording()
     {
         mRecorder.stop();
         mRecorder.release(); //Release resources
         mRecorder = null; //null reference
+
+        Toast toast = Toast.makeText(this, "Stopped Recording", Toast.LENGTH_SHORT);
+        toast.show();
     }
 
 /*
@@ -271,6 +337,14 @@ public class AddMemActivity extends Activity {
                 e.printStackTrace();
             }
             setUiBackgroundView(bitmap);
+
+            File audioFile = null;
+            try {
+                audioFile = createAudioFile();
+            } catch (IOException ex) {
+                // Error occurred while creating the File
+            }
+            currentAudioUri = Uri.fromFile(audioFile);
             //dispatchRecordAudioIntent();//TODO: Record audio here?
         }/*else if(requestCode == REQUEST_RECORD_AUDIO && resultCode == RESULT_OK)
         {
@@ -310,11 +384,11 @@ public class AddMemActivity extends Activity {
     private File createAudioFile() throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "AAC_" + timeStamp + "_";
+        String imageFileName = "3GP_" + timeStamp + "_"; // AAC_
         File storageDir = Environment.getExternalStorageDirectory();
         File audio = File.createTempFile(
                 imageFileName,  /* prefix */
-                ".aac",         /* suffix */
+                ".3gp",         /* suffix */ //.acc
                 storageDir      /* directory */
         );
 
