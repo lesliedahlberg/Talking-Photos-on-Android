@@ -157,10 +157,6 @@ public class AddMemActivity extends Activity {
             }
         });
 
-
-
-
-
     }
 
     @Override
