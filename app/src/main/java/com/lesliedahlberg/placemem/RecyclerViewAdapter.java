@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -82,12 +84,44 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         //OnClickListener
         memViewHolder.playPauseButton.setOnClickListener(new View.OnClickListener() {
+
+            MediaPlayer mPlayer;
+
+            //Plays back audio recording
+            private void startPlaying()
+            {
+                mPlayer = new MediaPlayer();
+                try{
+                    mPlayer.setDataSource(mems.get(position).voiceUri.toString()); //currentAudioUri.getPath()
+                    mPlayer.prepare();
+                    mPlayer.start();
+                }catch(IOException e) {
+                    e.printStackTrace();
+                }
+
+                Toast toast = Toast.makeText(context, "Playing", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+
+
+            //Stops audio playback
+            private void stopPlaying()
+            {
+                mPlayer.release();
+                mPlayer = null;
+
+                Toast toast = Toast.makeText(context, "Paused", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+
             @Override
             public void onClick(View v) {
                 if (mems.get(position).playing == true) {
+                    stopPlaying();
                     memViewHolder.playPauseButton.setImageResource(R.drawable.ic_play);
                     mems.get(position).playing = false;
                 }else {
+                    startPlaying();
                     memViewHolder.playPauseButton.setImageResource(R.drawable.ic_stop);
                     mems.get(position).playing = true;
                 }

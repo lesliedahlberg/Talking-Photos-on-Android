@@ -9,6 +9,8 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.media.MediaPlayer;
+import android.media.MediaRecorder;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -16,9 +18,11 @@ import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.content.pm.PackageManager;
+import android.widget.Toast;
 
 
 import java.io.File;
@@ -35,6 +39,7 @@ public class AddMemActivity extends Activity {
     static final int REQUEST_TAKE_PHOTO = 1;
     static final String PHOTO_TAKEN = "photoTaken";
     static final String PHOTO_URI = "photoUri";
+    private static final String LOG_TAG = "AudioRecord";
 
     //UI elements
     ImageView uiPhotoView;
@@ -42,6 +47,8 @@ public class AddMemActivity extends Activity {
     TextView uiGpsCoordsField;
     TextView uiDateField;
     TextView uiLocationField;
+    ImageButton uiAudioRecordButton;
+    ImageButton uiAudioPlayButton;
 
     //Values
     String currentLocation;
@@ -52,11 +59,19 @@ public class AddMemActivity extends Activity {
 
     Boolean photoTaken;
     boolean hasGps;
+    boolean recording = false;
+    boolean playing = false;
 
     String tripId;
 
     //URI
     Uri currentPhotoUri;
+    Uri currentAudioUri;
+
+    //Media Resources
+    MediaRecorder mRecorder = null;
+    MediaPlayer mPlayer = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +94,9 @@ public class AddMemActivity extends Activity {
         //Get UI references
         uiPhotoView = (ImageView) findViewById(R.id.photoView);
         uiTitleField = (TextView) findViewById(R.id.titleField);
+        uiAudioRecordButton = (ImageButton) findViewById(R.id.audio_record_button);
+        uiAudioPlayButton = (ImageButton) findViewById(R.id.audio_play_button);
+
 
         //Get date
         currentDate = new SimpleDateFormat("dd. MM. yyyy", Locale.getDefault()).format(new Date());
@@ -96,6 +114,48 @@ public class AddMemActivity extends Activity {
             photoTaken = true;
         }
 
+        //Set button listeners
+        uiAudioRecordButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v)
+            {
+                if(recording)
+                {
+                    stopRecording();
+                    recording = false;
+                    uiAudioRecordButton.setImageResource(R.drawable.ic_action_microphone_white);
+                }
+                else
+                {
+                    if(playing)
+                        stopPlaying();
+
+                    startRecording();
+                    recording = true;
+                    uiAudioRecordButton.setImageResource(R.drawable.ic_action_microphone_red);
+                }
+            }
+        });
+
+        uiAudioPlayButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v)
+            {
+                if(playing)
+                {
+                    stopPlaying();
+                    playing = false;
+                    uiAudioPlayButton.setImageResource(R.drawable.ic_play);
+                }
+                else
+                {
+                    if(recording)
+                        stopRecording();
+
+                    startPlaying();
+                    playing = true;
+                    uiAudioPlayButton.setImageResource(R.drawable.ic_stop);
+                }
+            }
+        });
 
 
 
@@ -151,7 +211,7 @@ public class AddMemActivity extends Activity {
     public void save (View view) {
         currentTitle = uiTitleField.getText().toString();
         //Write to DB
-        new DBInterface(this).addRow(currentPhotoUri.toString(), "2", currentLocation, currentLatitude, currentLongitude, currentDate, currentTitle, tripId);
+        new DBInterface(this).addRow(currentPhotoUri.toString(), currentAudioUri.toString(), currentLocation, currentLatitude, currentLongitude, currentDate, currentTitle, tripId);
         //Set result OK
         setResult(RESULT_OK);
         //Exit
@@ -168,6 +228,71 @@ public class AddMemActivity extends Activity {
     public void takePhoto() {
         dispatchTakePictureIntent();
     }
+
+    //Plays back audio recording
+    private void startPlaying()
+    {
+        mPlayer = new MediaPlayer();
+        try{
+            mPlayer.setDataSource(currentAudioUri.getPath());
+            mPlayer.prepare();
+            mPlayer.start();
+        }catch(IOException e) {
+            e.printStackTrace();
+        }
+
+        Toast toast = Toast.makeText(this, "Playing", Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
+
+    //Stops audio playback
+    private void stopPlaying()
+    {
+        mPlayer.release();
+        mPlayer = null;
+
+        Toast toast = Toast.makeText(this, "Paused", Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
+
+    //Starts recording audio to file specified by currentAudioUri
+    private void startRecording()
+    {
+        mRecorder = new MediaRecorder();
+        mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP); // Might have to change to some other format //AAC_ADTS
+        mRecorder.setOutputFile(currentAudioUri.getPath()); //audioUri
+        mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+
+        try
+        {
+            mRecorder.prepare();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+        mRecorder.start();
+
+        Toast toast = Toast.makeText(this, "Recording", Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
+
+    //Stops recording audio
+    private void stopRecording()
+    {
+        mRecorder.stop();
+        mRecorder.release(); //Release resources
+        mRecorder = null; //null reference
+
+        Toast toast = Toast.makeText(this, "Stopped Recording", Toast.LENGTH_SHORT);
+        toast.show();
+    }
+
 
 
     //Send intent to take photo
@@ -195,9 +320,22 @@ public class AddMemActivity extends Activity {
         //On photo taken
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
             showPhoto();
+            createAndSetAudioFilePath();
+
         }else {
             super.onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    private void createAndSetAudioFilePath()
+    {
+        File audioFile = null;
+        try {
+            audioFile = createAudioFile();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        currentAudioUri = Uri.fromFile(audioFile);
     }
 
     private void showPhoto() {
@@ -243,7 +381,24 @@ public class AddMemActivity extends Activity {
         return image;
     }
 
+    //Create file to store audio in (locally in private app storage)
+    private File createAudioFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "3GP_" + timeStamp + "_"; // AAC_
+        File storageDir = Environment.getExternalStorageDirectory();
+        File audio = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".3gp",         /* suffix */ //.acc
+                storageDir      /* directory */
+        );
 
+        //Save URI to file
+        currentAudioUri = Uri.fromFile(audio);
+
+        //return file
+        return audio;
+    }
 
     //Get location data
     private void getLocationData () {

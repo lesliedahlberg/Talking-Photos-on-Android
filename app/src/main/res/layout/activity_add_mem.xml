@@ -53,7 +53,27 @@
                     android:layout_weight="1"
                     android:onClick="discard" />
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
+                <!-- alternate with white onClick -->
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_action_microphone_white"
+                    android:id="@+id/audio_record_button"
+                    android:layout_weight="1"/>
+
+                <!-- alternate with pause onClick -->
+                <ImageButton
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_play"
+                    android:id="@+id/audio_play_button"
+                    android:layout_weight="1"/>
+            </LinearLayout>
         </LinearLayout>
     </FrameLayout>
 </FrameLayout>
