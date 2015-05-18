@@ -92,11 +92,20 @@ public class TripsRecyclerViewAdapter extends RecyclerView.Adapter<TripsRecycler
         memViewHolder.shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /*Intent shareIntent = new Intent();
-                shareIntent.setAction(Intent.ACTION_SEND);
-                shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(mem.photoUri));
+
+                ArrayList<Uri> imageUris = new ArrayList();
+
+                ArrayList<Mem> mems = dbInterface.getRows(String.valueOf(trip.id));
+
+                for (Mem mem : mems){
+                    imageUris.add(Uri.parse(mem.photoUri));
+                }
+
+                Intent shareIntent = new Intent();
+                shareIntent.setAction(Intent.ACTION_SEND_MULTIPLE);
+                shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, imageUris);
                 shareIntent.setType("image/jpg");
-                context.startActivity(Intent.createChooser(shareIntent, "Share this Mems image"));*/
+                context.startActivity(Intent.createChooser(shareIntent, "Share this trip's images"));
             }
         });
 

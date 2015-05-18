@@ -254,7 +254,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     //Update data from db and notify adapter
     public void update() {
-        Log.v("LILA", "LILA updated and tripId is: "+this.tripId);
         mems = dbInterface.getRows(tripId);
         notifyDataSetChanged();
     }
