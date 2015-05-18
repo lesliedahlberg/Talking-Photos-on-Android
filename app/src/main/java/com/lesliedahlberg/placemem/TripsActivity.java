@@ -67,7 +67,7 @@ public class TripsActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        recyclerViewAdapter.notifyDataSetChanged();
+        recyclerViewAdapter.update();
     }
 
     @Override
