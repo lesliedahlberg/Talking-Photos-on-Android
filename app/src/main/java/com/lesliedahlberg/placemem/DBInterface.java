@@ -4,8 +4,11 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.util.Log;
 
+import java.io.File;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -16,12 +19,14 @@ Provides search methods for only pulling certain data
 
 public class DBInterface {
 
+    Context context;
     DBHelper DBHelper;
     SQLiteDatabase readDb;
     SQLiteDatabase writeDb;
 
 
     public DBInterface(Context context) {
+        this.context = context;
         DBHelper = new DBHelper(context);
         readDb = DBHelper.getReadableDatabase();
         writeDb = DBHelper.getWritableDatabase();
@@ -91,6 +96,52 @@ public class DBInterface {
     }
 
 
+    //Get DB entry for row ID
+    public Mem getRow(int id) {
+
+        //Mem data
+        Mem mem;
+
+        //DB Columns to get
+        String[] projection = {
+                DBContract.Mems._ID,
+                DBContract.Mems.PHOTO_URI,
+                DBContract.Mems.VOICE_URI,
+                DBContract.Mems.PLACE_NAME,
+                DBContract.Mems.LAT,
+                DBContract.Mems.LONG,
+                DBContract.Mems.DATE,
+                DBContract.Mems.TITLE,
+                DBContract.Mems.TRIP_ID
+        };
+
+        String selection;
+        String[] selectionArgs;
+
+        selection = DBContract.Mems._ID+"=?";
+        selectionArgs = new String[1];
+        selectionArgs[0] = String.valueOf(id);
+
+
+        //Cursor for storing all retrieved data
+        Cursor cursor = readDb.query(DBContract.Mems.TABLE_NAME, projection, selection, selectionArgs, null, null, null);
+
+        cursor.moveToFirst();
+        mem = new Mem(cursor.getInt(cursor.getColumnIndexOrThrow(DBContract.Mems._ID)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.PHOTO_URI)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.VOICE_URI)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.PLACE_NAME)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.LAT)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.LONG)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.DATE)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.TITLE)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.TRIP_ID)));
+
+
+        return mem;
+    }
+
+
 
     //Get DB entry for row ID
     public ArrayList<Mem> getRows(String tripId) {
@@ -142,13 +193,21 @@ public class DBInterface {
 
     //Remove row for ID
     public void removeRow(int id) {
+        Mem rowToDelete = getRow(id);
+        new File(rowToDelete.photoUri).delete();
+        new File(rowToDelete.voiceUri).delete();
         writeDb.delete(DBContract.Mems.TABLE_NAME, DBContract.Mems._ID+"=?", new String[]{String.valueOf(id)});
     }
 
     //Remove trip row for ID
     public void removeTripRow(int id) {
         writeDb.delete(DBContract.Trips.TABLE_NAME, DBContract.Trips._ID+"=?", new String[]{String.valueOf(id)});
-        writeDb.delete(DBContract.Mems.TABLE_NAME, DBContract.Mems.TRIP_ID+"=?", new String[]{String.valueOf(id)});
+
+        ArrayList<Mem> mems = getRows(String.valueOf(id));
+        for (Mem mem : mems){
+            removeRow(mem.id);
+        }
+        //writeDb.delete(DBContract.Mems.TABLE_NAME, DBContract.Mems.TRIP_ID+"=?", new String[]{String.valueOf(id)});
     }
 
     //Add row for data
