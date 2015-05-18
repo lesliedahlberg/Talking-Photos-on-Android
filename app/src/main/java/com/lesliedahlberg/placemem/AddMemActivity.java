@@ -39,6 +39,7 @@ public class AddMemActivity extends Activity {
     static final int REQUEST_TAKE_PHOTO = 1;
     static final String PHOTO_TAKEN = "photoTaken";
     static final String PHOTO_URI = "photoUri";
+    static final String AUDIO_URI = "audioUri";
     private static final String LOG_TAG = "AudioRecord";
 
     //UI elements
@@ -76,14 +77,13 @@ public class AddMemActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            onRestoreInstanceState(savedInstanceState);
+        }
 
         tripId = getIntent().getStringExtra(MemActivity.TRIP_ID);
 
-        if (savedInstanceState != null) {
-            photoTaken = savedInstanceState.getBoolean(PHOTO_TAKEN);
-            currentPhotoUri = Uri.parse(savedInstanceState.getString(PHOTO_URI));
-            tripId = savedInstanceState.getString(MemActivity.TRIP_ID);
-        }else {
+        if (photoTaken == null){
             photoTaken = false;
         }
 
@@ -107,6 +107,13 @@ public class AddMemActivity extends Activity {
 
         //Get location data
         getLocationData();
+        createAndSetAudioFilePath();
+
+        if (currentPhotoUri != null) {
+            if (!currentPhotoUri.toString().isEmpty()) {
+                showPhoto();
+            }
+        }
 
         //Get photo
         if (photoTaken == false) {
@@ -164,6 +171,7 @@ public class AddMemActivity extends Activity {
         super.onSaveInstanceState(outState);
         outState.putBoolean(PHOTO_TAKEN, photoTaken);
         outState.putString(PHOTO_URI, currentPhotoUri.toString());
+        outState.putString(AUDIO_URI, currentAudioUri.toString());
         outState.putString(MemActivity.TRIP_ID, tripId);
     }
 
@@ -172,13 +180,20 @@ public class AddMemActivity extends Activity {
         super.onRestoreInstanceState(savedInstanceState);
         if (savedInstanceState != null) {
             photoTaken = savedInstanceState.getBoolean(PHOTO_TAKEN);
-            currentPhotoUri = Uri.parse(savedInstanceState.getString(PHOTO_URI));
+
+            String mPhotoUri = savedInstanceState.getString(PHOTO_URI);
+            String mAudioUri = savedInstanceState.getString(AUDIO_URI);
+
+            if (mPhotoUri != null){
+                currentPhotoUri = Uri.parse(mPhotoUri);
+            }
+            if (mAudioUri != null){
+                currentAudioUri = Uri.parse(mAudioUri);
+            }
+
             tripId = savedInstanceState.getString(MemActivity.TRIP_ID);
-            showPhoto();
-        }else {
-            photoTaken = false;
+
         }
-        photoTaken = savedInstanceState.getBoolean(PHOTO_TAKEN);
     }
 
     @Override
@@ -316,7 +331,6 @@ public class AddMemActivity extends Activity {
         //On photo taken
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
             showPhoto();
-            createAndSetAudioFilePath();
 
         }else {
             super.onActivityResult(requestCode, resultCode, data);
@@ -336,12 +350,8 @@ public class AddMemActivity extends Activity {
 
     private void showPhoto() {
         if (!currentPhotoUri.toString().isEmpty()) {
-            Bitmap bitmap = null;
-            try {
-                bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), currentPhotoUri);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            final int THUMBSIZE = 512;
+            Bitmap bitmap = LoadBitmap.decodeSampledBitmapFromResource(this, currentPhotoUri, THUMBSIZE, THUMBSIZE);
             setUiBackgroundView(bitmap);
         }
     }
