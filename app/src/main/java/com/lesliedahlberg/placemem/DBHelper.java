@@ -38,7 +38,6 @@ public class DBHelper extends SQLiteOpenHelper {
             "CREATE TABLE " + DBContract.Trips.TABLE_NAME + " (" +
                     DBContract.Trips._ID + " INTEGER PRIMARY KEY, " +
                     DBContract.Trips.TITLE + TEXT_TYPE + COMMA_SEP +
-                    DBContract.Trips.PHOTO_URI + TEXT_TYPE + COMMA_SEP +
                     DBContract.Trips.VIDEO_URI + TEXT_TYPE +
                     " )";
 

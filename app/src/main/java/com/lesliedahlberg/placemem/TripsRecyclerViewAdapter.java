@@ -65,7 +65,6 @@ public class TripsRecyclerViewAdapter extends RecyclerView.Adapter<TripsRecycler
         //Photo Uri
         Mem someMem = dbInterface.getTripSomeMem(String.valueOf(trip.id));
         if (someMem != null) {
-            dbInterface.setTripImage(String.valueOf(trip.id), someMem.photoUri);
             final int THUMBSIZE = 1024;
             Bitmap bitmap = LoadBitmap.decodeSampledBitmapFromResource(context, Uri.parse(someMem.photoUri), THUMBSIZE, THUMBSIZE);
             memViewHolder.tripBackgroundImage.setImageBitmap(bitmap);

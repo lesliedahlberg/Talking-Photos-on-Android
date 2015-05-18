@@ -107,17 +107,7 @@ public class DBInterface {
 
     }
 
-    public void setTripImage(String tripId, String photoUri) {
 
-        //Feed data into content value pairs
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(DBContract.Trips.PHOTO_URI, photoUri);
-
-        String selection = DBContract.Trips._ID+"=?";
-        String[] selectionArgs = new String[]{tripId};
-
-        writeDb.update(DBContract.Trips.TABLE_NAME, contentValues, selection, selectionArgs);
-    }
 
     //Get DB entry for trip rows
     public ArrayList<Trip> getTripRows() {
@@ -129,7 +119,6 @@ public class DBInterface {
         String[] projection = {
                 DBContract.Trips._ID,
                 DBContract.Trips.VIDEO_URI,
-                DBContract.Trips.PHOTO_URI,
                 DBContract.Trips.TITLE
         };
 
@@ -148,8 +137,7 @@ public class DBInterface {
         while(cursor.moveToNext()) {
             trips.add(new Trip(cursor.getInt(cursor.getColumnIndexOrThrow(DBContract.Trips._ID)),
                     cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Trips.TITLE)),
-                    cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Trips.VIDEO_URI)),
-                    cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Trips.PHOTO_URI))));
+                    cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Trips.VIDEO_URI))));
         }
 
         return trips;
