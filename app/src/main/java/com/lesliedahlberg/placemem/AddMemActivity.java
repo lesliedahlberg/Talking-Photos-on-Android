@@ -356,8 +356,7 @@ public class AddMemActivity extends Activity {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
-        /////////File storageDir = Environment.getExternalStorageDirectory();
-        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
+        File storageDir = Environment.getExternalStorageDirectory();
         File image = File.createTempFile(
                 imageFileName,  /* prefix */
                 ".jpg",         /* suffix */
@@ -366,12 +365,6 @@ public class AddMemActivity extends Activity {
 
         //Save URI to file
         currentPhotoUri = Uri.fromFile(image);
-
-        //Add photo to gallery
-        Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        mediaScanIntent.setData(currentPhotoUri);
-        this.sendBroadcast(mediaScanIntent);
-
 
         //return file
         return image;
