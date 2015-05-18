@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -61,6 +62,8 @@ public class TripsRecyclerViewAdapter extends RecyclerView.Adapter<TripsRecycler
 
         //Set values in UI elements
         memViewHolder.title.setText(trip.title);
+        String numberOfPhotos = String.valueOf(dbInterface.getMemCountInTrip(String.valueOf(trip.id))) + " mems";
+        memViewHolder.numberOfPhotos.setText(numberOfPhotos);
 
         //Photo Uri
         Mem someMem = dbInterface.getTripSomeMem(String.valueOf(trip.id));
@@ -143,6 +146,7 @@ public class TripsRecyclerViewAdapter extends RecyclerView.Adapter<TripsRecycler
         ImageButton shareButton;
         FrameLayout titleFrameLayout;
         ImageView tripBackgroundImage;
+        TextView numberOfPhotos;
 
         public MemViewHolder(View itemView) {
             super(itemView);
@@ -152,6 +156,7 @@ public class TripsRecyclerViewAdapter extends RecyclerView.Adapter<TripsRecycler
             shareButton = (ImageButton) itemView.findViewById(R.id.shareButton);
             titleFrameLayout = (FrameLayout) itemView.findViewById(R.id.titleFrameLayout);
             tripBackgroundImage = (ImageView) itemView.findViewById(R.id.tripBackgroundImage);
+            numberOfPhotos = (TextView) itemView.findViewById(R.id.numberOfPhotos);
         }
     }
 

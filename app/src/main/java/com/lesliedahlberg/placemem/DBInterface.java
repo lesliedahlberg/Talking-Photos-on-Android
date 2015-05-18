@@ -3,6 +3,7 @@ package com.lesliedahlberg.placemem;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.util.Log;
@@ -189,6 +190,10 @@ public class DBInterface {
         return mem;
     }
 
+
+    public int getMemCountInTrip(String tripId){
+        return (int) DatabaseUtils.longForQuery(readDb, "SELECT COUNT(*) FROM "+DBContract.Mems.TABLE_NAME+" WHERE "+DBContract.Mems.TRIP_ID+"="+tripId, null);
+    }
 
 
     //Get DB entry for row ID

@@ -28,17 +28,18 @@
 
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="128dp"
+                    android:layout_height="match_parent"
                     android:padding="16dp"
                     android:id="@+id/titleFrameLayout">
 
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:textAppearance="?android:attr/textAppearanceLarge"
                         android:text="Title"
                         android:id="@+id/titleField"
-                        android:textSize="48dp" />
+                        android:gravity="center"
+                        android:textStyle="bold" />
                 </FrameLayout>
             </RelativeLayout>
 
@@ -53,6 +54,15 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="Small Text"
+                        android:id="@+id/numberOfPhotos"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical" />
 
                     <LinearLayout
                         android:orientation="vertical"
