@@ -64,7 +64,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         final Mem mem = mems.get(i);
 
         //Photo Uri
-        Uri photoUri = Uri.parse(mem.photoUri);
+        final Uri photoUri = Uri.parse(mem.photoUri);
 
         final int THUMBSIZE = 1024;
         Bitmap bitmap = LoadBitmap.decodeSampledBitmapFromResource(context, photoUri, THUMBSIZE, THUMBSIZE);
@@ -180,6 +180,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 });
                 AlertDialog alert = builder.create();
                 alert.show();
+            }
+        });
+
+        memViewHolder.photoView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ViewMemActivity.class);
+                intent.putExtra(MemActivity.PHOTO_URI, mem.photoUri);
+                context.startActivity(intent);
             }
         });
 

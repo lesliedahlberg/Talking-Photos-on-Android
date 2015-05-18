@@ -22,6 +22,7 @@ public class MemActivity extends Activity {
     //Constants and codes
     public static final int NEW_MEM = 1;
     public static final String TRIP_ID = "trip_id";
+    public static final String PHOTO_URI = "photo_uri";
 
     //Values
     String tripId;
