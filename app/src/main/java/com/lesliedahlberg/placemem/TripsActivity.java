@@ -26,6 +26,7 @@ public class TripsActivity extends Activity {
         if (actionBar != null) {
             actionBar.setDisplayShowTitleEnabled(false);
             actionBar.setDisplayUseLogoEnabled(true);
+            actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setLogo(R.drawable.ic_header);
         }
 
