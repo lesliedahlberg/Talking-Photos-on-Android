@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.lesliedahlberg.placemem.TripsActivity">
     <item android:id="@+id/action_new_trip" android:title="New Trip"
-        android:orderInCategory="1" android:showAsAction="always"
+        android:orderInCategory="1" android:showAsAction="always" android:icon="@drawable/ic_new_mem"
         ></item>
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" android:showAsAction="never" />

@@ -332,7 +332,9 @@ public class AddMemActivity extends Activity {
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
             showPhoto();
 
-        }else {
+        }else if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_CANCELED) {
+            discard(null);
+        }else{
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
