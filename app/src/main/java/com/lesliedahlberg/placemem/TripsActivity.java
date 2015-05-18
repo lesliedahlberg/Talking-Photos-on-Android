@@ -22,14 +22,6 @@ public class TripsActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trips);
 
-        ActionBar actionBar = getActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayShowTitleEnabled(false);
-            actionBar.setDisplayUseLogoEnabled(true);
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setLogo(R.drawable.ic_header);
-        }
-
         //Connect data from DB to RecyclerView
         tripsRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         LinearLayoutManager llm = new LinearLayoutManager(this);
