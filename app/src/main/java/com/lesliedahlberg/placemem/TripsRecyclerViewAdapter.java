@@ -4,6 +4,9 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -54,9 +58,19 @@ public class TripsRecyclerViewAdapter extends RecyclerView.Adapter<TripsRecycler
 
 
 
+
         //Set values in UI elements
         memViewHolder.title.setText(trip.title);
-        Log.v("LULU", "LULU: TITLE: "+trip.title+" ,ID: "+trip.id);
+
+        //Photo Uri
+        Mem someMem = dbInterface.getTripSomeMem(String.valueOf(trip.id));
+        if (someMem != null) {
+            dbInterface.setTripImage(String.valueOf(trip.id), someMem.photoUri);
+            final int THUMBSIZE = 1024;
+            Bitmap bitmap = LoadBitmap.decodeSampledBitmapFromResource(context, Uri.parse(someMem.photoUri), THUMBSIZE, THUMBSIZE);
+            memViewHolder.tripBackgroundImage.setImageBitmap(bitmap);
+        }
+
 
         //Database ID and position on RecyclerView
         final int id = trip.id;
@@ -69,7 +83,6 @@ public class TripsRecyclerViewAdapter extends RecyclerView.Adapter<TripsRecycler
             public void onClick(View v) {
                 Intent showTrip = new Intent(context, MemActivity.class);
                 showTrip.putExtra(MemActivity.TRIP_ID, String.valueOf(id));
-                Log.v("LILA", "LILA TRVA: " + String.valueOf(id));
                 context.startActivity(showTrip);
             }
         });
@@ -130,6 +143,7 @@ public class TripsRecyclerViewAdapter extends RecyclerView.Adapter<TripsRecycler
         ImageButton deleteButton;
         ImageButton shareButton;
         FrameLayout titleFrameLayout;
+        ImageView tripBackgroundImage;
 
         public MemViewHolder(View itemView) {
             super(itemView);
@@ -138,6 +152,7 @@ public class TripsRecyclerViewAdapter extends RecyclerView.Adapter<TripsRecycler
             deleteButton = (ImageButton) itemView.findViewById(R.id.deleteButton);
             shareButton = (ImageButton) itemView.findViewById(R.id.shareButton);
             titleFrameLayout = (FrameLayout) itemView.findViewById(R.id.titleFrameLayout);
+            tripBackgroundImage = (ImageView) itemView.findViewById(R.id.tripBackgroundImage);
         }
     }
 

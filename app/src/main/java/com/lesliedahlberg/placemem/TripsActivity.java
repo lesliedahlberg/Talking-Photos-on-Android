@@ -30,6 +30,13 @@ public class TripsActivity extends Activity {
         recyclerViewAdapter = new TripsRecyclerViewAdapter(dbInterface, this);
         tripsRecyclerView.setAdapter(recyclerViewAdapter);
 
+
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
     }
 
     @Override
@@ -55,6 +62,12 @@ public class TripsActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        recyclerViewAdapter.notifyDataSetChanged();
     }
 
     @Override

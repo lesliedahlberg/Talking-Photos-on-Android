@@ -12,11 +12,12 @@ public class Trip {
     int id;
     String title;
     String video_uri;
+    String photo_uri;
 
-    public Trip(int id, String title, String video_uri) {
+    public Trip(int id, String title, String video_uri, String photo_uri) {
         this.id = id;
         this.title = title;
         this.video_uri = video_uri;
-        Log.v("LULU4", "TITLE IS in constructor: " + this.title + ", in param: "+title);
+        this.photo_uri = photo_uri;
     }
 }

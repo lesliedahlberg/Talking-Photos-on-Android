@@ -61,6 +61,64 @@ public class DBInterface {
         return cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Trips.TITLE));
     }
 
+    public Mem getTripSomeMem(String id) {
+        //Mem data
+        Mem mem;
+
+        //DB Columns to get
+        String[] projection = {
+                DBContract.Mems._ID,
+                DBContract.Mems.PHOTO_URI,
+                DBContract.Mems.VOICE_URI,
+                DBContract.Mems.PLACE_NAME,
+                DBContract.Mems.LAT,
+                DBContract.Mems.LONG,
+                DBContract.Mems.DATE,
+                DBContract.Mems.TITLE,
+                DBContract.Mems.TRIP_ID
+        };
+
+        String selection;
+        String[] selectionArgs;
+
+        selection = DBContract.Mems.TRIP_ID+"=?";
+        selectionArgs = new String[1];
+        selectionArgs[0] = String.valueOf(id);
+
+
+        //Cursor for storing all retrieved data
+        Cursor cursor = readDb.query(DBContract.Mems.TABLE_NAME, projection, selection, selectionArgs, null, null, null);
+
+        if (cursor.getCount() > 0){
+            cursor.moveToFirst();
+            mem = new Mem(cursor.getInt(cursor.getColumnIndexOrThrow(DBContract.Mems._ID)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.PHOTO_URI)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.VOICE_URI)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.PLACE_NAME)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.LAT)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.LONG)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.DATE)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.TITLE)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.TRIP_ID)));
+            return mem;
+        }else {
+            return null;
+        }
+
+    }
+
+    public void setTripImage(String tripId, String photoUri) {
+
+        //Feed data into content value pairs
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DBContract.Trips.PHOTO_URI, photoUri);
+
+        String selection = DBContract.Trips._ID+"=?";
+        String[] selectionArgs = new String[]{tripId};
+
+        writeDb.update(DBContract.Trips.TABLE_NAME, contentValues, selection, selectionArgs);
+    }
+
     //Get DB entry for trip rows
     public ArrayList<Trip> getTripRows() {
 
@@ -71,6 +129,7 @@ public class DBInterface {
         String[] projection = {
                 DBContract.Trips._ID,
                 DBContract.Trips.VIDEO_URI,
+                DBContract.Trips.PHOTO_URI,
                 DBContract.Trips.TITLE
         };
 
@@ -89,7 +148,8 @@ public class DBInterface {
         while(cursor.moveToNext()) {
             trips.add(new Trip(cursor.getInt(cursor.getColumnIndexOrThrow(DBContract.Trips._ID)),
                     cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Trips.TITLE)),
-                    cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Trips.VIDEO_URI))));
+                    cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Trips.VIDEO_URI)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Trips.PHOTO_URI))));
         }
 
         return trips;

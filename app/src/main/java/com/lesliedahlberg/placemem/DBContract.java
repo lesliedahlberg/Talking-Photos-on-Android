@@ -24,6 +24,7 @@ public class DBContract {
     public static abstract class Trips implements BaseColumns {
         public static final String TABLE_NAME = "trips";
         public static final String TITLE = "title";
+        public static final String PHOTO_URI = "photo_uri";
         public static final String VIDEO_URI = "video_uri";
     }
 
