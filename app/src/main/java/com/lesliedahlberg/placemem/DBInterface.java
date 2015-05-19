@@ -20,12 +20,15 @@ Provides search methods for only pulling certain data
 
 public class DBInterface {
 
+    //Environment variables
     Context context;
+
+    //DB variables
     DBHelper DBHelper;
     SQLiteDatabase readDb;
     SQLiteDatabase writeDb;
 
-
+    //Constructor
     public DBInterface(Context context) {
         this.context = context;
         DBHelper = new DBHelper(context);
@@ -33,7 +36,10 @@ public class DBInterface {
         writeDb = DBHelper.getWritableDatabase();
     }
 
+
+    //Return trip title by trip ID
     public String getTripName(String id) {
+
         //Mem data
         ArrayList<Trip> trips = new ArrayList<>();
 
@@ -47,22 +53,25 @@ public class DBInterface {
         //Sorting
         String sortOrder = DBContract.Trips._ID + " DESC";
 
+        //Where?
         String selection;
         String[] selectionArgs;
-
         selection = DBContract.Trips._ID+"=?";
         selectionArgs = new String[]{id};
-
 
         //Cursor for storing all retrieved data
         Cursor cursor = readDb.query(DBContract.Trips.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
 
+        //Get first item
         cursor.moveToFirst();
 
+        //Return title
         return cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Trips.TITLE));
     }
 
+    //Get first mem in trip by trip ID
     public Mem getTripSomeMem(String id) {
+
         //Mem data
         Mem mem;
 
@@ -79,13 +88,12 @@ public class DBInterface {
                 DBContract.Mems.TRIP_ID
         };
 
+        //Where?
         String selection;
         String[] selectionArgs;
-
         selection = DBContract.Mems.TRIP_ID+"=?";
         selectionArgs = new String[1];
         selectionArgs[0] = String.valueOf(id);
-
 
         //Cursor for storing all retrieved data
         Cursor cursor = readDb.query(DBContract.Mems.TABLE_NAME, projection, selection, selectionArgs, null, null, null);
@@ -103,14 +111,13 @@ public class DBInterface {
                     cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.TRIP_ID)));
             return mem;
         }else {
+            //Return null if trip empty
             return null;
         }
 
     }
 
-
-
-    //Get DB entry for trip rows
+    //Get Trips
     public ArrayList<Trip> getTripRows() {
 
         //Mem data
@@ -126,26 +133,21 @@ public class DBInterface {
         //Sorting
         String sortOrder = DBContract.Trips._ID + " DESC";
 
-        String selection;
-        String[] selectionArgs;
-
-
-
-
         //Cursor for storing all retrieved data
         Cursor cursor = readDb.query(DBContract.Trips.TABLE_NAME, projection, null, null, null, null, sortOrder);
 
+        //Load cursor to Trips
         while(cursor.moveToNext()) {
             trips.add(new Trip(cursor.getInt(cursor.getColumnIndexOrThrow(DBContract.Trips._ID)),
                     cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Trips.TITLE)),
                     cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Trips.VIDEO_URI))));
         }
 
+        //Return trips
         return trips;
     }
 
-
-    //Get DB entry for row ID
+    //Get mem by mem ID
     public Mem getRow(int id) {
 
         //Mem data
@@ -175,6 +177,7 @@ public class DBInterface {
         //Cursor for storing all retrieved data
         Cursor cursor = readDb.query(DBContract.Mems.TABLE_NAME, projection, selection, selectionArgs, null, null, null);
 
+        //Load data to Mem
         cursor.moveToFirst();
         mem = new Mem(cursor.getInt(cursor.getColumnIndexOrThrow(DBContract.Mems._ID)),
                     cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.PHOTO_URI)),
@@ -187,16 +190,17 @@ public class DBInterface {
                     cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.TRIP_ID)));
 
 
+        //Return Mem
         return mem;
     }
 
-
+    //Get Mem count in Trip
     public int getMemCountInTrip(String tripId){
         return (int) DatabaseUtils.longForQuery(readDb, "SELECT COUNT(*) FROM "+DBContract.Mems.TABLE_NAME+" WHERE "+DBContract.Mems.TRIP_ID+"="+tripId, null);
     }
 
 
-    //Get DB entry for row ID
+    //Get Mems in Trip by Trip ID
     public ArrayList<Mem> getRows(String tripId) {
 
         //Mem data
@@ -218,17 +222,18 @@ public class DBInterface {
         //Sorting
         String sortOrder = DBContract.Mems._ID + " DESC";
 
+
+        //Where
         String selection;
         String[] selectionArgs;
-
         selection = DBContract.Mems.TRIP_ID+"=?";
         selectionArgs = new String[1];
         selectionArgs[0] = tripId;
 
-
         //Cursor for storing all retrieved data
         Cursor cursor = readDb.query(DBContract.Mems.TABLE_NAME, projection, selection, selectionArgs, null, null, sortOrder);
 
+        //Load data to mems
         while(cursor.moveToNext()) {
             mems.add(new Mem(cursor.getInt(cursor.getColumnIndexOrThrow(DBContract.Mems._ID)),
                     cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.PHOTO_URI)),
@@ -241,29 +246,35 @@ public class DBInterface {
                     cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.TRIP_ID))));
         }
 
+        //Return mems
         return mems;
     }
 
-    //Remove row for ID
+    //Remove Mem by Mem ID
     public void removeRow(int id) {
         Mem rowToDelete = getRow(id);
+
+        //Remove files
         new File(rowToDelete.photoUri).delete();
         new File(rowToDelete.voiceUri).delete();
+
+        //Remove DB entry
         writeDb.delete(DBContract.Mems.TABLE_NAME, DBContract.Mems._ID+"=?", new String[]{String.valueOf(id)});
     }
 
-    //Remove trip row for ID
+    //Remove Trip by Trip ID and remove all Mem in Trip
     public void removeTripRow(int id) {
+        //Remove trip DB entry
         writeDb.delete(DBContract.Trips.TABLE_NAME, DBContract.Trips._ID+"=?", new String[]{String.valueOf(id)});
 
+        //Remove Mems in Trip
         ArrayList<Mem> mems = getRows(String.valueOf(id));
         for (Mem mem : mems){
             removeRow(mem.id);
         }
-        //writeDb.delete(DBContract.Mems.TABLE_NAME, DBContract.Mems.TRIP_ID+"=?", new String[]{String.valueOf(id)});
     }
 
-    //Add row for data
+    //Add Mem
     public int addRow(String photoUri, String voiceUri, String location, double latitude, double longitude, String date, String title, String tripId) {
 
         //Feed data into content value pairs
@@ -281,15 +292,13 @@ public class DBInterface {
         return (int) writeDb.insert(DBContract.Mems.TABLE_NAME, null, contentValues);
     }
 
-    //Add trip row for data
+    //Add Trip
     public int addTripRow(String title) {
 
         //Feed data into content value pairs
         ContentValues contentValues = new ContentValues();
         contentValues.put(DBContract.Trips.TITLE, title);
         contentValues.put(DBContract.Trips.VIDEO_URI, "");
-
-        Log.v("LULU3", "TITLE IS: "+title);
 
         //write to db and return row ID
         return (int) writeDb.insert(DBContract.Trips.TABLE_NAME, null, contentValues);

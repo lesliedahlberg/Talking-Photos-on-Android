@@ -11,36 +11,44 @@ import android.view.MenuItem;
 
 public class MemsActivity extends Activity {
 
+    //Recycler elements
     RecyclerView recyclerView;
     MemsRecyclerViewAdapter memsRecyclerViewAdapter;
+
+    //DB
     DBInterface dbInterface;
 
-    //Constants and codes
+    //Constants
     public static final int NEW_MEM = 1;
     public static final String TRIP_ID = "trip_id";
     public static final String PHOTO_URI = "photo_uri";
 
-    //Values
+    //State
     String tripId;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //Get trip ID from intent
         tripId = getIntent().getStringExtra(TRIP_ID);
-
 
         //Inflate UI
         setContentView(R.layout.activity_mems);
 
-        //Connect data from DB to RecyclerView
+        //Get DB
+        dbInterface = new DBInterface(this);
+
+        //Inflate Recycler View
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(llm);
-        dbInterface = new DBInterface(this);
+
+        //Connect DB & Recycler View
         memsRecyclerViewAdapter = new MemsRecyclerViewAdapter(dbInterface, this, tripId);
         recyclerView.setAdapter(memsRecyclerViewAdapter);
 
+        //Set activity title from Trip
         setTitle(dbInterface.getTripName(tripId));
     }
 

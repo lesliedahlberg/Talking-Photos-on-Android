@@ -12,25 +12,31 @@ import android.view.MenuItem;
 
 public class TripsActivity extends Activity {
 
+    //Recycler View Elements
     RecyclerView tripsRecyclerView;
     TripsRecyclerViewAdapter recyclerViewAdapter;
 
+    //Constants
     public static final int NEW_TRIP = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Inflate UI
         setContentView(R.layout.activity_trips);
 
-        //Connect data from DB to RecyclerView
+        //Get DB
+        DBInterface dbInterface = new DBInterface(this);
+
+        //Inflate Recycler View
         tripsRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         tripsRecyclerView.setLayoutManager(llm);
-        DBInterface dbInterface = new DBInterface(this);
+
+        //Connect DB & View
         recyclerViewAdapter = new TripsRecyclerViewAdapter(dbInterface, this);
         tripsRecyclerView.setAdapter(recyclerViewAdapter);
-
-
     }
 
     @Override
@@ -67,6 +73,8 @@ public class TripsActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        //Update View
         recyclerViewAdapter.update();
     }
 

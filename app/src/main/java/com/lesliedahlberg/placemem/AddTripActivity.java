@@ -11,14 +11,20 @@ import android.widget.TextView;
 
 public class AddTripActivity extends Activity {
 
+    //UI
     TextView uiTitleField;
+
+    //Values
     String currentTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //UI Inflate
         setContentView(R.layout.activity_add_trip);
 
+        //UI Elements
         uiTitleField = (TextView) findViewById(R.id.titleField);
 
     }
@@ -45,21 +51,29 @@ public class AddTripActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    //Save mem and exit activity
+    //Save & Exit
     public void save (View view) {
+
+        //Get title from UI
         currentTitle = uiTitleField.getText().toString();
-        Log.v("LULU2", "TITLE IS: "+currentTitle);
+
         //Write to DB
         new DBInterface(this).addTripRow(currentTitle);
+
         //Set result OK
         setResult(RESULT_OK);
+
         //Exit
         finish();
 
     }
 
     public void discard (View view) {
+
+        //Cancel intent
         setResult(RESULT_CANCELED);
+
+        //Exit
         finish();
     }
 

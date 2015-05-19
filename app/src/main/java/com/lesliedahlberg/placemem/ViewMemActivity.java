@@ -11,16 +11,23 @@ import android.webkit.WebView;
 
 public class ViewMemActivity extends Activity {
 
+    //UI
     Uri photoUri;
     WebView photoView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Inflate
         setContentView(R.layout.activity_view_mem);
+
+        //UI
         photoUri = Uri.parse(getIntent().getStringExtra(MemsActivity.PHOTO_URI));
         photoView = (WebView) findViewById(R.id.photoView);
         photoView.loadUrl(String.valueOf(photoUri));
+
+        //Set Up Web View
         WebSettings settings = photoView.getSettings();
         settings.setBuiltInZoomControls(true);
         settings.setSupportZoom(true);

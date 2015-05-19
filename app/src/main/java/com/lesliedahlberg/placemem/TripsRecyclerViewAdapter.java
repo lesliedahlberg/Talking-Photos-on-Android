@@ -25,8 +25,13 @@ import java.util.ArrayList;
 
 public class TripsRecyclerViewAdapter extends RecyclerView.Adapter<TripsRecyclerViewAdapter.MemViewHolder> {
 
+    //DB
     DBInterface dbInterface;
+
+    //Context
     Context context;
+
+    //Data
     ArrayList<Trip> trips;
 
     public TripsRecyclerViewAdapter(DBInterface dbInterface, Context context) {
@@ -52,17 +57,16 @@ public class TripsRecyclerViewAdapter extends RecyclerView.Adapter<TripsRecycler
     //Updates data in ViewHolder
     @Override
     public void onBindViewHolder(final MemViewHolder memViewHolder, int i) {
+
+        //Get Data
         final Trip trip = trips.get(i);
-
-
-
 
         //Set values in UI elements
         memViewHolder.title.setText(trip.title);
         String numberOfPhotos = String.valueOf(dbInterface.getMemCountInTrip(String.valueOf(trip.id))) + " mems";
         memViewHolder.numberOfPhotos.setText(numberOfPhotos);
 
-        //Photo Uri
+        //Set Bitmap
         Mem someMem = dbInterface.getTripSomeMem(String.valueOf(trip.id));
         if (someMem != null) {
             final int THUMBSIZE = 1024;
@@ -71,15 +75,15 @@ public class TripsRecyclerViewAdapter extends RecyclerView.Adapter<TripsRecycler
         }
 
 
-        //Database ID and position on RecyclerView
+        //Database ID and position on RecyclerView -- Finals for inner classes
         final int id = trip.id;
         final int position = i;
 
         //OnClickListener
-
         memViewHolder.titleFrameLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Start MemsAcitivity
                 Intent showTrip = new Intent(context, MemsActivity.class);
                 showTrip.putExtra(MemsActivity.TRIP_ID, String.valueOf(id));
                 context.startActivity(showTrip);
@@ -90,6 +94,7 @@ public class TripsRecyclerViewAdapter extends RecyclerView.Adapter<TripsRecycler
             @Override
             public void onClick(View v) {
 
+                //Share all photos
                 ArrayList<Uri> imageUris = new ArrayList();
 
                 ArrayList<Mem> mems = dbInterface.getRows(String.valueOf(trip.id));
@@ -110,7 +115,7 @@ public class TripsRecyclerViewAdapter extends RecyclerView.Adapter<TripsRecycler
             @Override
             public void onClick(View v) {
 
-
+                //Delete trip
                 AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
                 builder.setTitle("Delete trip");
