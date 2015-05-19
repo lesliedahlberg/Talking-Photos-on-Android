@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -90,6 +91,14 @@ public class TripsRecyclerViewAdapter extends RecyclerView.Adapter<TripsRecycler
             }
         });
 
+        memViewHolder.slideshowButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, TripSlideshowActivity.class);
+                context.startActivity(intent);
+            }
+        });
+
         memViewHolder.shareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -158,6 +167,7 @@ public class TripsRecyclerViewAdapter extends RecyclerView.Adapter<TripsRecycler
         FrameLayout titleFrameLayout;
         ImageView tripBackgroundImage;
         TextView numberOfPhotos;
+        Button slideshowButton;
 
         public MemViewHolder(View itemView) {
             super(itemView);
@@ -168,6 +178,7 @@ public class TripsRecyclerViewAdapter extends RecyclerView.Adapter<TripsRecycler
             titleFrameLayout = (FrameLayout) itemView.findViewById(R.id.titleFrameLayout);
             tripBackgroundImage = (ImageView) itemView.findViewById(R.id.tripBackgroundImage);
             numberOfPhotos = (TextView) itemView.findViewById(R.id.numberOfPhotos);
+            slideshowButton = (Button) itemView.findViewById(R.id.slideshowButton);
         }
     }
 
