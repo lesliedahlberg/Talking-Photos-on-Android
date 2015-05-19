@@ -168,7 +168,7 @@ public class TripsRecyclerViewAdapter extends RecyclerView.Adapter<TripsRecycler
         FrameLayout titleFrameLayout;
         ImageView tripBackgroundImage;
         TextView numberOfPhotos;
-        Button slideshowButton;
+        ImageButton slideshowButton;
 
         public MemViewHolder(View itemView) {
             super(itemView);
@@ -179,7 +179,7 @@ public class TripsRecyclerViewAdapter extends RecyclerView.Adapter<TripsRecycler
             titleFrameLayout = (FrameLayout) itemView.findViewById(R.id.titleFrameLayout);
             tripBackgroundImage = (ImageView) itemView.findViewById(R.id.tripBackgroundImage);
             numberOfPhotos = (TextView) itemView.findViewById(R.id.numberOfPhotos);
-            slideshowButton = (Button) itemView.findViewById(R.id.slideshowButton);
+            slideshowButton = (ImageButton) itemView.findViewById(R.id.slideshowButton);
         }
     }
 

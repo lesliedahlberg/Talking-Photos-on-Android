@@ -11,6 +11,7 @@ public class TripSlideshowActivity extends Activity {
 
     TripSlideshowViewFlipperAdapter adapter;
     String tripId;
+    DBInterface dbInterface;
 
     AdapterViewFlipper flipper;
 
@@ -18,12 +19,14 @@ public class TripSlideshowActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trip_slideshow);
+        dbInterface = new DBInterface(this);
         flipper = (AdapterViewFlipper) findViewById(R.id.adapterViewFlipper);
         tripId = getIntent().getStringExtra(MemsActivity.TRIP_ID);
-        adapter = new TripSlideshowViewFlipperAdapter(this, new DBInterface(this), tripId);
+        adapter = new TripSlideshowViewFlipperAdapter(this, dbInterface, tripId);
         flipper.setAdapter(adapter);
         flipper.setAutoStart(true);
         flipper.setFlipInterval(2500);
+        setTitle(dbInterface.getTripName(tripId));
 
     }
 

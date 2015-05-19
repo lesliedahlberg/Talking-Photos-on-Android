@@ -75,13 +75,13 @@
 
                     </LinearLayout>
 
-                    <Button
+                    <ImageButton
+                        style="@style/imageButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Slideshow"
                         android:id="@+id/slideshowButton"
-                        android:layout_weight="1"
-                        android:gravity="center" />
+                        android:src="@drawable/ic_slideshow"
+                        android:layout_gravity="center_vertical" />
 
                     <ImageButton
                         android:layout_width="wrap_content"
