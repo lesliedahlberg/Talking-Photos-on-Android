@@ -18,7 +18,7 @@ public class ViewMemActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_mem);
-        photoUri = Uri.parse(getIntent().getStringExtra(MemActivity.PHOTO_URI));
+        photoUri = Uri.parse(getIntent().getStringExtra(MemsActivity.PHOTO_URI));
         photoView = (WebView) findViewById(R.id.photoView);
         photoView.loadUrl(String.valueOf(photoUri));
         WebSettings settings = photoView.getSettings();
@@ -41,14 +41,14 @@ public class ViewMemActivity extends Activity {
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         if (savedInstanceState != null) {
-            photoUri = Uri.parse(savedInstanceState.getString(MemActivity.PHOTO_URI));
+            photoUri = Uri.parse(savedInstanceState.getString(MemsActivity.PHOTO_URI));
         }
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putString(MemActivity.PHOTO_URI, String.valueOf(photoUri));
+        outState.putString(MemsActivity.PHOTO_URI, String.valueOf(photoUri));
     }
 
     @Override

@@ -5,18 +5,15 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -69,7 +66,7 @@ public class TripsRecyclerViewAdapter extends RecyclerView.Adapter<TripsRecycler
         Mem someMem = dbInterface.getTripSomeMem(String.valueOf(trip.id));
         if (someMem != null) {
             final int THUMBSIZE = 1024;
-            Bitmap bitmap = LoadBitmap.decodeSampledBitmapFromResource(context, Uri.parse(someMem.photoUri), THUMBSIZE, THUMBSIZE);
+            Bitmap bitmap = BitmapLoader.decodeSampledBitmapFromResource(context, Uri.parse(someMem.photoUri), THUMBSIZE, THUMBSIZE);
             memViewHolder.tripBackgroundImage.setImageBitmap(bitmap);
         }
 
@@ -83,8 +80,8 @@ public class TripsRecyclerViewAdapter extends RecyclerView.Adapter<TripsRecycler
         memViewHolder.titleFrameLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent showTrip = new Intent(context, MemActivity.class);
-                showTrip.putExtra(MemActivity.TRIP_ID, String.valueOf(id));
+                Intent showTrip = new Intent(context, MemsActivity.class);
+                showTrip.putExtra(MemsActivity.TRIP_ID, String.valueOf(id));
                 context.startActivity(showTrip);
             }
         });

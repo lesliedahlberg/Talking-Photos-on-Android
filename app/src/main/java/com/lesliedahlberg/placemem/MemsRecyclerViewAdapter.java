@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.support.v7.widget.CardView;
@@ -19,9 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 
 /**
@@ -29,14 +26,14 @@ Recycler View Adapter
 Connects DB data to RecyclerView and populates it with CardViews
  */
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.MemViewHolder> {
+public class MemsRecyclerViewAdapter extends RecyclerView.Adapter<MemsRecyclerViewAdapter.MemViewHolder> {
 
     DBInterface dbInterface;
     Context context;
     String tripId;
     ArrayList<Mem> mems;
 
-    public RecyclerViewAdapter(DBInterface dbInterface, Context context, String tripId) {
+    public MemsRecyclerViewAdapter(DBInterface dbInterface, Context context, String tripId) {
         this.dbInterface = dbInterface;
         this.context = context;
         this.tripId = tripId;
@@ -67,7 +64,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         final Uri photoUri = Uri.parse(mem.photoUri);
 
         final int THUMBSIZE = 1024;
-        Bitmap bitmap = LoadBitmap.decodeSampledBitmapFromResource(context, photoUri, THUMBSIZE, THUMBSIZE);
+        Bitmap bitmap = BitmapLoader.decodeSampledBitmapFromResource(context, photoUri, THUMBSIZE, THUMBSIZE);
 
         //Set values in UI elements
         memViewHolder.photoView.setImageBitmap(bitmap);
@@ -187,7 +184,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, ViewMemActivity.class);
-                intent.putExtra(MemActivity.PHOTO_URI, mem.photoUri);
+                intent.putExtra(MemsActivity.PHOTO_URI, mem.photoUri);
                 context.startActivity(intent);
             }
         });

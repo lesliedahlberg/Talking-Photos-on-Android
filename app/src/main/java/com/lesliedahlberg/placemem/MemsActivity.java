@@ -1,22 +1,18 @@
 package com.lesliedahlberg.placemem;
 
 import android.app.Activity;
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.SearchView;
 
 
-public class MemActivity extends Activity {
+public class MemsActivity extends Activity {
 
     RecyclerView recyclerView;
-    RecyclerViewAdapter recyclerViewAdapter;
+    MemsRecyclerViewAdapter memsRecyclerViewAdapter;
     DBInterface dbInterface;
 
     //Constants and codes
@@ -35,15 +31,15 @@ public class MemActivity extends Activity {
 
 
         //Inflate UI
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_mems);
 
         //Connect data from DB to RecyclerView
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(llm);
         dbInterface = new DBInterface(this);
-        recyclerViewAdapter = new RecyclerViewAdapter(dbInterface, this, tripId);
-        recyclerView.setAdapter(recyclerViewAdapter);
+        memsRecyclerViewAdapter = new MemsRecyclerViewAdapter(dbInterface, this, tripId);
+        recyclerView.setAdapter(memsRecyclerViewAdapter);
 
         setTitle(dbInterface.getTripName(tripId));
     }
@@ -76,7 +72,7 @@ public class MemActivity extends Activity {
 
         //Update recyclerView
         if (requestCode == NEW_MEM && resultCode == RESULT_OK) {
-            recyclerViewAdapter.update();
+            memsRecyclerViewAdapter.update();
         }
 
     }

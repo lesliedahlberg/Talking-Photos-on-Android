@@ -12,7 +12,7 @@ import java.io.InputStream;
 /**
  * Created by lesliedahlberg on 14/05/15.
  */
-public class LoadBitmap {
+public class BitmapLoader {
     //Load bitmap
     public static Bitmap decodeSampledBitmapFromResource(Context context, Uri resource, int reqWidth, int reqHeight) {
 

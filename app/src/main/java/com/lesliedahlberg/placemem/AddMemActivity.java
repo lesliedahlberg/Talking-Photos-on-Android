@@ -81,7 +81,7 @@ public class AddMemActivity extends Activity {
             onRestoreInstanceState(savedInstanceState);
         }
 
-        tripId = getIntent().getStringExtra(MemActivity.TRIP_ID);
+        tripId = getIntent().getStringExtra(MemsActivity.TRIP_ID);
 
         if (photoTaken == null){
             photoTaken = false;
@@ -172,7 +172,7 @@ public class AddMemActivity extends Activity {
         outState.putBoolean(PHOTO_TAKEN, photoTaken);
         outState.putString(PHOTO_URI, currentPhotoUri.toString());
         outState.putString(AUDIO_URI, currentAudioUri.toString());
-        outState.putString(MemActivity.TRIP_ID, tripId);
+        outState.putString(MemsActivity.TRIP_ID, tripId);
     }
 
     @Override
@@ -191,7 +191,7 @@ public class AddMemActivity extends Activity {
                 currentAudioUri = Uri.parse(mAudioUri);
             }
 
-            tripId = savedInstanceState.getString(MemActivity.TRIP_ID);
+            tripId = savedInstanceState.getString(MemsActivity.TRIP_ID);
 
         }
     }
@@ -353,7 +353,7 @@ public class AddMemActivity extends Activity {
     private void showPhoto() {
         if (!currentPhotoUri.toString().isEmpty()) {
             final int THUMBSIZE = 512;
-            Bitmap bitmap = LoadBitmap.decodeSampledBitmapFromResource(this, currentPhotoUri, THUMBSIZE, THUMBSIZE);
+            Bitmap bitmap = BitmapLoader.decodeSampledBitmapFromResource(this, currentPhotoUri, THUMBSIZE, THUMBSIZE);
             setUiBackgroundView(bitmap);
         }
     }

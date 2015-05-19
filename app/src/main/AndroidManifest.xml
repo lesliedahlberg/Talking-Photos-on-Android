@@ -20,17 +20,17 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MemActivity"
+            android:name=".MemsActivity"
             android:label="@string/app_name"
             android:parentActivityName=".TripsActivity" >
         </activity>
         <activity
             android:name=".AddMemActivity"
             android:label="@string/title_activity_add_mem"
-            android:parentActivityName=".MemActivity" >
+            android:parentActivityName=".MemsActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MemActivity" />
+                android:value=".MemsActivity" />
         </activity>
         <activity
             android:name=".TripsActivity"
@@ -52,10 +52,10 @@
         <activity
             android:name=".ViewMemActivity"
             android:label="@string/title_activity_view_mem"
-            android:parentActivityName=".MemActivity" >
+            android:parentActivityName=".MemsActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.lesliedahlberg.placemem.MemActivity" />
+                android:value=".MemsActivity" />
         </activity>
     </application>
 
