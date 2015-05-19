@@ -61,7 +61,7 @@ public class TripSlideshowViewFlipperAdapter extends BaseAdapter {
             Bitmap bitmap = BitmapLoader.decodeSampledBitmapFromResource(context, Uri.parse(mem.photoUri), THUMBSIZE, THUMBSIZE);
             imageView.setImageBitmap(bitmap);
         }
-        return null;
+        return view;
     }
 
     //Update data from db and notify adapter

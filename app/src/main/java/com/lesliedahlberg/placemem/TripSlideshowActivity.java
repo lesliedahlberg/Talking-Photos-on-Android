@@ -4,14 +4,25 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterViewFlipper;
 
 
 public class TripSlideshowActivity extends Activity {
+
+    TripSlideshowViewFlipperAdapter adapter;
+    String tripId;
+
+    AdapterViewFlipper flipper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_trip_slideshow);
+        flipper = (AdapterViewFlipper) findViewById(R.id.adapterViewFlipper);
+        tripId = getIntent().getStringExtra(MemsActivity.TRIP_ID);
+        adapter = new TripSlideshowViewFlipperAdapter(this, new DBInterface(this), tripId);
+        flipper.setAdapter(adapter);
+
     }
 
     @Override

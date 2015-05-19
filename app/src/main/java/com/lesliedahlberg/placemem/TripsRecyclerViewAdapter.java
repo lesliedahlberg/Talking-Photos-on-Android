@@ -95,6 +95,7 @@ public class TripsRecyclerViewAdapter extends RecyclerView.Adapter<TripsRecycler
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, TripSlideshowActivity.class);
+                intent.putExtra(MemsActivity.TRIP_ID, trip.id);
                 context.startActivity(intent);
             }
         });
