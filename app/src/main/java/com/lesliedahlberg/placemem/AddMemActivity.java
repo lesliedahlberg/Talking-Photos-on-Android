@@ -35,41 +35,39 @@ import java.util.Locale;
 
 public class AddMemActivity extends Activity {
 
-    //Constants
+    //CONSTANTS
     static final int REQUEST_TAKE_PHOTO = 1;
-    static final String PHOTO_TAKEN = "photoTaken";
-    static final String PHOTO_URI = "photoUri";
-    static final String AUDIO_URI = "audioUri";
-    private static final String LOG_TAG = "AudioRecord";
+    static final String PHOTO_TAKEN = "photo_taken";
+    static final String PHOTO_URI = "photo_uri";
+    static final String AUDIO_URI = "audio_uri";
 
-    //UI elements
+    //UI
     ImageView uiPhotoView;
     TextView uiTitleField;
-    TextView uiGpsCoordsField;
-    TextView uiDateField;
-    TextView uiLocationField;
     ImageButton uiAudioRecordButton;
     ImageButton uiAudioPlayButton;
 
     //Values
-    String currentLocation;
-    String currentDate;
-    double currentLatitude;
-    double currentLongitude;
     String currentTitle;
+    String currentDate;
+    String currentLocation;
+    Double currentLatitude;
+    Double currentLongitude;
 
-    Boolean photoTaken;
-    boolean hasGps;
-    boolean recording = false;
-    boolean playing = false;
-
-    String tripId;
-
-    //URI
+    //URIs
     Uri currentPhotoUri;
     Uri currentAudioUri;
 
-    //Media Resources
+    //State variables
+    Boolean photoTaken = false;
+    Boolean hasGps = false;
+    Boolean recording = false;
+    Boolean playing = false;
+
+    //Trip variables
+    String tripId;
+
+    //Recorder resource
     MediaRecorder mRecorder = null;
     MediaPlayer mPlayer = null;
 
@@ -77,51 +75,52 @@ public class AddMemActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        //Load saved instance state
         if (savedInstanceState != null) {
             onRestoreInstanceState(savedInstanceState);
         }
 
+        //Get Trip ID from intent
         tripId = getIntent().getStringExtra(MemsActivity.TRIP_ID);
-
-        if (photoTaken == null){
-            photoTaken = false;
-        }
-
 
         //Inflate UI
         setContentView(R.layout.activity_add_mem);
 
-        //Get UI references
+        //UI Elements
         uiPhotoView = (ImageView) findViewById(R.id.photoView);
         uiTitleField = (TextView) findViewById(R.id.titleField);
         uiAudioRecordButton = (ImageButton) findViewById(R.id.audio_record_button);
         uiAudioPlayButton = (ImageButton) findViewById(R.id.audio_play_button);
 
-
-        //Get date
+        //Date
         currentDate = new SimpleDateFormat("dd. MM. yyyy", Locale.getDefault()).format(new Date());
         
-        //For checking if device has gps
+        //Check for GPS
         PackageManager packageManager = this.getPackageManager();
         hasGps = packageManager.hasSystemFeature(PackageManager.FEATURE_LOCATION_GPS);
 
-        //Get location data
+        //Location
         getLocationData();
+
+        //Create audio file
+        /* !! ADD IF CLAUSE SO IT DOES NOT CREATE THE AUDIO FILE MORE THAN ONCE !! */
         createAndSetAudioFilePath();
 
+        //Show photo after taken
         if (currentPhotoUri != null) {
             if (!currentPhotoUri.toString().isEmpty()) {
                 showPhoto();
             }
         }
 
-        //Get photo
+        //Take photo
         if (photoTaken == false) {
             takePhoto();
             photoTaken = true;
         }
 
-        //Set button listeners
+        //LISTENERS
         uiAudioRecordButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v)
             {
@@ -169,6 +168,8 @@ public class AddMemActivity extends Activity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+
+        //Save state variables and Uris
         outState.putBoolean(PHOTO_TAKEN, photoTaken);
         outState.putString(PHOTO_URI, currentPhotoUri.toString());
         outState.putString(AUDIO_URI, currentAudioUri.toString());
@@ -178,6 +179,8 @@ public class AddMemActivity extends Activity {
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
+
+        //Restore state variables and Uris
         if (savedInstanceState != null) {
             photoTaken = savedInstanceState.getBoolean(PHOTO_TAKEN);
 
@@ -218,20 +221,38 @@ public class AddMemActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    //Save mem and exit activity
+    //Save & exit
     public void save (View view) {
+
+        //Get title string
         currentTitle = uiTitleField.getText().toString();
+
         //Write to DB
         new DBInterface(this).addRow(currentPhotoUri.toString(), currentAudioUri.toString(), currentLocation, currentLatitude, currentLongitude, currentDate, currentTitle, tripId);
+
         //Set result OK
         setResult(RESULT_OK);
+
         //Exit
         finish();
 
     }
 
     public void discard (View view) {
+
+        //DISPOSE OF PHOTO AND AUDIO
+        //
+        //
+        //          !!!!!!!
+        //          !!!!!!!
+        //          !!!!!!!
+        //
+        //
+
+        //Cancel intent
         setResult(RESULT_CANCELED);
+
+        //Exit
         finish();
     }
 
@@ -328,17 +349,18 @@ public class AddMemActivity extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        //On photo taken
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
+            //Photo taken
             showPhoto();
-
         }else if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_CANCELED) {
+            //Photo canceled
             discard(null);
         }else{
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
 
+    //Create Uri for audio file
     private void createAndSetAudioFilePath()
     {
         File audioFile = null;
@@ -350,17 +372,13 @@ public class AddMemActivity extends Activity {
         currentAudioUri = Uri.fromFile(audioFile);
     }
 
+    //Display photo in UI
     private void showPhoto() {
         if (!currentPhotoUri.toString().isEmpty()) {
             final int THUMBSIZE = 512;
             Bitmap bitmap = BitmapLoader.decodeSampledBitmapFromResource(this, currentPhotoUri, THUMBSIZE, THUMBSIZE);
-            setUiBackgroundView(bitmap);
+            uiPhotoView.setImageBitmap(bitmap);
         }
-    }
-
-    //Set background to taken photo
-    private void setUiBackgroundView (Bitmap bitmap) {
-        uiPhotoView.setImageBitmap(bitmap);
     }
 
     //Create file to store photo in (locally in private app storage)
@@ -415,10 +433,11 @@ public class AddMemActivity extends Activity {
                     currentLongitude = location.getLongitude();
                 }
                 else{
-                    currentLatitude = 54.127537;
-                    currentLongitude = 18.627353;
+                    currentLatitude = 0.0;
+                    currentLongitude = 0.0;
                 }
 
+                //Get city name from GPS
                 Geocoder gcd = new Geocoder(getApplicationContext(), Locale.getDefault());
                 List<Address> addresses = null;
                 try {
@@ -440,8 +459,9 @@ public class AddMemActivity extends Activity {
         };
 
         // Register the listener with the Location Manager to receive location updates
-        if(hasGps)
-        locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+        if(hasGps){
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+        }
     }
 
 
