@@ -57,6 +57,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MemsActivity" />
         </activity>
+        <activity
+            android:name=".TripSlideshowActivity"
+            android:label="@string/title_activity_trip_slideshow"
+            android:parentActivityName=".TripsActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.lesliedahlberg.placemem.TripsActivity" />
+        </activity>
     </application>
 
 </manifest>

@@ -10,4 +10,5 @@
     <string name="title_activity_add_trip">New Trip</string>
 
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_trip_slideshow">TripSlideshowActivity</string>
 </resources>
