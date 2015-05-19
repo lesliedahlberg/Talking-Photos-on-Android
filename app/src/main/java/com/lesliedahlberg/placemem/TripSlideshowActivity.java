@@ -22,6 +22,8 @@ public class TripSlideshowActivity extends Activity {
         tripId = getIntent().getStringExtra(MemsActivity.TRIP_ID);
         adapter = new TripSlideshowViewFlipperAdapter(this, new DBInterface(this), tripId);
         flipper.setAdapter(adapter);
+        flipper.setAutoStart(true);
+        flipper.setFlipInterval(2500);
 
     }
 
