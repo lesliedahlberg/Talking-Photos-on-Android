@@ -37,7 +37,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="Add Trip"
+                        android:text="New Collection"
                         android:id="@+id/titleField"
                         android:gravity="center"
                         android:textStyle="bold" />
@@ -58,12 +58,12 @@
 
                     <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_height="36dp"
                         android:textAppearance="?android:attr/textAppearanceSmall"
-                        android:text="Add new trip and add photos with audio to it"
+                        android:text="Collections hold your audio-visual memories"
                         android:id="@+id/numberOfPhotos"
-                        android:layout_weight="1"
-                        android:gravity="center" />
+                        android:gravity="center"
+                        android:layout_weight="1" />
 
                 </LinearLayout>
 

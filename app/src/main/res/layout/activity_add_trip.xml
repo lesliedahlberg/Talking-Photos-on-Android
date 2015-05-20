@@ -10,20 +10,6 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/primary_dark">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="New collection for you memories:"
-            android:id="@+id/textView"
-            android:padding="16dp" />
-    </FrameLayout>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         style="@style/cardViewDescription">
 
         <LinearLayout
@@ -38,7 +24,7 @@
                 android:id="@+id/titleField"
                 android:inputType="text"
                 android:imeOptions="actionDone"
-                android:hint="Title"
+                android:hint="Collection"
                 android:selectAllOnFocus="false"
                 android:focusable="true" />
 
@@ -47,21 +33,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <Button
-                    android:layout_width="match_parent"
+                <ImageButton
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Save"
-                    android:id="@+id/saveButton"
+                    android:id="@+id/imageButton"
                     android:layout_weight="1"
+                    android:src="@drawable/ic_save"
+                    style="@style/imageButton"
+                    android:padding="16dp"
                     android:onClick="save" />
 
-                <Button
-                    android:layout_width="match_parent"
+                <ImageButton
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Discard"
-                    android:id="@+id/discardButton"
+                    android:id="@+id/imageButton2"
                     android:layout_weight="1"
+                    android:src="@drawable/ic_discard"
+                    style="@style/imageButton"
+                    android:padding="16dp"
                     android:onClick="discard" />
+
             </LinearLayout>
 
         </LinearLayout>
