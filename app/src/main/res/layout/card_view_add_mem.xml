@@ -35,7 +35,7 @@
                             android:layout_height="match_parent"
                             android:id="@+id/tripBackgroundImage"
                             android:adjustViewBounds="true"
-                            android:src="@mipmap/ic_launcher"
+                            android:src="@drawable/ic_new_mem_camera"
                             style="@style/cardViewContentViewImage" />
 
                         <FrameLayout
