@@ -15,35 +15,53 @@
             android:background="@color/primary_dark"
             android:id="@+id/linearLayout">
 
-            <RelativeLayout
+            <view
                 android:layout_width="match_parent"
-                android:layout_height="256dp"
-                style="@style/cardViewContentView">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/tripBackgroundImage"
-                    android:adjustViewBounds="true"
-                    android:src="@mipmap/ic_launcher"
-                    style="@style/cardViewContentViewImage" />
+                android:layout_height="wrap_content"
+                class="com.lesliedahlberg.placemem.SquareLayout"
+                android:id="@+id/view2" >
 
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="16dp"
-                    android:id="@+id/titleFrameLayout">
+                    android:layout_height="match_parent">
 
-                    <TextView
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:text="New Memory"
-                        android:id="@+id/titleField"
-                        android:gravity="center"
-                        android:textStyle="bold" />
+                        style="@style/cardViewContentView">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:id="@+id/tripBackgroundImage"
+                            android:adjustViewBounds="true"
+                            android:src="@mipmap/ic_launcher"
+                            style="@style/cardViewContentViewImage" />
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="16dp"
+                            android:id="@+id/titleFrameLayout">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:textAppearance="?android:attr/textAppearanceLarge"
+                                android:text="New Memory"
+                                android:id="@+id/titleField"
+                                android:gravity="center"
+                                android:textStyle="bold" />
+                        </FrameLayout>
+
+                    </RelativeLayout>
+
                 </FrameLayout>
-            </RelativeLayout>
+
+            </view>
+
+
+
 
             <LinearLayout
                 android:orientation="vertical"
