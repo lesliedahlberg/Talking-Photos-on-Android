@@ -18,20 +18,20 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/photoView"
                 android:layout_gravity="center_horizontal"
-                android:background="@color/primary_dark"
-                android:adjustViewBounds="true"
-                android:scaleType="fitXY" />
+                android:adjustViewBounds="false"
+                style="@style/cardViewMemContentViewImage" />
 
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:layout_margin="12dp">
+                style="@style/cardViewDescription">
 
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" >
+                    android:layout_height="wrap_content"
+                    android:layout_margin="12dp">
 
                     <ImageButton
                         android:layout_width="wrap_content"

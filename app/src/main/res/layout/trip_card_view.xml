@@ -11,20 +11,19 @@
             android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@color/primary_dark">
+            style="@style/cardView">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="128dp">
+                android:layout_height="@dimen/card_view_content_height"
+                style="@style/cardViewContentView">
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:id="@+id/tripBackgroundImage"
-                    android:adjustViewBounds="true"
-                    android:scaleType="centerCrop"
-                    android:tint="@color/primary_dark"
-                    android:tintMode="multiply" />
+                    android:adjustViewBounds="false"
+                    style="@style/cardViewContentViewImage" />
 
                 <FrameLayout
                     android:layout_width="match_parent"

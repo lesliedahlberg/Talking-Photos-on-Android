@@ -5,7 +5,7 @@
     android:id="@+id/backgroundView" tools:context="dva217_grupp1.AddMemActivity"
     android:orientation="vertical"
     android:padding="16dp"
-    style="@style/recyclerView">
+    style="@style/recyclerViewFrame">
 
     <FrameLayout
         android:layout_width="match_parent"

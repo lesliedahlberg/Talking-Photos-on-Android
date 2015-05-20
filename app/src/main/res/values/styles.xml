@@ -16,8 +16,27 @@
     </style>
 
 
-    <style name="recyclerView">
+    <style name="recyclerViewFrame">
         <item name="android:background">@color/accent</item>
+    </style>
+
+    <style name="cardView">
+        <item name="android:background">@color/primary_dark</item>
+    </style>
+
+    <style name="cardViewContentView">
+    </style>
+
+    <style name="cardViewContentViewImage">
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:scaleType">centerCrop</item>
+        <item name="android:tint">@color/primary_dark</item>
+        <item name="android:tintMode">multiply</item>
+    </style>
+
+    <style name="cardViewMemContentViewImage">
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:scaleType">fitXY</item>
     </style>
 
     <style name="cardViewDescription">

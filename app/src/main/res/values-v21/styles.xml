@@ -9,6 +9,12 @@
         <item name="android:divider">@color/secondary_text</item>
     </style>
 
+    <style name="cardViewContentViewImage">
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:scaleType">centerCrop</item>
+        <item name="android:tint">@color/primary_dark</item>
+        <item name="android:tintMode">multiply</item>
+    </style>
 
 
 </resources>
