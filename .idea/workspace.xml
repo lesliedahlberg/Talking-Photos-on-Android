@@ -20,15 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="84f85ae5-e74f-4ceb-8938-a0fa82638598" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/ic_new_trip.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/ic_new_trip.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/ic_new_trip.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/ic_new_trip.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/ic_new_mem.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/ic_new_mem.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/ic_new_mem.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/ic_new_mem.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/ic_new_mem.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/ic_new_mem.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/ic_new_mem.png" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/ic_new_mem.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/menu/menu_trips.xml" afterPath="$PROJECT_DIR$/app/src/main/res/menu/menu_trips.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/AddTripActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/AddTripActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_trip.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_trip.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="dva217-android-app-project.iws" />
@@ -71,49 +64,16 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="TripsRecyclerViewAdapter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/TripsRecyclerViewAdapter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-9.481482">
-              <caret line="170" column="42" selection-start-line="170" selection-start-column="42" selection-end-line="170" selection-end-column="42" />
-              <folding>
-                <element signature="e#6331#6515#0" expanded="true" />
-                <element signature="e#6514#6515#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="trip_card_view_add_trip.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/trip_card_view_add_trip.xml">
+      <file leaf-file-name="activity_add_trip.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_add_trip.xml">
           <provider editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="78" column="15" selection-start-line="78" selection-start-column="15" selection-end-line="78" selection-end-column="15" />
+              <caret line="6" column="26" selection-start-line="6" selection-start-column="26" selection-end-line="6" selection-end-column="26" />
               <folding />
             </state>
           </provider>
           <provider selected="true" editor-type-id="android-designer">
             <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="menu_add_trip.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/menu_add_trip.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="menu_trips.xml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/menu_trips.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.08583691">
-              <caret line="4" column="101" selection-start-line="4" selection-start-column="101" selection-end-line="4" selection-end-column="101" />
-              <folding />
-            </state>
           </provider>
         </entry>
       </file>
@@ -1405,7 +1365,6 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_add_mem.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/Mem.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_trips.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_add_trip.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/LoadBitmap.java" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
@@ -1419,7 +1378,6 @@
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/RecyclerViewAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/AddMemActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/AddTripActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/DBInterface.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/MemsActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/ViewMemActivity.java" />
@@ -1432,6 +1390,8 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/TripsRecyclerViewAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/trip_card_view_add_trip.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/menu/menu_trips.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_add_trip.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/AddTripActivity.java" />
       </list>
     </option>
   </component>
@@ -2283,12 +2243,18 @@
       <option name="project" value="LOCAL" />
       <updated>1432124025624</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="New icons">
+      <created>1432124315216</created>
+      <option name="number" value="00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1432124315216</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -2308,7 +2274,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23203126" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22421876" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.37551582" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32577905" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -2333,7 +2299,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Reupload of UI improvement" />
     <MESSAGE value="Implemented Trips" />
     <MESSAGE value="Readded map marker after rebase of project" />
     <MESSAGE value="Made load bitmap static and created its own class for it" />
@@ -2358,7 +2323,8 @@
     <MESSAGE value="Slideshow without audio + new icon" />
     <MESSAGE value="Slideshow fully implemented" />
     <MESSAGE value="Default add new trip button implemented" />
-    <option name="LAST_COMMIT_MESSAGE" value="Default add new trip button implemented" />
+    <MESSAGE value="New icons" />
+    <option name="LAST_COMMIT_MESSAGE" value="New icons" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2521,16 +2487,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_add_trip.xml">
-      <provider editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_trips.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.13867489">
@@ -2616,14 +2572,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.46902654">
           <caret line="72" column="29" selection-start-line="72" selection-start-column="29" selection-end-line="72" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/AddTripActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="41" column="26" selection-start-line="41" selection-start-column="26" selection-end-line="41" selection-end-column="26" />
           <folding />
         </state>
       </provider>
@@ -2773,14 +2721,19 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/TripsRecyclerViewAdapter.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/menu_trips.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-9.481482">
-          <caret line="170" column="42" selection-start-line="170" selection-start-column="42" selection-end-line="170" selection-end-column="42" />
-          <folding>
-            <element signature="e#6331#6515#0" expanded="true" />
-            <element signature="e#6514#6515#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.08583691">
+          <caret line="4" column="101" selection-start-line="4" selection-start-column="101" selection-end-line="4" selection-end-column="101" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/menu_add_trip.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -2795,20 +2748,34 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/menu_add_trip.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/TripsRecyclerViewAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.3809524">
+          <caret line="170" column="42" selection-start-line="170" selection-start-column="42" selection-end-line="170" selection-end-column="42" />
+          <folding>
+            <element signature="e#6331#6515#0" expanded="true" />
+            <element signature="e#6514#6515#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/AddTripActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.38626608">
+          <caret line="26" column="51" selection-start-line="26" selection-start-column="51" selection-end-line="26" selection-end-column="51" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/menu_trips.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.08583691">
-          <caret line="4" column="101" selection-start-line="4" selection-start-column="101" selection-end-line="4" selection-end-column="101" />
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_add_trip.xml">
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="6" column="26" selection-start-line="6" selection-start-column="26" selection-end-line="6" selection-end-column="26" />
           <folding />
         </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
   </component>

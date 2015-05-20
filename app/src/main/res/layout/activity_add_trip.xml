@@ -1,4 +1,4 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -6,6 +6,20 @@
     android:orientation="vertical"
     android:padding="16dp"
     style="@style/recyclerView">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary_dark">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="New collection for you memories:"
+            android:id="@+id/textView"
+            android:padding="16dp" />
+    </FrameLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -24,7 +38,9 @@
                 android:id="@+id/titleField"
                 android:inputType="text"
                 android:imeOptions="actionDone"
-                android:hint="Title" />
+                android:hint="Title"
+                android:selectAllOnFocus="false"
+                android:focusable="true" />
 
             <LinearLayout
                 android:orientation="horizontal"
@@ -50,5 +66,6 @@
 
         </LinearLayout>
     </FrameLayout>
-</FrameLayout>
+
+</LinearLayout>
 

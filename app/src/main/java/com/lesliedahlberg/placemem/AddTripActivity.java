@@ -6,13 +6,15 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.TextView;
 
 
 public class AddTripActivity extends Activity {
 
     //UI
-    TextView uiTitleField;
+    EditText uiTitleField;
 
     //Values
     String currentTitle;
@@ -25,7 +27,10 @@ public class AddTripActivity extends Activity {
         setContentView(R.layout.activity_add_trip);
 
         //UI Elements
-        uiTitleField = (TextView) findViewById(R.id.titleField);
+        uiTitleField = (EditText) findViewById(R.id.titleField);
+        uiTitleField.requestFocus();
+
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
 
     }
 
