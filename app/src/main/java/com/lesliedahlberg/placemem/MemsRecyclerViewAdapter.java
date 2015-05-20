@@ -13,8 +13,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,6 +32,7 @@ public class MemsRecyclerViewAdapter extends RecyclerView.Adapter<MemsRecyclerVi
 
     DBInterface dbInterface;
     Context context;
+    MemsActivity parent;
     String tripId;
     ArrayList<Mem> mems;
 
@@ -37,6 +40,7 @@ public class MemsRecyclerViewAdapter extends RecyclerView.Adapter<MemsRecyclerVi
         this.dbInterface = dbInterface;
         this.context = context;
         this.tripId = tripId;
+        this.parent = (MemsActivity) context;
 
         update();
 
@@ -45,12 +49,26 @@ public class MemsRecyclerViewAdapter extends RecyclerView.Adapter<MemsRecyclerVi
     //Inflates one CardView from XML and gets ViewHolder with references
     @Override
     public MemViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        //Create view for CardView
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_view, viewGroup, false);
-        //Get MemViewHolder with references to all UI elements
-        MemViewHolder memViewHolder = new MemViewHolder(view);
-        //Return memViewHolder
-        return memViewHolder;
+        View view;
+        MemViewHolder memViewHolder;
+        switch (i){
+            case 0:
+                //Create view for CardView
+                view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_view, viewGroup, false);
+                //Get MemViewHolder with references to all UI elements
+                memViewHolder = new MemViewHolder(view);
+                //Return memViewHolder
+                return memViewHolder;
+            case 1:
+                //Create view for CardView
+                view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_view_add_mem, viewGroup, false);
+                //Get MemViewHolder with references to all UI elements
+                memViewHolder = new MemViewHolder(view);
+                //Return memViewHolder
+                return memViewHolder;
+        }
+
+        return null;
     }
 
 
@@ -58,136 +76,150 @@ public class MemsRecyclerViewAdapter extends RecyclerView.Adapter<MemsRecyclerVi
     //Updates data in ViewHolder
     @Override
     public void onBindViewHolder(final MemViewHolder memViewHolder, int i) {
-        final Mem mem = mems.get(i);
+        switch (getItemViewType(i)){
+            case 0:
+                final Mem mem = mems.get(i);
 
-        //Photo Uri
-        final Uri photoUri = Uri.parse(mem.photoUri);
+                //Photo Uri
+                final Uri photoUri = Uri.parse(mem.photoUri);
 
-        final int THUMBSIZE = 1024;
-        Bitmap bitmap = BitmapLoader.decodeSampledBitmapFromResource(context, photoUri, THUMBSIZE, THUMBSIZE);
+                final int THUMBSIZE = 1024;
+                Bitmap bitmap = BitmapLoader.decodeSampledBitmapFromResource(context, photoUri, THUMBSIZE, THUMBSIZE);
 
-        //Set values in UI elements
-        memViewHolder.photoView.setImageBitmap(bitmap);
-        memViewHolder.location.setText(mem.location);
-        memViewHolder.date.setText(mem.date);
-        memViewHolder.title.setText(mem.title);
+                //Set values in UI elements
+                memViewHolder.photoView.setImageBitmap(bitmap);
+                memViewHolder.location.setText(mem.location);
+                memViewHolder.date.setText(mem.date);
+                memViewHolder.title.setText(mem.title);
 
-        //Database ID and position on RecyclerView
-        final int id = mem.id;
-        final int position = i;
-        final double latitude = Double.parseDouble(mem.latitude);
-        final double longitude = Double.parseDouble(mem.longitude);
-
-
-        //OnClickListener
-        memViewHolder.playPauseButton.setOnClickListener(new View.OnClickListener() {
-
-            MediaPlayer mPlayer;
-
-            //Plays back audio recording
-            private void startPlaying()
-            {
-                mPlayer = new MediaPlayer();
-                try{
-                    mPlayer.setDataSource(mems.get(position).voiceUri.toString()); //currentAudioUri.getPath()
-                    mPlayer.prepare();
-                    mPlayer.start();
-                }catch(IOException e) {
-                    e.printStackTrace();
-                }
-
-                Toast toast = Toast.makeText(context, "Playing", Toast.LENGTH_SHORT);
-                toast.show();
-            }
+                //Database ID and position on RecyclerView
+                final int id = mem.id;
+                final int position = i;
+                final double latitude = Double.parseDouble(mem.latitude);
+                final double longitude = Double.parseDouble(mem.longitude);
 
 
-            //Stops audio playback
-            private void stopPlaying()
-            {
-                mPlayer.release();
-                mPlayer = null;
+                //OnClickListener
+                memViewHolder.playPauseButton.setOnClickListener(new View.OnClickListener() {
 
-                Toast toast = Toast.makeText(context, "Paused", Toast.LENGTH_SHORT);
-                toast.show();
-            }
+                    MediaPlayer mPlayer;
 
-            @Override
-            public void onClick(View v) {
-                if (mems.get(position).playing == true) {
-                    stopPlaying();
-                    memViewHolder.playPauseButton.setImageResource(R.drawable.ic_play);
-                    mems.get(position).playing = false;
-                }else {
-                    startPlaying();
-                    memViewHolder.playPauseButton.setImageResource(R.drawable.ic_stop);
-                    mems.get(position).playing = true;
-                }
-            }
-        });
+                    //Plays back audio recording
+                    private void startPlaying()
+                    {
+                        mPlayer = new MediaPlayer();
+                        try{
+                            mPlayer.setDataSource(mems.get(position).voiceUri.toString()); //currentAudioUri.getPath()
+                            mPlayer.prepare();
+                            mPlayer.start();
+                        }catch(IOException e) {
+                            e.printStackTrace();
+                        }
 
-        memViewHolder.shareButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent shareIntent = new Intent();
-                shareIntent.setAction(Intent.ACTION_SEND);
-                shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(mem.photoUri));
-                shareIntent.setType("image/jpg");
-                context.startActivity(Intent.createChooser(shareIntent, "Share this Mems image"));
-            }
-        });
-
-        memViewHolder.showOnMap.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Creates an Intent that will load a map of San Francisco
-                Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + latitude + "," + longitude);
-                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-                mapIntent.setPackage("com.google.android.apps.maps");
-                context.startActivity(mapIntent);
-            }
-
-
-        });
-
-        memViewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-
-                builder.setTitle("Delete memory");
-                builder.setMessage("Are you sure?");
-
-                builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-
-                    public void onClick(DialogInterface dialog, int which) {
-                        // Remove and close the dialog
-                        removeItemFromList(position, id);
-                        dialog.dismiss();
+                        Toast toast = Toast.makeText(context, "Playing", Toast.LENGTH_SHORT);
+                        toast.show();
                     }
 
-                });
 
-                builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                    //Stops audio playback
+                    private void stopPlaying()
+                    {
+                        mPlayer.release();
+                        mPlayer = null;
+
+                        Toast toast = Toast.makeText(context, "Paused", Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
 
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // Do nothing
-                        dialog.dismiss();
+                    public void onClick(View v) {
+                        if (mems.get(position).playing == true) {
+                            stopPlaying();
+                            memViewHolder.playPauseButton.setImageResource(R.drawable.ic_play);
+                            mems.get(position).playing = false;
+                        }else {
+                            startPlaying();
+                            memViewHolder.playPauseButton.setImageResource(R.drawable.ic_stop);
+                            mems.get(position).playing = true;
+                        }
                     }
                 });
-                AlertDialog alert = builder.create();
-                alert.show();
-            }
-        });
 
-        memViewHolder.photoView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, ViewMemActivity.class);
-                intent.putExtra(MemsActivity.PHOTO_URI, mem.photoUri);
-                context.startActivity(intent);
-            }
-        });
+                memViewHolder.shareButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent shareIntent = new Intent();
+                        shareIntent.setAction(Intent.ACTION_SEND);
+                        shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(mem.photoUri));
+                        shareIntent.setType("image/jpg");
+                        context.startActivity(Intent.createChooser(shareIntent, "Share this Mems image"));
+                    }
+                });
+
+                memViewHolder.showOnMap.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // Creates an Intent that will load a map of San Francisco
+                        Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + latitude + "," + longitude);
+                        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                        mapIntent.setPackage("com.google.android.apps.maps");
+                        context.startActivity(mapIntent);
+                    }
+
+
+                });
+
+                memViewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+                        builder.setTitle("Delete memory");
+                        builder.setMessage("Are you sure?");
+
+                        builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Remove and close the dialog
+                                removeItemFromList(position, id);
+                                dialog.dismiss();
+                            }
+
+                        });
+
+                        builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                // Do nothing
+                                dialog.dismiss();
+                            }
+                        });
+                        AlertDialog alert = builder.create();
+                        alert.show();
+                    }
+                });
+
+                memViewHolder.photoView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(context, ViewMemActivity.class);
+                        intent.putExtra(MemsActivity.PHOTO_URI, mem.photoUri);
+                        context.startActivity(intent);
+                    }
+                });
+                break;
+            case 1:
+                memViewHolder.titleFrameLayout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        parent.launchNewMemActivity();
+                    }
+                });
+                break;
+        }
+
+
 
     }
 
@@ -204,6 +236,7 @@ public class MemsRecyclerViewAdapter extends RecyclerView.Adapter<MemsRecyclerVi
         ImageButton playPauseButton;
         ImageButton deleteButton;
         ImageButton shareButton;
+        FrameLayout titleFrameLayout;
 
         public MemViewHolder(View itemView) {
             super(itemView);
@@ -216,6 +249,7 @@ public class MemsRecyclerViewAdapter extends RecyclerView.Adapter<MemsRecyclerVi
             playPauseButton = (ImageButton) itemView.findViewById(R.id.playPauseButton);
             deleteButton = (ImageButton) itemView.findViewById(R.id.deleteButton);
             shareButton = (ImageButton) itemView.findViewById(R.id.shareButton);
+            titleFrameLayout = (FrameLayout) itemView.findViewById(R.id.titleFrameLayout);
         }
     }
 
@@ -231,9 +265,9 @@ public class MemsRecyclerViewAdapter extends RecyclerView.Adapter<MemsRecyclerVi
     public int getItemCount() {
         if (mems != null){
             Log.v("LILA", "LILA size: "+mems.size());
-            return mems.size();
+            return mems.size()+1;
         }else {
-            return 0;
+            return 1;
         }
 
     }
@@ -253,6 +287,15 @@ public class MemsRecyclerViewAdapter extends RecyclerView.Adapter<MemsRecyclerVi
     public void update() {
         mems = dbInterface.getRows(tripId);
         notifyDataSetChanged();
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position < getItemCount()-1){
+            return 0;
+        }else {
+            return 1;
+        }
     }
 
 

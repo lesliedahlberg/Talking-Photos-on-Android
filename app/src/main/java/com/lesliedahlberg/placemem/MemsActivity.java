@@ -104,7 +104,7 @@ public class MemsActivity extends Activity {
     }
 
     //Launch new mem activity
-    private void launchNewMemActivity() {
+    public void launchNewMemActivity() {
         Intent intent = new Intent(this, AddMemActivity.class);
         intent.putExtra(TRIP_ID, tripId);
         startActivityForResult(intent, NEW_MEM);
