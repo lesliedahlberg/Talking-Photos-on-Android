@@ -8,5 +8,6 @@
         android:id="@+id/recyclerView"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        style="@style/recyclerViewFrame" />
+        style="@style/recyclerViewFrame"
+        />
 </RelativeLayout>

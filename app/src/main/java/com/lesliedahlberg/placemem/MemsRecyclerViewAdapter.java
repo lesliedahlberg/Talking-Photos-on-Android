@@ -5,8 +5,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.Image;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -25,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 /**
@@ -85,14 +88,20 @@ public class MemsRecyclerViewAdapter extends RecyclerView.Adapter<MemsRecyclerVi
             case 0:
                 final Mem mem = mems.get(i);
 
+                /*
                 //Photo Uri
                 final Uri photoUri = Uri.parse(mem.photoUri);
 
-                final int THUMBSIZE = 1024;
+                final int THUMBSIZE = 512;
                 Bitmap bitmap = BitmapLoader.decodeSampledBitmapFromResource(context, photoUri, THUMBSIZE, THUMBSIZE);
 
                 //Set values in UI elements
-                memViewHolder.photoView.setImageBitmap(bitmap);
+                memViewHolder.photoView.setImageBitmap(bitmap);*/
+
+                final Uri photoUri = Uri.parse(mem.photoUri);
+                new BitmapLoaderTask(photoUri, mem, memViewHolder.photoView).execute();
+
+
                 memViewHolder.location.setText(mem.location);
                 memViewHolder.date.setText(mem.date);
                 memViewHolder.title.setText(mem.title);
@@ -346,5 +355,62 @@ public class MemsRecyclerViewAdapter extends RecyclerView.Adapter<MemsRecyclerVi
         }
     }
 
+    class BitmapLoaderTask extends AsyncTask<Void, Void, Bitmap> {
+        private final WeakReference<ImageView> imageViewReference;
+        final int THUMBSIZE = 1024;
+        Uri uri;
+        Mem mem;
+
+        public BitmapLoaderTask(Uri uri, Mem mem, ImageView view) {
+            this.uri = uri;
+            this.mem = mem;
+            imageViewReference = new WeakReference<ImageView>(view);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            if (mem.isSetThumbnail()){
+                if (imageViewReference != null) {
+                    final ImageView imageView = imageViewReference.get();
+                    if (imageView != null) {
+                        imageView.setImageBitmap(mem.getThumbnail());
+                    }
+                }
+            }else{
+                if (imageViewReference != null) {
+                    final ImageView imageView = imageViewReference.get();
+                    if (imageView != null) {
+                        imageView.setImageResource(R.mipmap.ic_launcher);
+                    }
+                }
+            }
+
+        }
+
+        @Override
+        protected Bitmap doInBackground(Void... params) {
+            if (mem.isSetThumbnail()) {
+                return null;
+            }else {
+                return BitmapLoader.decodeSampledBitmapFromResource(context, uri, THUMBSIZE, THUMBSIZE);
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap bitmap) {
+            if (mem.isSetThumbnail()) {
+
+            }else {
+                if (imageViewReference != null && bitmap != null) {
+                    final ImageView imageView = imageViewReference.get();
+                    if (imageView != null) {
+                        imageView.setImageBitmap(bitmap);
+                    }
+                }
+                mem.setThumbnail(bitmap);
+            }
+
+        }
+    }
 
 }

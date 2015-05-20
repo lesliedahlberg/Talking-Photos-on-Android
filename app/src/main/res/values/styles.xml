@@ -36,7 +36,7 @@
 
     <style name="cardViewMemContentViewImage">
         <item name="android:adjustViewBounds">true</item>
-        <item name="android:scaleType">fitXY</item>
+        <item name="android:scaleType">centerCrop</item>
     </style>
 
     <style name="cardViewDescription">
