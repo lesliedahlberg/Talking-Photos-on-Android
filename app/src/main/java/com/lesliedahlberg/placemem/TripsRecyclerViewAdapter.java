@@ -9,7 +9,11 @@ import android.net.Uri;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -93,6 +97,70 @@ public class TripsRecyclerViewAdapter extends RecyclerView.Adapter<TripsRecycler
             final int id = trip.id;
             final int position = i;
 
+            //Share menu
+            final ActionMode.Callback shareTypeCallback = new ActionMode.Callback() {
+                @Override
+                public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                    MenuInflater inflater = mode.getMenuInflater();
+                    inflater.inflate(R.menu.menu_select_sharing_mode, menu);
+                    return true;
+                }
+
+                @Override
+                public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                    return false;
+                }
+
+                @Override
+                public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                    Intent shareIntent;
+                    ArrayList<Mem> mems;
+                    switch (item.getItemId()) {
+                        case R.id.shareImage:
+                            //Share all photos
+                            ArrayList<Uri> imageUris = new ArrayList();
+
+                            mems = dbInterface.getRows(String.valueOf(trip.id));
+
+                            for (Mem mem : mems){
+                                imageUris.add(Uri.parse(mem.photoUri));
+                            }
+
+                            shareIntent = new Intent();
+                            shareIntent.setAction(Intent.ACTION_SEND_MULTIPLE);
+                            shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, imageUris);
+                            shareIntent.setType("image/jpg");
+                            context.startActivity(Intent.createChooser(shareIntent, "Share Images"));
+                            mode.finish(); // Action picked, so close the CAB
+                            return true;
+                        case R.id.shareAudio:
+                            //Share all photos
+                            ArrayList<Uri> audioUris = new ArrayList();
+
+                            mems = dbInterface.getRows(String.valueOf(trip.id));
+
+                            for (Mem mem : mems){
+                                audioUris.add(Uri.parse(mem.voiceUri));
+                            }
+
+                            shareIntent = new Intent();
+                            shareIntent.setAction(Intent.ACTION_SEND_MULTIPLE);
+                            shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, audioUris);
+                            shareIntent.setType("audio/*");
+                            context.startActivity(Intent.createChooser(shareIntent, "Share Audio"));
+                            mode.finish(); // Action picked, so close the CAB
+                            return true;
+                        default:
+                            return false;
+                    }
+                }
+
+                @Override
+                public void onDestroyActionMode(ActionMode mode) {
+
+                }
+            };
+
             //OnClickListener
             memViewHolder.titleFrameLayout.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -117,20 +185,7 @@ public class TripsRecyclerViewAdapter extends RecyclerView.Adapter<TripsRecycler
                 @Override
                 public void onClick(View v) {
 
-                    //Share all photos
-                    ArrayList<Uri> imageUris = new ArrayList();
-
-                    ArrayList<Mem> mems = dbInterface.getRows(String.valueOf(trip.id));
-
-                    for (Mem mem : mems){
-                        imageUris.add(Uri.parse(mem.photoUri));
-                    }
-
-                    Intent shareIntent = new Intent();
-                    shareIntent.setAction(Intent.ACTION_SEND_MULTIPLE);
-                    shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, imageUris);
-                    shareIntent.setType("image/jpg");
-                    context.startActivity(Intent.createChooser(shareIntent, "Share this trip's images"));
+                    parent.startActionMode(shareTypeCallback);
                 }
             });
 

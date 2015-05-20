@@ -20,8 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="84f85ae5-e74f-4ceb-8938-a0fa82638598" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/menu/menu_select_sharing_mode.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/MemsRecyclerViewAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/MemsRecyclerViewAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/TripsRecyclerViewAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/TripsRecyclerViewAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/menu/menu_select_sharing_mode.xml" afterPath="$PROJECT_DIR$/app/src/main/res/menu/menu_select_sharing_mode.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="dva217-android-app-project.iws" />
@@ -64,26 +64,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="MemsRecyclerViewAdapter.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/MemsRecyclerViewAdapter.java">
+      <file leaf-file-name="TripsRecyclerViewAdapter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/TripsRecyclerViewAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7639485">
-              <caret line="150" column="18" selection-start-line="107" selection-start-column="16" selection-end-line="150" selection-end-column="18" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="142" column="71" selection-start-line="142" selection-start-column="71" selection-end-line="142" selection-end-column="71" />
               <folding>
-                <element signature="e#4110#4111#0" expanded="true" />
-                <element signature="e#4170#4171#0" expanded="true" />
-                <element signature="e#7757#7972#0" expanded="true" />
-                <element signature="e#7971#7972#0" expanded="true" />
+                <element signature="e#3817#3818#0" expanded="true" />
+                <element signature="e#3869#3870#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="menu_select_sharing_mode.xml" pinned="false" current-in-tab="false">
+      <file leaf-file-name="menu_select_sharing_mode.xml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/menu_select_sharing_mode.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="2" column="46" selection-start-line="2" selection-start-column="46" selection-end-line="2" selection-end-column="46" />
+            <state vertical-scroll-proportion="0.08583691">
+              <caret line="4" column="7" selection-start-line="4" selection-start-column="7" selection-end-line="4" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -1390,7 +1388,6 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/TripSlideshowActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/TripSlideshowViewFlipperAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/TripsActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/TripsRecyclerViewAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/menu/menu_trips.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/AddTripActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_add_mem.xml" />
@@ -1408,8 +1405,9 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/MemsActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/card_view_add_mem.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/AddMemActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/menu/menu_select_sharing_mode.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/MemsRecyclerViewAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/TripsRecyclerViewAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/menu/menu_select_sharing_mode.xml" />
       </list>
     </option>
   </component>
@@ -2003,12 +2001,6 @@
       <option name="number" value="Default" />
       <updated>1431432124193</updated>
     </task>
-    <task id="LOCAL-00004" summary="Implemented Search&#10;------------------&#10;Search must match wording precicely">
-      <created>1431454849065</created>
-      <option name="number" value="00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1431454849065</updated>
-    </task>
     <task id="LOCAL-00005" summary="Implemented Search&#10;------------------&#10;Search must match wording precicely">
       <created>1431454854739</created>
       <option name="number" value="00005" />
@@ -2297,7 +2289,13 @@
       <option name="project" value="LOCAL" />
       <updated>1432129290525</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="Sharing options for Mems">
+      <created>1432132299981</created>
+      <option name="number" value="00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1432132299981</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -2347,7 +2345,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Images now saved to private app storage" />
     <MESSAGE value="Remove photo and audio on remove" />
     <MESSAGE value="Added photos to trips, not fully implemented yet, will only display new photos when rotated och relaunched" />
     <MESSAGE value="Added photos to trips" />
@@ -2372,7 +2369,8 @@
     <MESSAGE value="No changes really, could not implement new ligth design -- looks bad" />
     <MESSAGE value="More UI" />
     <MESSAGE value="Default NEW MEM button implemented" />
-    <option name="LAST_COMMIT_MESSAGE" value="Default NEW MEM button implemented" />
+    <MESSAGE value="Sharing options for Mems" />
+    <option name="LAST_COMMIT_MESSAGE" value="Sharing options for Mems" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2770,14 +2768,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/TripsRecyclerViewAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.527897">
-          <caret line="235" column="21" selection-start-line="233" selection-start-column="20" selection-end-line="235" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/AddMemActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.23032904">
@@ -2802,24 +2792,35 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/menu_select_sharing_mode.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="2" column="46" selection-start-line="2" selection-start-column="46" selection-end-line="2" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/MemsRecyclerViewAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7639485">
-          <caret line="150" column="18" selection-start-line="107" selection-start-column="16" selection-end-line="150" selection-end-column="18" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="202" column="66" selection-start-line="202" selection-start-column="24" selection-end-line="202" selection-end-column="66" />
           <folding>
             <element signature="e#4110#4111#0" expanded="true" />
             <element signature="e#4170#4171#0" expanded="true" />
             <element signature="e#7757#7972#0" expanded="true" />
             <element signature="e#7971#7972#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/TripsRecyclerViewAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="142" column="71" selection-start-line="142" selection-start-column="71" selection-end-line="142" selection-end-column="71" />
+          <folding>
+            <element signature="e#3817#3818#0" expanded="true" />
+            <element signature="e#3869#3870#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/menu_select_sharing_mode.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.08583691">
+          <caret line="4" column="7" selection-start-line="4" selection-start-column="7" selection-end-line="4" selection-end-column="7" />
+          <folding />
         </state>
       </provider>
     </entry>
