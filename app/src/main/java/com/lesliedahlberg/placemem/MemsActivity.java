@@ -3,6 +3,7 @@ package com.lesliedahlberg.placemem;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
@@ -41,8 +42,18 @@ public class MemsActivity extends Activity {
 
         //Inflate Recycler View
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        LinearLayoutManager llm = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(llm);
+
+        if (getResources().getBoolean(R.bool.isTablet)) {
+            //GLM
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
+            recyclerView.setLayoutManager(gridLayoutManager);
+        }else {
+            //LLM
+            LinearLayoutManager llm = new LinearLayoutManager(this);
+            recyclerView.setLayoutManager(llm);
+        }
+
+
 
         //Connect DB & Recycler View
         memsRecyclerViewAdapter = new MemsRecyclerViewAdapter(dbInterface, this, tripId);

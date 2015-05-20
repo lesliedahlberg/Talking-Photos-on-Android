@@ -19,12 +19,11 @@
     </shared>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="84f85ae5-e74f-4ceb-8938-a0fa82638598" name="Default" comment="Square ima">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/SquareLayout.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/card_view.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/card_view.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/card_view_add_mem.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/card_view_add_mem.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/trip_card_view.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/trip_card_view.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/trip_card_view_add_trip.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/trip_card_view_add_trip.xml" />
+    <list default="true" id="84f85ae5-e74f-4ceb-8938-a0fa82638598" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/values/bools.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/values-xlarge/bools.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/MemsActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/MemsActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/TripsActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/TripsActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="dva217-android-app-project.iws" />
@@ -67,29 +66,13 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="trip_card_view.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/trip_card_view.xml">
-          <provider editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="52" column="30" selection-start-line="52" selection-start-column="30" selection-end-line="52" selection-end-column="30" />
+      <file leaf-file-name="MemsActivity.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/MemsActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.5064378">
+              <caret line="47" column="18" selection-start-line="47" selection-start-column="18" selection-end-line="47" selection-end-column="18" />
               <folding />
             </state>
-          </provider>
-          <provider selected="true" editor-type-id="android-designer">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="trip_card_view_add_trip.xml" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/trip_card_view_add_trip.xml">
-          <provider editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="55" column="30" selection-start-line="55" selection-start-column="30" selection-end-line="55" selection-end-column="30" />
-              <folding />
-            </state>
-          </provider>
-          <provider selected="true" editor-type-id="android-designer">
-            <state />
           </provider>
         </entry>
       </file>
@@ -101,6 +84,7 @@
         <option value="layoutResourceFile_vertical" />
         <option value="resourceFile" />
         <option value="Class" />
+        <option value="valueResourceFile" />
       </list>
     </option>
   </component>
@@ -1392,7 +1376,6 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/slideshow_view.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/TripSlideshowActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/TripSlideshowViewFlipperAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/TripsActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/menu/menu_trips.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/AddTripActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_add_mem.xml" />
@@ -1402,7 +1385,6 @@
         <option value="$PROJECT_DIR$/app/src/main/res/values-v21/styles.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_add_trip.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/MemsActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/AddMemActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/TripsRecyclerViewAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/menu/menu_select_sharing_mode.xml" />
@@ -1415,6 +1397,10 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/card_view_add_mem.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/trip_card_view.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/trip_card_view_add_trip.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/bools.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values-xlarge/bools.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/TripsActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/MemsActivity.java" />
       </list>
     </option>
   </component>
@@ -1516,10 +1502,6 @@
               <option name="myItemId" value="values" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="styles.xml" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResGroupNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -1537,6 +1519,10 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="values" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bools.xml" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResGroupNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -2048,12 +2034,6 @@
       <option name="number" value="Default" />
       <updated>1431432124193</updated>
     </task>
-    <task id="LOCAL-00007" summary="Icon added">
-      <created>1431457050799</created>
-      <option name="number" value="00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1431457050799</updated>
-    </task>
     <task id="LOCAL-00008" summary="Added colors and styling">
       <created>1431460333120</created>
       <option name="number" value="00008" />
@@ -2342,7 +2322,13 @@
       <option name="project" value="LOCAL" />
       <updated>1432135041728</updated>
     </task>
-    <option name="localTasksCounter" value="56" />
+    <task id="LOCAL-00056" summary="Tablet Sizing Fixed (Everything is a square)">
+      <created>1432137567541</created>
+      <option name="number" value="00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1432137567541</updated>
+    </task>
+    <option name="localTasksCounter" value="57" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -2361,7 +2347,7 @@
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32462174" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="true" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23108666" sideWeight="0.49676898" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="true" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23108666" sideWeight="0.49676898" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -2392,7 +2378,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added photos to trips" />
     <MESSAGE value="Bugfix" />
     <MESSAGE value="Rotation and saving of instance state support for add mem activity" />
     <MESSAGE value="Ui improvements in TripsActivity" />
@@ -2417,7 +2402,8 @@
     <MESSAGE value="Sharing options for Mems" />
     <MESSAGE value="Sharing options for Trips" />
     <MESSAGE value="Fast scroll for MemView" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fast scroll for MemView" />
+    <MESSAGE value="Tablet Sizing Fixed (Everything is a square)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Tablet Sizing Fixed (Everything is a square)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -2426,27 +2412,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/AddMemActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="112" column="37" selection-start-line="112" selection-start-column="37" selection-end-line="112" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/MemsActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/DBInterface.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="25" column="28" selection-start-line="25" selection-start-column="28" selection-end-line="25" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -2603,14 +2568,6 @@
             <element signature="e#3501#3666#0" expanded="false" />
             <element signature="e#3665#3666#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/TripsActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="92" column="11" selection-start-line="92" selection-start-column="11" selection-end-line="92" selection-end-column="11" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2800,31 +2757,23 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="101" column="51" selection-start-line="101" selection-start-column="51" selection-end-line="101" selection-end-column="51" />
           <folding>
-            <element signature="e#4376#4377#0" expanded="true" />
-            <element signature="e#4436#4437#0" expanded="true" />
-            <element signature="e#8023#8238#0" expanded="true" />
-            <element signature="e#8237#8238#0" expanded="true" />
-            <element signature="e#8301#8856#0" expanded="true" />
-            <element signature="e#8855#8856#0" expanded="true" />
-            <element signature="e#8922#10176#0" expanded="true" />
-            <element signature="e#9298#9659#0" expanded="true" />
-            <element signature="e#9658#9659#0" expanded="true" />
-            <element signature="e#9719#10034#0" expanded="true" />
-            <element signature="e#10033#10034#0" expanded="true" />
-            <element signature="e#10175#10176#0" expanded="true" />
-            <element signature="e#10239#10605#0" expanded="true" />
-            <element signature="e#10604#10605#0" expanded="true" />
-            <element signature="e#10717#10920#0" expanded="true" />
-            <element signature="e#10919#10920#0" expanded="true" />
+            <element signature="e#4376#4377#0" expanded="false" />
+            <element signature="e#4436#4437#0" expanded="false" />
+            <element signature="e#8023#8238#0" expanded="false" />
+            <element signature="e#8237#8238#0" expanded="false" />
+            <element signature="e#8301#8856#0" expanded="false" />
+            <element signature="e#8855#8856#0" expanded="false" />
+            <element signature="e#8922#10176#0" expanded="false" />
+            <element signature="e#9298#9659#0" expanded="false" />
+            <element signature="e#9658#9659#0" expanded="false" />
+            <element signature="e#9719#10034#0" expanded="false" />
+            <element signature="e#10033#10034#0" expanded="false" />
+            <element signature="e#10175#10176#0" expanded="false" />
+            <element signature="e#10239#10605#0" expanded="false" />
+            <element signature="e#10604#10605#0" expanded="false" />
+            <element signature="e#10717#10920#0" expanded="false" />
+            <element signature="e#10919#10920#0" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/MemsActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.95708156">
-          <caret line="106" column="10" selection-start-line="106" selection-start-column="10" selection-end-line="106" selection-end-column="10" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2866,11 +2815,11 @@
         <state vertical-scroll-proportion="0.5084746">
           <caret line="18" column="5" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#341#342#0" expanded="true" />
-            <element signature="e#371#372#0" expanded="true" />
-            <element signature="e#435#436#0" expanded="true" />
-            <element signature="e#472#473#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#341#342#0" expanded="false" />
+            <element signature="e#371#372#0" expanded="false" />
+            <element signature="e#435#436#0" expanded="false" />
+            <element signature="e#472#473#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2895,6 +2844,46 @@
       </provider>
       <provider selected="true" editor-type-id="android-designer">
         <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values-w820dp/dimens.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/TripsActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5493562">
+          <caret line="44" column="0" selection-start-line="35" selection-start-column="8" selection-end-line="44" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/bools.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.06437768">
+          <caret line="3" column="12" selection-start-line="3" selection-start-column="12" selection-end-line="3" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values-xlarge/bools.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.042918455">
+          <caret line="2" column="24" selection-start-line="2" selection-start-column="24" selection-end-line="2" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/lesliedahlberg/placemem/MemsActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5064378">
+          <caret line="47" column="18" selection-start-line="47" selection-start-column="18" selection-end-line="47" selection-end-column="18" />
+          <folding />
+        </state>
       </provider>
     </entry>
   </component>

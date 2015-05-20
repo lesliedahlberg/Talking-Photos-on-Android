@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
@@ -31,8 +32,20 @@ public class TripsActivity extends Activity {
 
         //Inflate Recycler View
         tripsRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        LinearLayoutManager llm = new LinearLayoutManager(this);
-        tripsRecyclerView.setLayoutManager(llm);
+
+        if (getResources().getBoolean(R.bool.isTablet)) {
+            //GLM
+            GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
+            tripsRecyclerView.setLayoutManager(gridLayoutManager);
+        }else {
+            //LLM
+            LinearLayoutManager llm = new LinearLayoutManager(this);
+            tripsRecyclerView.setLayoutManager(llm);
+        }
+
+
+
+
 
         //Connect DB & View
         recyclerViewAdapter = new TripsRecyclerViewAdapter(dbInterface, this);
