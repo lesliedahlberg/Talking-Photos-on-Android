@@ -90,7 +90,7 @@ public class TripsActivity extends Activity {
     }
 
     //Launch new trip activity
-    private void launchNewTripActivity() {
+    public void launchNewTripActivity() {
         Intent intent = new Intent(this, AddTripActivity.class);
         startActivityForResult(intent, NEW_TRIP);
     }

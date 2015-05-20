@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,7 @@ public class TripsRecyclerViewAdapter extends RecyclerView.Adapter<TripsRecycler
 
     //Context
     Context context;
+    TripsActivity parent;
 
     //Data
     ArrayList<Trip> trips;
@@ -38,6 +40,7 @@ public class TripsRecyclerViewAdapter extends RecyclerView.Adapter<TripsRecycler
     public TripsRecyclerViewAdapter(DBInterface dbInterface, Context context) {
         this.dbInterface = dbInterface;
         this.context = context;
+        this.parent = (TripsActivity) context;
         update();
 
     }
@@ -45,12 +48,21 @@ public class TripsRecyclerViewAdapter extends RecyclerView.Adapter<TripsRecycler
     //Inflates one CardView from XML and gets ViewHolder with references
     @Override
     public MemViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        //Create view for CardView
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.trip_card_view, viewGroup, false);
-        //Get MemViewHolder with references to all UI elements
-        MemViewHolder memViewHolder = new MemViewHolder(view);
-        //Return memViewHolder
-        return memViewHolder;
+        //Items loaded from DB
+        if (i == 0) {
+            //Create view for CardView
+            View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.trip_card_view, viewGroup, false);
+            //Get MemViewHolder with references to all UI elements
+            MemViewHolder memViewHolder = new MemViewHolder(view);
+            //Return memViewHolder
+            return memViewHolder;
+        }else if (i == 1){ //Load extras
+            View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.trip_card_view_add_trip, viewGroup, false);
+            MemViewHolder memViewHolder = new MemViewHolder(view);
+            return memViewHolder;
+        }
+        return null;
+
     }
 
 
@@ -59,102 +71,110 @@ public class TripsRecyclerViewAdapter extends RecyclerView.Adapter<TripsRecycler
     @Override
     public void onBindViewHolder(final MemViewHolder memViewHolder, int i) {
 
-        //Get Data
-        final Trip trip = trips.get(i);
+        if (getItemViewType(i) == 0) {
+            //Get Data
+            final Trip trip = trips.get(i);
 
-        //Set values in UI elements
-        memViewHolder.title.setText(trip.title);
-        String numberOfPhotos = String.valueOf(dbInterface.getMemCountInTrip(String.valueOf(trip.id))) + " mems";
-        memViewHolder.numberOfPhotos.setText(numberOfPhotos);
+            //Set values in UI elements
+            memViewHolder.title.setText(trip.title);
+            String numberOfPhotos = String.valueOf(dbInterface.getMemCountInTrip(String.valueOf(trip.id))) + " mems";
+            memViewHolder.numberOfPhotos.setText(numberOfPhotos);
 
-        //Set Bitmap
-        Mem someMem = dbInterface.getTripSomeMem(String.valueOf(trip.id));
-        if (someMem != null) {
-            final int THUMBSIZE = 1024;
-            Bitmap bitmap = BitmapLoader.decodeSampledBitmapFromResource(context, Uri.parse(someMem.photoUri), THUMBSIZE, THUMBSIZE);
-            memViewHolder.tripBackgroundImage.setImageBitmap(bitmap);
-        }
-
-
-        //Database ID and position on RecyclerView -- Finals for inner classes
-        final int id = trip.id;
-        final int position = i;
-
-        //OnClickListener
-        memViewHolder.titleFrameLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //Start MemsAcitivity
-                Intent showTrip = new Intent(context, MemsActivity.class);
-                showTrip.putExtra(MemsActivity.TRIP_ID, String.valueOf(id));
-                context.startActivity(showTrip);
+            //Set Bitmap
+            Mem someMem = dbInterface.getTripSomeMem(String.valueOf(trip.id));
+            if (someMem != null) {
+                final int THUMBSIZE = 1024;
+                Bitmap bitmap = BitmapLoader.decodeSampledBitmapFromResource(context, Uri.parse(someMem.photoUri), THUMBSIZE, THUMBSIZE);
+                memViewHolder.tripBackgroundImage.setImageBitmap(bitmap);
             }
-        });
 
-        memViewHolder.slideshowButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context, TripSlideshowActivity.class);
-                intent.putExtra(MemsActivity.TRIP_ID, String.valueOf(id));
-                context.startActivity(intent);
-            }
-        });
 
-        memViewHolder.shareButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            //Database ID and position on RecyclerView -- Finals for inner classes
+            final int id = trip.id;
+            final int position = i;
 
-                //Share all photos
-                ArrayList<Uri> imageUris = new ArrayList();
-
-                ArrayList<Mem> mems = dbInterface.getRows(String.valueOf(trip.id));
-
-                for (Mem mem : mems){
-                    imageUris.add(Uri.parse(mem.photoUri));
+            //OnClickListener
+            memViewHolder.titleFrameLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Start MemsAcitivity
+                    Intent showTrip = new Intent(context, MemsActivity.class);
+                    showTrip.putExtra(MemsActivity.TRIP_ID, String.valueOf(id));
+                    context.startActivity(showTrip);
                 }
+            });
 
-                Intent shareIntent = new Intent();
-                shareIntent.setAction(Intent.ACTION_SEND_MULTIPLE);
-                shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, imageUris);
-                shareIntent.setType("image/jpg");
-                context.startActivity(Intent.createChooser(shareIntent, "Share this trip's images"));
-            }
-        });
+            memViewHolder.slideshowButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, TripSlideshowActivity.class);
+                    intent.putExtra(MemsActivity.TRIP_ID, String.valueOf(id));
+                    context.startActivity(intent);
+                }
+            });
 
-        memViewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            memViewHolder.shareButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-                //Delete trip
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    //Share all photos
+                    ArrayList<Uri> imageUris = new ArrayList();
 
-                builder.setTitle("Delete trip");
-                builder.setMessage("Are you sure?");
+                    ArrayList<Mem> mems = dbInterface.getRows(String.valueOf(trip.id));
 
-                builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-
-                    public void onClick(DialogInterface dialog, int which) {
-                        // Remove and close the dialog
-                        removeItemFromList(position, id);
-                        dialog.dismiss();
+                    for (Mem mem : mems){
+                        imageUris.add(Uri.parse(mem.photoUri));
                     }
 
-                });
+                    Intent shareIntent = new Intent();
+                    shareIntent.setAction(Intent.ACTION_SEND_MULTIPLE);
+                    shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, imageUris);
+                    shareIntent.setType("image/jpg");
+                    context.startActivity(Intent.createChooser(shareIntent, "Share this trip's images"));
+                }
+            });
 
-                builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            memViewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // Do nothing
-                        dialog.dismiss();
-                    }
-                });
-                AlertDialog alert = builder.create();
-                alert.show();
+                    //Delete trip
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
-            }
-        });
+                    builder.setTitle("Delete trip");
+                    builder.setMessage("Are you sure?");
 
+                    builder.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Remove and close the dialog
+                            removeItemFromList(position, id);
+                            dialog.dismiss();
+                        }
+
+                    });
+
+                    builder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // Do nothing
+                            dialog.dismiss();
+                        }
+                    });
+                    AlertDialog alert = builder.create();
+                    alert.show();
+
+                }
+            });
+        }else if (getItemViewType(i) == 1){
+            memViewHolder.titleFrameLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    parent.launchNewTripActivity();
+                }
+            });
+        }
     }
 
 
@@ -170,16 +190,20 @@ public class TripsRecyclerViewAdapter extends RecyclerView.Adapter<TripsRecycler
         TextView numberOfPhotos;
         ImageButton slideshowButton;
 
+        //Extras
+        Button newTripButton;
+
         public MemViewHolder(View itemView) {
             super(itemView);
-            cardView = (CardView) itemView.findViewById(R.id.cardView);
-            title = (TextView) itemView.findViewById(R.id.titleField);
-            deleteButton = (ImageButton) itemView.findViewById(R.id.deleteButton);
-            shareButton = (ImageButton) itemView.findViewById(R.id.shareButton);
-            titleFrameLayout = (FrameLayout) itemView.findViewById(R.id.titleFrameLayout);
-            tripBackgroundImage = (ImageView) itemView.findViewById(R.id.tripBackgroundImage);
-            numberOfPhotos = (TextView) itemView.findViewById(R.id.numberOfPhotos);
-            slideshowButton = (ImageButton) itemView.findViewById(R.id.slideshowButton);
+                cardView = (CardView) itemView.findViewById(R.id.cardView);
+                title = (TextView) itemView.findViewById(R.id.titleField);
+                deleteButton = (ImageButton) itemView.findViewById(R.id.deleteButton);
+                shareButton = (ImageButton) itemView.findViewById(R.id.shareButton);
+                titleFrameLayout = (FrameLayout) itemView.findViewById(R.id.titleFrameLayout);
+                tripBackgroundImage = (ImageView) itemView.findViewById(R.id.tripBackgroundImage);
+                numberOfPhotos = (TextView) itemView.findViewById(R.id.numberOfPhotos);
+                slideshowButton = (ImageButton) itemView.findViewById(R.id.slideshowButton);
+
         }
     }
 
@@ -194,9 +218,9 @@ public class TripsRecyclerViewAdapter extends RecyclerView.Adapter<TripsRecycler
     @Override
     public int getItemCount() {
         if (trips != null){
-            return trips.size();
+            return trips.size()+1;
         }else {
-            return 0;
+            return 1;
         }
 
     }
@@ -206,13 +230,22 @@ public class TripsRecyclerViewAdapter extends RecyclerView.Adapter<TripsRecycler
         super.onAttachedToRecyclerView(recyclerView);
     }
 
-
+    @Override
+    public int getItemViewType(int position) {
+        if (position < getItemCount()-1){
+            return 0;
+        }else {
+            return 1;
+        }
+    }
 
     //Update data from db and notify adapter
     public void update() {
         trips = dbInterface.getTripRows();
         notifyDataSetChanged();
     }
+
+
 
 
 }
