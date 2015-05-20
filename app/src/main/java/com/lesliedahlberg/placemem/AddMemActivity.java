@@ -227,6 +227,13 @@ public class AddMemActivity extends Activity {
         //Get title string
         currentTitle = uiTitleField.getText().toString();
 
+        if (currentLongitude == null) {
+            currentLongitude = 0.0;
+        }
+        if (currentLatitude == null) {
+            currentLatitude = 0.0;
+        }
+
         //Write to DB
         new DBInterface(this).addRow(currentPhotoUri.toString(), currentAudioUri.toString(), currentLocation, currentLatitude, currentLongitude, currentDate, currentTitle, tripId);
 
