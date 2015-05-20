@@ -1,10 +1,15 @@
 package com.lesliedahlberg.placemem;
 
 import android.app.Activity;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterViewFlipper;
+import android.widget.Toast;
+
+import java.io.IOException;
 
 
 public class TripSlideshowActivity extends Activity {
@@ -24,10 +29,8 @@ public class TripSlideshowActivity extends Activity {
         tripId = getIntent().getStringExtra(MemsActivity.TRIP_ID);
         adapter = new TripSlideshowViewFlipperAdapter(this, dbInterface, tripId);
         flipper.setAdapter(adapter);
-        flipper.setAutoStart(true);
-        flipper.setFlipInterval(2500);
         setTitle(dbInterface.getTripName(tripId));
-
+        adapter.start();
     }
 
     @Override
@@ -50,5 +53,15 @@ public class TripSlideshowActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void next() {
+        flipper.showNext();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        adapter.stop();
     }
 }
