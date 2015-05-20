@@ -10,7 +10,11 @@ import android.net.Uri;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -35,6 +39,7 @@ public class MemsRecyclerViewAdapter extends RecyclerView.Adapter<MemsRecyclerVi
     MemsActivity parent;
     String tripId;
     ArrayList<Mem> mems;
+
 
     public MemsRecyclerViewAdapter(DBInterface dbInterface, Context context, String tripId) {
         this.dbInterface = dbInterface;
@@ -99,6 +104,53 @@ public class MemsRecyclerViewAdapter extends RecyclerView.Adapter<MemsRecyclerVi
                 final double longitude = Double.parseDouble(mem.longitude);
 
 
+
+                //Share menu
+                final ActionMode.Callback shareTypeCallback = new ActionMode.Callback() {
+                    @Override
+                    public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                        MenuInflater inflater = mode.getMenuInflater();
+                        inflater.inflate(R.menu.menu_select_sharing_mode, menu);
+                        return true;
+                    }
+
+                    @Override
+                    public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                        Intent shareIntent;
+                        switch (item.getItemId()) {
+                            case R.id.shareImage:
+                                shareIntent = new Intent();
+                                shareIntent.setAction(Intent.ACTION_SEND);
+                                shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(mem.photoUri));
+                                shareIntent.setType("image/jpeg");
+                                context.startActivity(Intent.createChooser(shareIntent, "Share Image"));
+                                mode.finish(); // Action picked, so close the CAB
+                                return true;
+                            case R.id.shareAudio:
+                                shareIntent = new Intent();
+                                shareIntent.setAction(Intent.ACTION_SEND);
+                                shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(mem.voiceUri));
+                                shareIntent.setType("audio/*");
+                                context.startActivity(Intent.createChooser(shareIntent, "Share Audio"));
+                                mode.finish(); // Action picked, so close the CAB
+                                return true;
+                            default:
+                                return false;
+                        }
+                    }
+
+                    @Override
+                    public void onDestroyActionMode(ActionMode mode) {
+
+                    }
+                };
+
+
                 //OnClickListener
                 memViewHolder.playPauseButton.setOnClickListener(new View.OnClickListener() {
 
@@ -148,11 +200,7 @@ public class MemsRecyclerViewAdapter extends RecyclerView.Adapter<MemsRecyclerVi
                 memViewHolder.shareButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent shareIntent = new Intent();
-                        shareIntent.setAction(Intent.ACTION_SEND);
-                        shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(mem.photoUri));
-                        shareIntent.setType("image/jpg");
-                        context.startActivity(Intent.createChooser(shareIntent, "Share this Mems image"));
+                        parent.startActionMode(shareTypeCallback);
                     }
                 });
 
