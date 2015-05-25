@@ -260,9 +260,9 @@ public class MemsRecyclerViewAdapter extends RecyclerView.Adapter<MemsRecyclerVi
                 memViewHolder.photoView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(context, ViewMemActivity.class);
-                        intent.putExtra(MemsActivity.PHOTO_URI, mem.photoUri);
-                        context.startActivity(intent);
+                        parent.viewPhoto(MemsActivity.PHOTO_URI, mem.photoUri);
+
+
                     }
                 });
                 break;

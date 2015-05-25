@@ -2,6 +2,7 @@ package com.lesliedahlberg.placemem;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -27,12 +28,19 @@ public class MemsActivity extends Activity {
     //State
     String tripId;
 
+    Bundle bundle;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         //Get trip ID from intent
-        tripId = getIntent().getStringExtra(TRIP_ID);
+        String temp = getIntent().getStringExtra(TRIP_ID);
+        if (temp != null) {
+            tripId = temp;
+        }else {
+
+        }
 
         //Inflate UI
         setContentView(R.layout.activity_mems);
@@ -66,16 +74,20 @@ public class MemsActivity extends Activity {
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
+        bundle = savedInstanceState;
         if (savedInstanceState != null) {
             tripId = savedInstanceState.getString(TRIP_ID);
         }
         setTitle(dbInterface.getTripName(tripId));
+        super.onRestoreInstanceState(savedInstanceState);
+
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
+
         outState.putString(TRIP_ID, tripId);
+        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -119,6 +131,12 @@ public class MemsActivity extends Activity {
         Intent intent = new Intent(this, AddMemActivity.class);
         intent.putExtra(TRIP_ID, tripId);
         startActivityForResult(intent, NEW_MEM);
+    }
+
+    public void viewPhoto(String key, String value) {
+        Intent intent = new Intent(this, ViewMemActivity.class);
+        intent.putExtra(key, value);
+        this.startActivity(intent);
     }
 
 }
