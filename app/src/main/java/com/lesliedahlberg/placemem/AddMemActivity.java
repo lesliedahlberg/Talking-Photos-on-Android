@@ -247,14 +247,9 @@ public class AddMemActivity extends Activity {
 
     public void discard (View view) {
 
-        //DISPOSE OF PHOTO AND AUDIO
-        //
-        //
-        //          !!!!!!!
-        //          !!!!!!!
-        //          !!!!!!!
-        //
-        //
+        //Delete files
+        new File(String.valueOf(currentPhotoUri)).delete();
+        new File(String.valueOf(currentAudioUri)).delete();
 
         //Cancel intent
         setResult(RESULT_CANCELED);
