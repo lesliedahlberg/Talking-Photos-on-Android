@@ -74,6 +74,7 @@ public class TripsActivity extends Activity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            launchAboutActivity();
             return true;
         }else if (id == R.id.action_new_trip) {
             launchNewTripActivity();
@@ -106,5 +107,11 @@ public class TripsActivity extends Activity {
     public void launchNewTripActivity() {
         Intent intent = new Intent(this, AddTripActivity.class);
         startActivityForResult(intent, NEW_TRIP);
+    }
+
+    //Launch about activity
+    public void launchAboutActivity() {
+        Intent intent = new Intent(this, AboutActivity.class);
+        startActivity(intent);
     }
 }
