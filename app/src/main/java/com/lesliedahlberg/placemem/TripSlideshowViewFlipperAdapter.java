@@ -98,9 +98,12 @@ public class TripSlideshowViewFlipperAdapter extends BaseAdapter {
     }
 
     public void start() {
-        position = 0;
+        if (getCount() > 0){
+            position = 0;
 
-        startPlaying(mems.get(0).voiceUri);
+            startPlaying(mems.get(0).voiceUri);
+        }
+
     }
 
     public void stop() {
