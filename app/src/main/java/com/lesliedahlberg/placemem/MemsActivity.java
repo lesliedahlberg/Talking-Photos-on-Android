@@ -117,6 +117,7 @@ public class MemsActivity extends Activity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            launchAboutActivity();
             return true;
         }else if (id == R.id.action_new_mem) {
             launchNewMemActivity();
@@ -137,6 +138,12 @@ public class MemsActivity extends Activity {
         Intent intent = new Intent(this, ViewMemActivity.class);
         intent.putExtra(key, value);
         this.startActivity(intent);
+    }
+
+    //Launch about activity
+    public void launchAboutActivity() {
+        Intent intent = new Intent(this, AboutActivity.class);
+        startActivity(intent);
     }
 
 }
