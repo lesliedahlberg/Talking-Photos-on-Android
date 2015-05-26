@@ -3,6 +3,7 @@ package com.lesliedahlberg.placemem;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.location.Address;
 import android.location.Geocoder;
@@ -12,9 +13,11 @@ import android.location.LocationManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +27,12 @@ import android.widget.TextView;
 import android.content.pm.PackageManager;
 import android.widget.Toast;
 
+
+import com.github.hiteshsondhi88.libffmpeg.ExecuteBinaryResponseHandler;
+import com.github.hiteshsondhi88.libffmpeg.FFmpeg;
+import com.github.hiteshsondhi88.libffmpeg.LoadBinaryResponseHandler;
+import com.github.hiteshsondhi88.libffmpeg.exceptions.FFmpegCommandAlreadyRunningException;
+import com.github.hiteshsondhi88.libffmpeg.exceptions.FFmpegNotSupportedException;
 
 import java.io.File;
 import java.io.IOException;
@@ -235,7 +244,7 @@ public class AddMemActivity extends Activity {
         }
 
         //Write to DB
-        new DBInterface(this).addRow(currentPhotoUri.toString(), currentAudioUri.toString(), currentLocation, currentLatitude, currentLongitude, currentDate, currentTitle, tripId);
+        int id = new DBInterface(this).addRow(currentPhotoUri.toString(), currentAudioUri.toString(), "", currentLocation, currentLatitude, currentLongitude, currentDate, currentTitle, tripId);
 
         //Set result OK
         setResult(RESULT_OK);
@@ -465,6 +474,8 @@ public class AddMemActivity extends Activity {
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
         }
     }
+
+
 
 
 }

@@ -81,6 +81,7 @@ public class DBInterface {
                 DBContract.Mems.PHOTO_URI,
                 DBContract.Mems.VOICE_URI,
                 DBContract.Mems.PLACE_NAME,
+                DBContract.Mems.VIDEO_URI,
                 DBContract.Mems.LAT,
                 DBContract.Mems.LONG,
                 DBContract.Mems.DATE,
@@ -103,6 +104,7 @@ public class DBInterface {
             mem = new Mem(cursor.getInt(cursor.getColumnIndexOrThrow(DBContract.Mems._ID)),
                     cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.PHOTO_URI)),
                     cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.VOICE_URI)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.VIDEO_URI)),
                     cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.PLACE_NAME)),
                     cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.LAT)),
                     cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.LONG)),
@@ -158,6 +160,7 @@ public class DBInterface {
                 DBContract.Mems._ID,
                 DBContract.Mems.PHOTO_URI,
                 DBContract.Mems.VOICE_URI,
+                DBContract.Mems.VIDEO_URI,
                 DBContract.Mems.PLACE_NAME,
                 DBContract.Mems.LAT,
                 DBContract.Mems.LONG,
@@ -182,6 +185,7 @@ public class DBInterface {
         mem = new Mem(cursor.getInt(cursor.getColumnIndexOrThrow(DBContract.Mems._ID)),
                     cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.PHOTO_URI)),
                     cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.VOICE_URI)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.VIDEO_URI)),
                     cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.PLACE_NAME)),
                     cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.LAT)),
                     cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.LONG)),
@@ -212,6 +216,7 @@ public class DBInterface {
                 DBContract.Mems.PHOTO_URI,
                 DBContract.Mems.VOICE_URI,
                 DBContract.Mems.PLACE_NAME,
+                DBContract.Mems.VIDEO_URI,
                 DBContract.Mems.LAT,
                 DBContract.Mems.LONG,
                 DBContract.Mems.DATE,
@@ -238,6 +243,7 @@ public class DBInterface {
             mems.add(new Mem(cursor.getInt(cursor.getColumnIndexOrThrow(DBContract.Mems._ID)),
                     cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.PHOTO_URI)),
                     cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.VOICE_URI)),
+                    cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.VIDEO_URI)),
                     cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.PLACE_NAME)),
                     cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.LAT)),
                     cursor.getString(cursor.getColumnIndexOrThrow(DBContract.Mems.LONG)),
@@ -265,7 +271,7 @@ public class DBInterface {
     //Remove Trip by Trip ID and remove all Mem in Trip
     public void removeTripRow(int id) {
         //Remove trip DB entry
-        writeDb.delete(DBContract.Trips.TABLE_NAME, DBContract.Trips._ID+"=?", new String[]{String.valueOf(id)});
+        writeDb.delete(DBContract.Trips.TABLE_NAME, DBContract.Trips._ID + "=?", new String[]{String.valueOf(id)});
 
         //Remove Mems in Trip
         ArrayList<Mem> mems = getRows(String.valueOf(id));
@@ -275,12 +281,13 @@ public class DBInterface {
     }
 
     //Add Mem
-    public int addRow(String photoUri, String voiceUri, String location, double latitude, double longitude, String date, String title, String tripId) {
+    public int addRow(String photoUri, String voiceUri, String videoUri, String location, double latitude, double longitude, String date, String title, String tripId) {
 
         //Feed data into content value pairs
         ContentValues contentValues = new ContentValues();
         contentValues.put(DBContract.Mems.PHOTO_URI, photoUri);
         contentValues.put(DBContract.Mems.VOICE_URI, voiceUri);
+        contentValues.put(DBContract.Mems.VIDEO_URI, videoUri);
         contentValues.put(DBContract.Mems.PLACE_NAME, location);
         contentValues.put(DBContract.Mems.LAT, latitude);
         contentValues.put(DBContract.Mems.LONG, longitude);
@@ -290,6 +297,18 @@ public class DBInterface {
 
         //write to db and return row ID
         return (int) writeDb.insert(DBContract.Mems.TABLE_NAME, null, contentValues);
+    }
+
+    public int updateVideoUri(String memId, String videoUri) {
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(DBContract.Mems.VIDEO_URI, videoUri);
+
+        String selection = DBContract.Mems.VIDEO_URI+"=?";
+        String[] selectionArgs = new String[1];
+        selectionArgs[0] = memId;
+
+        return (int) writeDb.update(DBContract.Mems.TABLE_NAME, contentValues, selection, selectionArgs);
     }
 
     //Add Trip

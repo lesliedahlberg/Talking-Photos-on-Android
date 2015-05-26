@@ -12,6 +12,7 @@ public class DBContract {
         public static final String TABLE_NAME = "mems";
         public static final String PHOTO_URI = "photo_uri";
         public static final String VOICE_URI = "voice_uri";
+        public static final String VIDEO_URI = "video_uri";
         public static final String TRANSCRIPT = "transcript";
         public static final String LAT = "lat";
         public static final String LONG = "long";
