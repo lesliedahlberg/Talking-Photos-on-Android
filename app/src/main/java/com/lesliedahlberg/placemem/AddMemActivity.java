@@ -455,10 +455,16 @@ public class AddMemActivity extends Activity {
                     addresses = gcd.getFromLocation(currentLatitude, currentLongitude, 1);
                 } catch (IOException e) {
                     e.printStackTrace();
+                    if (addresses != null){
+                        if (addresses.size() > 0){
+                            currentLocation = addresses.get(0).getLocality();
+                        }else {
+                            currentLocation = "";
+                        }
+                    }
+
                 }
-                if (addresses.size() > 0){
-                    currentLocation = addresses.get(0).getLocality();
-                }
+
 
             }
 

@@ -5,6 +5,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.BitmapFactory;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Bundle;
@@ -26,7 +27,9 @@ import com.github.hiteshsondhi88.libffmpeg.exceptions.FFmpegCommandAlreadyRunnin
 import com.github.hiteshsondhi88.libffmpeg.exceptions.FFmpegNotSupportedException;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -50,12 +53,12 @@ public class ShareVideoActivity extends Activity {
         context = this;
 
         if (!mem.videoUri.isEmpty()){
-            Intent shareIntent;
-            shareIntent = new Intent();
-            shareIntent.setAction(Intent.ACTION_SEND);
-            shareIntent.putExtra(Intent.EXTRA_STREAM, mem.videoUri);
-            shareIntent.setType("video/*");
-            startActivity(Intent.createChooser(shareIntent, "Share video"));
+            Button shareButton = (Button) findViewById(R.id.button);
+            shareButton.setVisibility(View.VISIBLE);
+            TextView textView = (TextView) findViewById(R.id.textView);
+            textView.setVisibility(View.GONE);
+            currentVideoUri = Uri.parse(mem.videoUri);
+
         }else {
             String photoPath = getRealPathFromURI(Uri.parse(mem.photoUri));
 
@@ -64,6 +67,34 @@ public class ShareVideoActivity extends Activity {
             //String videoPath = getRealPathFromURI(currentVideoUri);
             String time = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
             final String videoPath = Environment.getExternalStorageDirectory()+"/memory_"+time+".mp4";
+
+
+
+
+            final BitmapFactory.Options options = new BitmapFactory.Options();
+
+            options.inJustDecodeBounds = true;
+
+            InputStream inputStream = null;
+            try {
+                inputStream = context.getContentResolver().openInputStream(Uri.parse(mem.photoUri));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            BitmapFactory.decodeStream(inputStream, null, options);
+
+            try {
+                inputStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+            String resolution = "1920x1080";
+
+            if (options.outWidth < options.outHeight) {
+                resolution = "1080x1920";
+            }
 
 
             FFmpeg ffmpeg = FFmpeg.getInstance(this);
@@ -90,7 +121,7 @@ public class ShareVideoActivity extends Activity {
             //FFmpeg ffmpeg = FFmpeg.getInstance(this);
             try {
                 ///storage/emulated/0/video.mp4
-                ffmpeg.execute("-loop 1 -i " + photoPath + " -i " + audioPath + " -c:v libx264 -pix_fmt yuv420p -c:a copy -shortest -s 1920x1080 "+videoPath, new ExecuteBinaryResponseHandler() {
+                ffmpeg.execute("-loop 1 -r 1 -i " + photoPath + " -i " + audioPath + " -force_key_frames 00:00:00.000 -c:v libx264 -pix_fmt yuv420p -c:a copy -shortest -s " + resolution + " -preset ultrafast "+videoPath, new ExecuteBinaryResponseHandler() {
 
 
                     @Override
@@ -119,7 +150,6 @@ public class ShareVideoActivity extends Activity {
 
 
 
-                        //new DBInterface(context).updateVideoUri(String.valueOf(mem.id), String.valueOf(Uri.parse(videoPath)));
 
                         /*Intent shareIntent;
                         shareIntent = new Intent();
@@ -196,6 +226,7 @@ public class ShareVideoActivity extends Activity {
                 null, new MediaScannerConnection.OnScanCompletedListener() {
                     public void onScanCompleted(String path, Uri uri) {
                         currentVideoUri = uri;
+                        new DBInterface(context).updateVideoUri(String.valueOf(mem.id), String.valueOf(currentVideoUri));
                         startShareIntent(mem.title, uri);
                     }
                 });

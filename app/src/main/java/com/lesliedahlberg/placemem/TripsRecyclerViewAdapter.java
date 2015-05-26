@@ -134,9 +134,9 @@ public class TripsRecyclerViewAdapter extends RecyclerView.Adapter<TripsRecycler
                             context.startActivity(Intent.createChooser(shareIntent, "Share Images"));
                             mode.finish(); // Action picked, so close the CAB
                             return true;
-                        case R.id.shareAudio:
+                        case R.id.shareVideo:
                             //Share all photos
-                            ArrayList<Uri> audioUris = new ArrayList();
+                            /*ArrayList<Uri> audioUris = new ArrayList();
 
                             mems = dbInterface.getRows(String.valueOf(trip.id));
 
@@ -148,7 +148,7 @@ public class TripsRecyclerViewAdapter extends RecyclerView.Adapter<TripsRecycler
                             shareIntent.setAction(Intent.ACTION_SEND_MULTIPLE);
                             shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, audioUris);
                             shareIntent.setType("audio/*");
-                            context.startActivity(Intent.createChooser(shareIntent, "Share Audio"));
+                            context.startActivity(Intent.createChooser(shareIntent, "Share Audio"));*/
                             mode.finish(); // Action picked, so close the CAB
                             return true;
                         default:

@@ -152,12 +152,10 @@ public class MemsRecyclerViewAdapter extends RecyclerView.Adapter<MemsRecyclerVi
                                 context.startActivity(Intent.createChooser(shareIntent, "Share Image"));
                                 mode.finish(); // Action picked, so close the CAB
                                 return true;
-                            case R.id.shareAudio:
-                                shareIntent = new Intent();
-                                shareIntent.setAction(Intent.ACTION_SEND);
-                                shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(mem.voiceUri));
-                                shareIntent.setType("audio/*");
-                                context.startActivity(Intent.createChooser(shareIntent, "Share Audio"));
+                            case R.id.shareVideo:
+                                Intent intent = new Intent(context, ShareVideoActivity.class);
+                                intent.putExtra("MEM_ID", String.valueOf(id));
+                                context.startActivity(intent);
                                 mode.finish(); // Action picked, so close the CAB
                                 return true;
                             default:
@@ -225,14 +223,7 @@ public class MemsRecyclerViewAdapter extends RecyclerView.Adapter<MemsRecyclerVi
                     }
                 });
 
-                memViewHolder.shareVideoButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(context, ShareVideoActivity.class);
-                        intent.putExtra("MEM_ID", String.valueOf(id));
-                        context.startActivity(intent);
-                    }
-                });
+
 
                 memViewHolder.showOnMap.setOnClickListener(new View.OnClickListener() {
                     @Override

@@ -304,7 +304,7 @@ public class DBInterface {
         ContentValues contentValues = new ContentValues();
         contentValues.put(DBContract.Mems.VIDEO_URI, videoUri);
 
-        String selection = DBContract.Mems.VIDEO_URI+"=?";
+        String selection = DBContract.Mems._ID+"=?";
         String[] selectionArgs = new String[1];
         selectionArgs[0] = memId;
 
