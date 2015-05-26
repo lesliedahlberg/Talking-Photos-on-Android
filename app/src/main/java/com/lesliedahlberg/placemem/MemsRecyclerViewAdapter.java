@@ -4,11 +4,14 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.media.Image;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -26,9 +29,18 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.hiteshsondhi88.libffmpeg.ExecuteBinaryResponseHandler;
+import com.github.hiteshsondhi88.libffmpeg.FFmpeg;
+import com.github.hiteshsondhi88.libffmpeg.LoadBinaryResponseHandler;
+import com.github.hiteshsondhi88.libffmpeg.exceptions.FFmpegCommandAlreadyRunningException;
+import com.github.hiteshsondhi88.libffmpeg.exceptions.FFmpegNotSupportedException;
+
+import java.io.File;
 import java.io.IOException;
 import java.lang.ref.WeakReference;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
 Recycler View Adapter
@@ -140,12 +152,10 @@ public class MemsRecyclerViewAdapter extends RecyclerView.Adapter<MemsRecyclerVi
                                 context.startActivity(Intent.createChooser(shareIntent, "Share Image"));
                                 mode.finish(); // Action picked, so close the CAB
                                 return true;
-                            case R.id.shareAudio:
-                                shareIntent = new Intent();
-                                shareIntent.setAction(Intent.ACTION_SEND);
-                                shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(mem.voiceUri));
-                                shareIntent.setType("audio/*");
-                                context.startActivity(Intent.createChooser(shareIntent, "Share Audio"));
+                            case R.id.shareVideo:
+                                Intent intent = new Intent(context, ShareVideoActivity.class);
+                                intent.putExtra("MEM_ID", String.valueOf(id));
+                                context.startActivity(intent);
                                 mode.finish(); // Action picked, so close the CAB
                                 return true;
                             default:
@@ -212,6 +222,8 @@ public class MemsRecyclerViewAdapter extends RecyclerView.Adapter<MemsRecyclerVi
                         parent.startActionMode(shareTypeCallback);
                     }
                 });
+
+
 
                 memViewHolder.showOnMap.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -294,6 +306,7 @@ public class MemsRecyclerViewAdapter extends RecyclerView.Adapter<MemsRecyclerVi
         ImageButton deleteButton;
         ImageButton shareButton;
         FrameLayout titleFrameLayout;
+        ImageButton shareVideoButton;
 
         public MemViewHolder(View itemView) {
             super(itemView);
@@ -307,6 +320,7 @@ public class MemsRecyclerViewAdapter extends RecyclerView.Adapter<MemsRecyclerVi
             deleteButton = (ImageButton) itemView.findViewById(R.id.deleteButton);
             shareButton = (ImageButton) itemView.findViewById(R.id.shareButton);
             titleFrameLayout = (FrameLayout) itemView.findViewById(R.id.titleFrameLayout);
+            shareVideoButton = (ImageButton) itemView.findViewById(R.id.shareVideoButton);
         }
     }
 
@@ -412,5 +426,6 @@ public class MemsRecyclerViewAdapter extends RecyclerView.Adapter<MemsRecyclerVi
 
         }
     }
+
 
 }

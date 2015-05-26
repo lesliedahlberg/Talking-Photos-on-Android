@@ -15,5 +15,6 @@
     <string name="about_title">About</string>
     <string name="about_subtitle">DVA217  Group 2</string>
     <string name="about_creators">Mattias Johansson, Leslie Dahlberg, Jonathan Larsson, Erik Liljeqvist, Filip Lagerholm</string>
+    <string name="title_activity_share_video">Share as video</string>
 
 </resources>

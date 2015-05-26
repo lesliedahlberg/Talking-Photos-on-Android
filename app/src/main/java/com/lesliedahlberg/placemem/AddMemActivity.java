@@ -3,6 +3,7 @@ package com.lesliedahlberg.placemem;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.location.Address;
 import android.location.Geocoder;
@@ -12,9 +13,11 @@ import android.location.LocationManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,6 +27,12 @@ import android.widget.TextView;
 import android.content.pm.PackageManager;
 import android.widget.Toast;
 
+
+import com.github.hiteshsondhi88.libffmpeg.ExecuteBinaryResponseHandler;
+import com.github.hiteshsondhi88.libffmpeg.FFmpeg;
+import com.github.hiteshsondhi88.libffmpeg.LoadBinaryResponseHandler;
+import com.github.hiteshsondhi88.libffmpeg.exceptions.FFmpegCommandAlreadyRunningException;
+import com.github.hiteshsondhi88.libffmpeg.exceptions.FFmpegNotSupportedException;
 
 import java.io.File;
 import java.io.IOException;
@@ -235,7 +244,7 @@ public class AddMemActivity extends Activity {
         }
 
         //Write to DB
-        new DBInterface(this).addRow(currentPhotoUri.toString(), currentAudioUri.toString(), currentLocation, currentLatitude, currentLongitude, currentDate, currentTitle, tripId);
+        int id = new DBInterface(this).addRow(currentPhotoUri.toString(), currentAudioUri.toString(), "", currentLocation, currentLatitude, currentLongitude, currentDate, currentTitle, tripId);
 
         //Set result OK
         setResult(RESULT_OK);
@@ -296,9 +305,9 @@ public class AddMemActivity extends Activity {
     {
         mRecorder = new MediaRecorder();
         mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP); // Might have to change to some other format //AAC_ADTS
+        mRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4); // Might have to change to some other format //AAC_ADTS
         mRecorder.setOutputFile(currentAudioUri.getPath()); //audioUri
-        mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+        mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.HE_AAC);
 
         try
         {
@@ -406,11 +415,11 @@ public class AddMemActivity extends Activity {
     private File createAudioFile() throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "3GP_" + timeStamp + "_"; // AAC_
+        String imageFileName = timeStamp + "_"; // AAC_
         File storageDir = Environment.getExternalStorageDirectory();
         File audio = File.createTempFile(
                 imageFileName,  /* prefix */
-                ".3gp",         /* suffix */ //.acc
+                ".aac",         /* suffix */ //.acc
                 storageDir      /* directory */
         );
 
@@ -446,10 +455,16 @@ public class AddMemActivity extends Activity {
                     addresses = gcd.getFromLocation(currentLatitude, currentLongitude, 1);
                 } catch (IOException e) {
                     e.printStackTrace();
+                    if (addresses != null){
+                        if (addresses.size() > 0){
+                            currentLocation = addresses.get(0).getLocality();
+                        }else {
+                            currentLocation = "";
+                        }
+                    }
+
                 }
-                if (addresses.size() > 0){
-                    currentLocation = addresses.get(0).getLocality();
-                }
+
 
             }
 
@@ -465,6 +480,8 @@ public class AddMemActivity extends Activity {
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
         }
     }
+
+
 
 
 }

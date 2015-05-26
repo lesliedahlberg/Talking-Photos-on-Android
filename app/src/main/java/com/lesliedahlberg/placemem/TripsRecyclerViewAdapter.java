@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.Image;
 import android.net.Uri;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -133,9 +134,9 @@ public class TripsRecyclerViewAdapter extends RecyclerView.Adapter<TripsRecycler
                             context.startActivity(Intent.createChooser(shareIntent, "Share Images"));
                             mode.finish(); // Action picked, so close the CAB
                             return true;
-                        case R.id.shareAudio:
+                        case R.id.shareVideo:
                             //Share all photos
-                            ArrayList<Uri> audioUris = new ArrayList();
+                            /*ArrayList<Uri> audioUris = new ArrayList();
 
                             mems = dbInterface.getRows(String.valueOf(trip.id));
 
@@ -147,7 +148,7 @@ public class TripsRecyclerViewAdapter extends RecyclerView.Adapter<TripsRecycler
                             shareIntent.setAction(Intent.ACTION_SEND_MULTIPLE);
                             shareIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, audioUris);
                             shareIntent.setType("audio/*");
-                            context.startActivity(Intent.createChooser(shareIntent, "Share Audio"));
+                            context.startActivity(Intent.createChooser(shareIntent, "Share Audio"));*/
                             mode.finish(); // Action picked, so close the CAB
                             return true;
                         default:
@@ -186,6 +187,14 @@ public class TripsRecyclerViewAdapter extends RecyclerView.Adapter<TripsRecycler
                 public void onClick(View v) {
 
                     parent.startActionMode(shareTypeCallback);
+                }
+            });
+
+            memViewHolder.shareVideoButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Intent intent = new Intent(context, ...);
+                    //intent.putExtra(MemsActivity.TRIP_ID, String.valueOf(id));
                 }
             });
 
@@ -244,6 +253,7 @@ public class TripsRecyclerViewAdapter extends RecyclerView.Adapter<TripsRecycler
         ImageView tripBackgroundImage;
         TextView numberOfPhotos;
         ImageButton slideshowButton;
+        ImageButton shareVideoButton;
 
         //Extras
         Button newTripButton;
@@ -258,6 +268,7 @@ public class TripsRecyclerViewAdapter extends RecyclerView.Adapter<TripsRecycler
                 tripBackgroundImage = (ImageView) itemView.findViewById(R.id.tripBackgroundImage);
                 numberOfPhotos = (TextView) itemView.findViewById(R.id.numberOfPhotos);
                 slideshowButton = (ImageButton) itemView.findViewById(R.id.slideshowButton);
+                shareVideoButton = (ImageButton) itemView.findViewById(R.id.shareVideoButton);
 
         }
     }

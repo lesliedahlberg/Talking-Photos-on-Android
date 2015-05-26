@@ -20,11 +20,13 @@ public class Mem {
     String title;
     String tripId;
     Bitmap thumbnailBitmap;
+    String videoUri;
 
-    public Mem(int id, String photoUri, String voiceUri, String location, String latitude, String longitude, String date, String title, String tripId) {
+    public Mem(int id, String photoUri, String voiceUri, String videoUri, String location, String latitude, String longitude, String date, String title, String tripId) {
         this.id = id;
         this.photoUri = photoUri;
         this.voiceUri = voiceUri;
+        this.videoUri = videoUri;
         this.location = location;
         this.latitude = latitude;
         this.longitude = longitude;
