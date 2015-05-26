@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.Image;
 import android.net.Uri;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -189,6 +190,14 @@ public class TripsRecyclerViewAdapter extends RecyclerView.Adapter<TripsRecycler
                 }
             });
 
+            memViewHolder.shareVideoButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //Intent intent = new Intent(context, ...);
+                    //intent.putExtra(MemsActivity.TRIP_ID, String.valueOf(id));
+                }
+            });
+
             memViewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -244,6 +253,7 @@ public class TripsRecyclerViewAdapter extends RecyclerView.Adapter<TripsRecycler
         ImageView tripBackgroundImage;
         TextView numberOfPhotos;
         ImageButton slideshowButton;
+        ImageButton shareVideoButton;
 
         //Extras
         Button newTripButton;
@@ -258,6 +268,7 @@ public class TripsRecyclerViewAdapter extends RecyclerView.Adapter<TripsRecycler
                 tripBackgroundImage = (ImageView) itemView.findViewById(R.id.tripBackgroundImage);
                 numberOfPhotos = (TextView) itemView.findViewById(R.id.numberOfPhotos);
                 slideshowButton = (ImageButton) itemView.findViewById(R.id.slideshowButton);
+                shareVideoButton = (ImageButton) itemView.findViewById(R.id.shareVideoButton);
 
         }
     }

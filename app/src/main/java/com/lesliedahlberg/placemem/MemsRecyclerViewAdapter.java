@@ -213,6 +213,15 @@ public class MemsRecyclerViewAdapter extends RecyclerView.Adapter<MemsRecyclerVi
                     }
                 });
 
+                memViewHolder.shareVideoButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(context, ShareVideoActivity.class);
+                        intent.putExtra("MEM_ID", String.valueOf(id));
+                        context.startActivity(intent);
+                    }
+                });
+
                 memViewHolder.showOnMap.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -294,6 +303,7 @@ public class MemsRecyclerViewAdapter extends RecyclerView.Adapter<MemsRecyclerVi
         ImageButton deleteButton;
         ImageButton shareButton;
         FrameLayout titleFrameLayout;
+        ImageButton shareVideoButton;
 
         public MemViewHolder(View itemView) {
             super(itemView);
@@ -307,6 +317,7 @@ public class MemsRecyclerViewAdapter extends RecyclerView.Adapter<MemsRecyclerVi
             deleteButton = (ImageButton) itemView.findViewById(R.id.deleteButton);
             shareButton = (ImageButton) itemView.findViewById(R.id.shareButton);
             titleFrameLayout = (FrameLayout) itemView.findViewById(R.id.titleFrameLayout);
+            shareVideoButton = (ImageButton) itemView.findViewById(R.id.shareVideoButton);
         }
     }
 

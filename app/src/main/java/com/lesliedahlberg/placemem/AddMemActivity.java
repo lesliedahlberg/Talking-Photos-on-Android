@@ -296,9 +296,9 @@ public class AddMemActivity extends Activity {
     {
         mRecorder = new MediaRecorder();
         mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP); // Might have to change to some other format //AAC_ADTS
+        mRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4); // Might have to change to some other format //AAC_ADTS
         mRecorder.setOutputFile(currentAudioUri.getPath()); //audioUri
-        mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
+        mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.HE_AAC);
 
         try
         {
@@ -406,11 +406,11 @@ public class AddMemActivity extends Activity {
     private File createAudioFile() throws IOException {
         // Create an image file name
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "3GP_" + timeStamp + "_"; // AAC_
+        String imageFileName = timeStamp + "_"; // AAC_
         File storageDir = Environment.getExternalStorageDirectory();
         File audio = File.createTempFile(
                 imageFileName,  /* prefix */
-                ".3gp",         /* suffix */ //.acc
+                ".aac",         /* suffix */ //.acc
                 storageDir      /* directory */
         );
 
