@@ -91,7 +91,10 @@ public class TripsRecyclerViewAdapter extends RecyclerView.Adapter<TripsRecycler
                 final int THUMBSIZE = 1024;
                 Bitmap bitmap = BitmapLoader.decodeSampledBitmapFromResource(context, Uri.parse(someMem.photoUri), THUMBSIZE, THUMBSIZE);
                 memViewHolder.tripBackgroundImage.setImageBitmap(bitmap);
+            }else {
+                memViewHolder.tripBackgroundImage.setImageResource(R.mipmap.ic_launcher);
             }
+
 
 
             //Database ID and position on RecyclerView -- Finals for inner classes
