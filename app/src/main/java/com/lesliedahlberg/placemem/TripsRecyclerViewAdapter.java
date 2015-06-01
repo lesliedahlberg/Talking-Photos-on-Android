@@ -193,13 +193,7 @@ public class TripsRecyclerViewAdapter extends RecyclerView.Adapter<TripsRecycler
                 }
             });
 
-            memViewHolder.shareVideoButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //Intent intent = new Intent(context, ...);
-                    //intent.putExtra(MemsActivity.TRIP_ID, String.valueOf(id));
-                }
-            });
+
 
             memViewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -271,7 +265,7 @@ public class TripsRecyclerViewAdapter extends RecyclerView.Adapter<TripsRecycler
                 tripBackgroundImage = (ImageView) itemView.findViewById(R.id.tripBackgroundImage);
                 numberOfPhotos = (TextView) itemView.findViewById(R.id.numberOfPhotos);
                 slideshowButton = (ImageButton) itemView.findViewById(R.id.slideshowButton);
-                shareVideoButton = (ImageButton) itemView.findViewById(R.id.shareVideoButton);
+                //shareVideoButton = (ImageButton) itemView.findViewById(R.id.shareVideoButton);
 
         }
     }

@@ -336,7 +336,7 @@ public class MemsRecyclerViewAdapter extends RecyclerView.Adapter<MemsRecyclerVi
             deleteButton = (ImageButton) itemView.findViewById(R.id.deleteButton);
             shareButton = (ImageButton) itemView.findViewById(R.id.shareButton);
             titleFrameLayout = (FrameLayout) itemView.findViewById(R.id.titleFrameLayout);
-            shareVideoButton = (ImageButton) itemView.findViewById(R.id.shareVideoButton);
+            //shareVideoButton = (ImageButton) itemView.findViewById(R.id.shareVideoButton);
         }
     }
 
