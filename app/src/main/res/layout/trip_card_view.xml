@@ -92,15 +92,6 @@
                         style="@style/imageButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/shareVideoButton"
-                        android:src="@drawable/ic_slideshow"
-                        android:layout_gravity="center_vertical"
-                        android:longClickable="false" />
-
-                    <ImageButton
-                        style="@style/imageButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:id="@+id/slideshowButton"
                         android:src="@drawable/ic_play"
                         android:layout_gravity="center_vertical" />
