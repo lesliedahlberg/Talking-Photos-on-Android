@@ -153,9 +153,19 @@ public class MemsRecyclerViewAdapter extends RecyclerView.Adapter<MemsRecyclerVi
                                 mode.finish(); // Action picked, so close the CAB
                                 return true;
                             case R.id.shareVideo:
-                                Intent intent = new Intent(context, ShareVideoActivity.class);
-                                intent.putExtra("MEM_ID", String.valueOf(id));
-                                context.startActivity(intent);
+                                if (!mem.videoUri.isEmpty()){
+                                    shareIntent = new Intent(
+                                            Intent.ACTION_SEND);
+                                    shareIntent.setType("video/*");
+                                    shareIntent.putExtra(Intent.EXTRA_STREAM, mem.videoUri);
+                                    context.startActivity(Intent.createChooser(shareIntent,
+                                            "Share video"));
+                                }else {
+                                    Intent intent = new Intent(context, ShareVideoActivity.class);
+                                    intent.putExtra("MEM_ID", String.valueOf(id));
+                                    context.startActivity(intent);
+                                }
+
                                 mode.finish(); // Action picked, so close the CAB
                                 return true;
                             default:
