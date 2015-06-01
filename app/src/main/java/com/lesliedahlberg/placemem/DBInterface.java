@@ -261,8 +261,9 @@ public class DBInterface {
         Mem rowToDelete = getRow(id);
 
         //Remove files
-        new File(rowToDelete.photoUri).delete();
-        new File(rowToDelete.voiceUri).delete();
+        new File(VideoEncoder.getRealPathFromURI(context, Uri.parse(rowToDelete.photoUri))).delete();
+        new File(VideoEncoder.getRealPathFromURI(context, Uri.parse(rowToDelete.voiceUri))).delete();
+        new File(VideoEncoder.getRealPathFromURI(context, Uri.parse(rowToDelete.videoUri))).delete();
 
         //Remove DB entry
         writeDb.delete(DBContract.Mems.TABLE_NAME, DBContract.Mems._ID+"=?", new String[]{String.valueOf(id)});
