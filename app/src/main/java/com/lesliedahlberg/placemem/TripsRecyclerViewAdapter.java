@@ -103,7 +103,7 @@ public class TripsRecyclerViewAdapter extends RecyclerView.Adapter<TripsRecycler
                 @Override
                 public boolean onCreateActionMode(ActionMode mode, Menu menu) {
                     MenuInflater inflater = mode.getMenuInflater();
-                    inflater.inflate(R.menu.menu_select_sharing_mode, menu);
+                    inflater.inflate(R.menu.menu_select_sharing_mode_trip, menu);
                     return true;
                 }
 
@@ -117,7 +117,7 @@ public class TripsRecyclerViewAdapter extends RecyclerView.Adapter<TripsRecycler
                     Intent shareIntent;
                     ArrayList<Mem> mems;
                     switch (item.getItemId()) {
-                        case R.id.shareImage:
+                        case R.id.shareImages:
                             //Share all photos
                             ArrayList<Uri> imageUris = new ArrayList();
 

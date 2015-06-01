@@ -3,7 +3,6 @@ package com.lesliedahlberg.placemem;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.location.Address;
 import android.location.Geocoder;
@@ -17,7 +16,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,12 +25,6 @@ import android.widget.TextView;
 import android.content.pm.PackageManager;
 import android.widget.Toast;
 
-
-import com.github.hiteshsondhi88.libffmpeg.ExecuteBinaryResponseHandler;
-import com.github.hiteshsondhi88.libffmpeg.FFmpeg;
-import com.github.hiteshsondhi88.libffmpeg.LoadBinaryResponseHandler;
-import com.github.hiteshsondhi88.libffmpeg.exceptions.FFmpegCommandAlreadyRunningException;
-import com.github.hiteshsondhi88.libffmpeg.exceptions.FFmpegNotSupportedException;
 
 import java.io.File;
 import java.io.IOException;
@@ -245,6 +237,8 @@ public class AddMemActivity extends Activity {
 
         //Write to DB
         int id = new DBInterface(this).addRow(currentPhotoUri.toString(), currentAudioUri.toString(), "", currentLocation, currentLatitude, currentLongitude, currentDate, currentTitle, tripId);
+
+        new EncodeVideo(String.valueOf(id), this).execute();
 
         //Set result OK
         setResult(RESULT_OK);
@@ -481,6 +475,24 @@ public class AddMemActivity extends Activity {
         }
     }
 
+
+    class EncodeVideo extends AsyncTask<Void, Void, Void> {
+
+        String memId;
+        Context context;
+
+        public EncodeVideo(String memId, Context context) {
+            this.memId = tripId;
+            this.context = context;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            VideoEncoder.encodeVideo(context, memId);
+            return null;
+        }
+
+    }
 
 
 
