@@ -153,18 +153,15 @@ public class MemsRecyclerViewAdapter extends RecyclerView.Adapter<MemsRecyclerVi
                                 mode.finish(); // Action picked, so close the CAB
                                 return true;
                             case R.id.shareVideo:
-                                if (!mem.videoUri.isEmpty()){
-                                    shareIntent = new Intent(
-                                            Intent.ACTION_SEND);
-                                    shareIntent.setType("video/*");
-                                    shareIntent.putExtra(Intent.EXTRA_STREAM, mem.videoUri);
-                                    context.startActivity(Intent.createChooser(shareIntent,
-                                            "Share video"));
+
+
+                                Mem freshMem = dbInterface.getRow(mem.id);
+                                if (!freshMem.videoUri.isEmpty()) {
+                                    shareVideo(String.valueOf(mem.id));
                                 }else {
-                                    Intent intent = new Intent(context, ShareVideoActivity.class);
-                                    intent.putExtra("MEM_ID", String.valueOf(id));
-                                    context.startActivity(intent);
+                                    new EncodeVideo(String.valueOf(mem.id), context).execute();
                                 }
+
 
                                 mode.finish(); // Action picked, so close the CAB
                                 return true;
@@ -434,6 +431,56 @@ public class MemsRecyclerViewAdapter extends RecyclerView.Adapter<MemsRecyclerVi
                 mem.setThumbnail(bitmap);
             }
 
+        }
+    }
+
+    private void shareVideo (String memId){
+
+        Mem mem = dbInterface.getRow(Integer.parseInt(memId));
+
+        Intent shareIntent = new Intent(
+                android.content.Intent.ACTION_SEND);
+        shareIntent.setType("video/*");
+        shareIntent.putExtra(
+                android.content.Intent.EXTRA_SUBJECT, mem.title);
+        shareIntent.putExtra(
+                android.content.Intent.EXTRA_TITLE, mem.title);
+        shareIntent.putExtra(Intent.EXTRA_STREAM, Uri.parse(mem.videoUri));
+        shareIntent
+                .addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+        context.startActivity(Intent.createChooser(shareIntent,
+                "Share video"));
+
+    }
+
+    class EncodeVideo extends AsyncTask<Void, Void, Void> {
+
+        String memId;
+        Context context;
+
+        public EncodeVideo(String memId, Context context) {
+            this.memId = memId;
+            this.context = context;
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            VideoEncoder.encodeVideo(context, memId);
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            Toast.makeText(context, "Encoding video!", Toast.LENGTH_SHORT);
+            super.onPreExecute();
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            Toast.makeText(context, "Video encoded!", Toast.LENGTH_SHORT);
+            shareVideo(memId);
+
+            super.onPostExecute(aVoid);
         }
     }
 
