@@ -182,6 +182,8 @@ public class MemsRecyclerViewAdapter extends RecyclerView.Adapter<MemsRecyclerVi
 
                     MediaPlayer mPlayer;
 
+
+
                     //Plays back audio recording
                     private void startPlaying()
                     {
@@ -190,6 +192,13 @@ public class MemsRecyclerViewAdapter extends RecyclerView.Adapter<MemsRecyclerVi
                             mPlayer.setDataSource(mems.get(position).voiceUri.toString()); //currentAudioUri.getPath()
                             mPlayer.prepare();
                             mPlayer.start();
+                            mPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                                @Override
+                                public void onCompletion(MediaPlayer mp) {
+                                    memViewHolder.playPauseButton.setImageResource(R.drawable.ic_play);
+                                    mems.get(position).playing = false;
+                                }
+                            });
                         }catch(IOException e) {
                             e.printStackTrace();
                         }
