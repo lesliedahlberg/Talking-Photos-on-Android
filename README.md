@@ -8,4 +8,4 @@ Android app development project for course DVA217 at Mälardalens University. Th
 - Works best on Android 5 and higher
 
 ## Documentation
-- See Report.pdf
+- See "DVA217.-.Group.2.-.Project.Report.pdf"
