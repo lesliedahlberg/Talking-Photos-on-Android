@@ -11,9 +11,9 @@ Android app development project for course DVA217 at Mälardalens University. Th
 - See "DVA217.-.Group.2.-.Project.Report.pdf"
 
 ## Screenshots
-![Screenshot]("screenshot1.png"  width="250")
-![Screenshot]("screenshot2.png"  width="250")
-![Screenshot]("screenshot3.png"  width="250")
-![Screenshot]("screenshot4.png"  width="250")
-![Screenshot]("screenshot5.png"  width="250")
-![Screenshot]("screenshot6.png"  width="250")
+![Screenshot]("screenshot1.png")
+![Screenshot]("screenshot2.png")
+![Screenshot]("screenshot3.png")
+![Screenshot]("screenshot4.png")
+![Screenshot]("screenshot5.png")
+![Screenshot]("screenshot6.png")
